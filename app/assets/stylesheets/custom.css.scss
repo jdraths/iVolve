@@ -29,6 +29,9 @@ textarea {
 }
 
 .center {
+	/* the following should be in hero-unit */
+	background-color: black;
+	/* end */
 	text-align: center;
 	h1 {
 		margin-bottom: 10px;
@@ -46,6 +49,7 @@ h1 {
 	letter-spacing: -2px;
 	margin-bottom: 30px;
 	text-align: center;
+	color: white;
 }
 
 h2 {
