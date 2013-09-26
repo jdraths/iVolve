@@ -56,6 +56,8 @@ describe "User pages" do
 	  let(:user) { FactoryGirl.create(:user) }
     let!(:m1) { FactoryGirl.create(:micropost, user: user, content: "Foo") }
     let!(:m2) { FactoryGirl.create(:micropost, user: user, content: "Bar") }
+    let!(:a1) { FactoryGirl.create(:activity, user: user, value: "+10 Ph", description: "Ran 3 Miles on FitBit!") }
+    let!(:a2) { FactoryGirl.create(:activity, user: user, value: "+3 So", description: "Like 3 photos on Facebook!")}
 
 	  before { visit user_path(user) }
 
@@ -66,6 +68,12 @@ describe "User pages" do
       it { should have_content(m1.content) }
       it { should have_content(m2.content) }
       it { should have_content(user.microposts.count) }
+    end
+
+    describe "activities" do
+      it { should have_content(a1.value, a1.description) }
+      it { should have_content(a2.value, a2.description) }
+      it { should have_content(user.activities.count) }
     end
 
     describe "follow/unfollow buttons" do

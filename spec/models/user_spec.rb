@@ -25,6 +25,7 @@ describe User do
   it { should respond_to(:followers) }
   it { should respond_to(:following?) }
   it { should respond_to(:follow!) }
+  it { should respond_to(:activities) }
 
   it { should be_valid }
   it { should_not be_admin }
@@ -197,6 +198,30 @@ describe User do
 
       it { should_not be_following(other_user) }
       its(:followed_users) { should_not include(other_user) }
+    end
+  end
+
+  describe "activity associations" do
+
+    before { @user.save }
+    let!(:older_activity) do
+      FactoryGirl.create(:activity, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_activity) do
+      FactoryGirl.create(:activity, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should have the right activities in the right order" do
+      expect(@user.activities.to_a).to eq [newer_activity, older_activity]
+    end
+
+    it "should destroy associated activities" do
+      activities = @user.activities.to_a
+      @user.destroy
+      expect(activities).not_to be_empty
+      activities.each do |activity|
+        expect(Activity.where(id: activity.id)).to be_empty
+      end
     end
   end
 end

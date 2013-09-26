@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 									 class_name:  "Relationship",
 									 dependent:   :destroy
 	has_many :followers, through: :reverse_relationships, source: :follower 
+	has_many :activities, dependent: :destroy
 	has_secure_password
 	before_save { self.email = email.downcase }
 	validates :name, presence: true, length: { maximum: 50 }

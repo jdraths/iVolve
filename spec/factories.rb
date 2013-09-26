@@ -14,4 +14,13 @@ FactoryGirl.define do
 		content "Lorem ipsum"
 		user
 	end
+
+	factory :activity do
+		achievement_id "integer"
+		user
+		value "12345"
+		app_log_id "12345"
+		time "12:45"
+		description "complete activity"
+	end
 end

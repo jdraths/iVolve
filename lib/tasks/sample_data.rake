@@ -4,6 +4,7 @@ namespace :db do
 		make_users
 		make_microposts
 		make_relationships
+		make_activities
 	end
 end
 
@@ -35,8 +36,27 @@ end
 def make_relationships
 	users = User.all
 	user = users.first
-	followed users = users[2..50]
+	followed_users = users[2..50]
 	followers 	   = users[3..40]
 	followed_users.each { |followed| user.follow!(followed) }
 	followers.each 		{ |follower| follower.follow!(user) }
+end
+
+def make_activities
+	users = User.all(limit: 6)
+	50.times do |n|
+		achievement = n
+		value = "+10 Ph! "
+		app_log = n
+		time = n
+		description = "Ran 3 miles on Fitbit!"
+		users.each do |user| 
+			user.activities.create!(achievement_id: achievement, 
+				value: value,
+				app_log_id: app_log, 
+				time: time, 
+				description: description)
+
+		end
+	end
 end
