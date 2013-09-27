@@ -14,6 +14,13 @@
 	</aside>
 	<div class="span8">
 		<%= render 'follow_form' if signed_in? %>
+		<% if @user.apis.any? %>
+			<h3>APIs (<%= @user.apis.count %>)</h3>
+			<ol class="apis">
+				<%= render @apis %>
+			</ol>
+			<%= will_paginate @apis %>
+		<% end %>
 		<% if @user.activities.any? %>
 			<h3>Activities (<%= @user.activities.count %>)</h3>
 			<ol class="microposts">

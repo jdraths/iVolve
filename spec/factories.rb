@@ -23,4 +23,14 @@ FactoryGirl.define do
 		time "12:45"
 		description "complete activity"
 	end
+
+	factory :api do
+		user
+      	company "acme network"
+      	company_id 12345
+      	con_key	"12345"
+      	con_secret "12345"
+      	access_token "12345"
+      	access_secret "12345"
+    end
 end

@@ -57,7 +57,9 @@ describe "User pages" do
     let!(:m1) { FactoryGirl.create(:micropost, user: user, content: "Foo") }
     let!(:m2) { FactoryGirl.create(:micropost, user: user, content: "Bar") }
     let!(:a1) { FactoryGirl.create(:activity, user: user, value: "+10 Ph", description: "Ran 3 Miles on FitBit!") }
-    let!(:a2) { FactoryGirl.create(:activity, user: user, value: "+3 So", description: "Like 3 photos on Facebook!")}
+    let!(:a2) { FactoryGirl.create(:activity, user: user, value: "+3 So", description: "Like 3 photos on Facebook!") }
+    let!(:api1) { FactoryGirl.create(:api, user: user, company: "FitBit") }
+    let!(:api2) { FactoryGirl.create(:api, user: user, company: "Twitter") }
 
 	  before { visit user_path(user) }
 
@@ -71,9 +73,17 @@ describe "User pages" do
     end
 
     describe "activities" do
-      it { should have_content(a1.value, a1.description) }
-      it { should have_content(a2.value, a2.description) }
+      it { should have_content(a1.value) }
+      it { should have_content(a1.description) }
+      it { should have_content(a2.value) }
+      it { should have_content(a2.description) }
       it { should have_content(user.activities.count) }
+    end
+
+    describe "apis" do
+      it { should have_content(api1.company) }
+      it { should have_content(api2.company) }
+      it { should have_content(user.apis.count) }
     end
 
     describe "follow/unfollow buttons" do

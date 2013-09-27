@@ -5,6 +5,7 @@ namespace :db do
 		make_microposts
 		make_relationships
 		make_activities
+		make_apis
 	end
 end
 
@@ -59,4 +60,24 @@ def make_activities
 
 		end
 	end
+end
+
+def make_apis
+	users = User.all(limit: 6)
+	50.times do |n|
+      	company = Faker::Company.name
+      	company_id = "12345"
+      	con_key = "12345"
+      	con_secret = "12345"
+      	access_token = "12345"
+      	access_secret = "12345"
+      	users.each do |user|
+      		user.apis.create!(company: company,
+      			company_id: company_id,
+      			con_key: con_key,
+      			con_secret: con_secret,
+      			access_token: access_token,
+      			access_secret: access_secret)
+      	end
+    end
 end
