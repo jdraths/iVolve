@@ -1,5 +1,4 @@
 module ApplicationHelper
-	#include Twitter::Autolink #from sign-in with Twitter github
 
 	# Returns the full title on a per-page basis.
 	def full_title(page_title)
