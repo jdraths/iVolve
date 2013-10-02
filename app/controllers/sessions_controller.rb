@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
 #    	session[:access_secret] = request.env['omniauth.auth']['credentials']['secret']
 #   		redirect_to show_path, notice: "Signed in"
 #	end
-#
+
 #	def show
 #		if session['access_token'] && session['access_secret']
 #      		@user = client.user(include_entities: true)
@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
 #      		redirect_to failure_path
 #    	end
 #  	end
-#
+
 #	def error
 #	    flash[:error] = "Sign in with Twitter failed"
 #	    redirect_to root_path
