@@ -11,7 +11,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130918043718) do
+ActiveRecord::Schema.define(version: 20131011140133) do
+
+  create_table "activities", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "achievement_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "value"
+    t.string   "app_log_id"
+    t.string   "time"
+    t.string   "description"
+  end
+
+  add_index "activities", ["achievement_id", "created_at"], name: "index_activities_on_achievement_id_and_created_at"
+  add_index "activities", ["user_id"], name: "index_activities_on_user_id"
+
+  create_table "apis", force: true do |t|
+    t.integer  "user_id"
+    t.string   "company"
+    t.integer  "company_id"
+    t.string   "con_key"
+    t.string   "con_secret"
+    t.string   "access_token"
+    t.string   "access_secret"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "apis", ["user_id"], name: "index_apis_on_user_id"
+
+  create_table "fetch_tweets", force: true do |t|
+    t.string   "tweet_id"
+    t.string   "screen_name"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "microposts", force: true do |t|
     t.string   "content"
