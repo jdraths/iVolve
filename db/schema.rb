@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130927011113) do
+ActiveRecord::Schema.define(version: 20131011140133) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(version: 20130927011113) do
   end
 
   add_index "apis", ["user_id"], name: "index_apis_on_user_id"
+
+  create_table "fetch_tweets", force: true do |t|
+    t.string   "tweet_id"
+    t.string   "screen_name"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "microposts", force: true do |t|
     t.string   "content"
