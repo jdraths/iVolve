@@ -42,6 +42,7 @@
 
  <% if a_user = Twitter.user("roanedraths") %>
  	<p>Followers: <%= a_user.followers_count.to_s %>.</p>
+ 	<p>Friends: <%= a_user.friends_count.to_s %>.</p>
  <% end %>
 </div>
 <!-- ====== End Temporary section ====== -->
