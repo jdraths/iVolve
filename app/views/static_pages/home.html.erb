@@ -12,6 +12,8 @@
 			</section>
 		</aside>
 		<div class="span8">
+			<h3>Sign in more accounts!</h3>
+			<%= link_to "Sign in with Twitter!", "/auth/twitter?user_authorize=true", class: "btn btn-large btn-primary" %>
 			<h3>Micropost Feed</h3>
 			<%= render 'shared/feed' %>
 		</div>
@@ -28,24 +30,9 @@
 		</h2>
 
 		<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+		<%= link_to "Sign in with Twitter!", "/auth/twitter?user_authorize=true" %>
 	</div>
 <% end %>
-
-<!-- ====== The following section is temporary ===== -->
-<div id="testimonies">
- <% Twitter.user_timeline("roanedraths", count: 2).each do |tweet| %>
-   <blockquote><%= tweet.text %></blockquote>
-   <p>Favorited: <%= tweet.favorite_count %>  times.</p>
-   <p>Retweeted: <%= tweet.retweet_count %> times.</p>
-   <div class="from">&mdash; @<%= tweet.user.screen_name %></div>
- <% end %>
-
- <% if a_user = Twitter.user("roanedraths") %>
- 	<p>Followers: <%= a_user.followers_count.to_s %>.</p>
- 	<p>Friends: <%= a_user.friends_count.to_s %>.</p>
- <% end %>
-</div>
-<!-- ====== End Temporary section ====== -->
 
 <div style="padding-right: 40px;">
 	<center>
