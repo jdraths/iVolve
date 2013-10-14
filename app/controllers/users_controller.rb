@@ -14,37 +14,37 @@ class UsersController < ApplicationController
   end
 
   def new
-  	@user = User.new
+  	@user = env['omniauth.identity'] || User.new
   end
 
-  def create
-  	@user = User.new(user_params)		# Not the final implementation!
-  	if @user.save
-      sign_in @user
-      flash[:success] = "Welcome to iVolve!"
-  		redirect_to @user
-  	else
-  		render 'new'
-  	end
-  end
+#  def create
+#  	@user = User.new(user_params)		# Not the final implementation!
+#  	if @user.save
+#      sign_in @user
+#      flash[:success] = "Welcome to iVolve!"
+#  		redirect_to @user
+#  	else
+#  		render 'new'
+#  	end
+#  end
 
-  def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "User destroyed."
-    redirect_to users_url
-  end
+#  def destroy
+#    User.find(params[:id]).destroy
+#    flash[:success] = "User destroyed."
+#    redirect_to users_url
+#  end
 
-  def edit
-  end
+#  def edit
+#  end
 
-  def update
-    if @user.update_attributes(user_params)
-      flash[:success] = "Profile updated"
-      redirect_to @user
-    else
-      render 'edit'
-    end
-  end
+#  def update
+#    if @user.update_attributes(user_params)
+#      flash[:success] = "Profile updated"
+#      redirect_to @user
+#    else
+#      render 'edit'
+#    end
+#  end
 
   def following
     @title = "Following"

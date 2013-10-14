@@ -1,4 +1,5 @@
-class User < ActiveRecord::Base
+class User < OmniAuth::Identity::Models::ActiveRecord
+	has_many :authorizations
 	has_many :microposts, dependent: :destroy
 	has_many :relationships, foreign_key: "follower_id", dependent: :destroy
 	has_many :followed_users, through: :relationships, source: :followed 
@@ -6,6 +7,7 @@ class User < ActiveRecord::Base
 									 class_name:  "Relationship",
 									 dependent:   :destroy
 	has_many :followers, through: :reverse_relationships, source: :follower 
+	# Put below back in and delete identity.rb?
 	has_secure_password
 	before_save { self.email = email.downcase }
 	validates :name, presence: true, length: { maximum: 50 }
@@ -23,6 +25,11 @@ class User < ActiveRecord::Base
 
 	def User.encrypt(token)
 		Digest::SHA1.hexdigest(token.to_s)
+	end
+
+	
+	def self.create_from_omniauth(auth)
+		create(name: auth['info']['name'])
 	end
 
 	def feed

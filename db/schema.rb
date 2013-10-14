@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131011140133) do
+ActiveRecord::Schema.define(version: 20131013201002) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -31,8 +31,6 @@ ActiveRecord::Schema.define(version: 20131011140133) do
     t.integer  "user_id"
     t.string   "company"
     t.integer  "company_id"
-    t.string   "con_key"
-    t.string   "con_secret"
     t.string   "access_token"
     t.string   "access_secret"
     t.datetime "created_at"
@@ -41,13 +39,38 @@ ActiveRecord::Schema.define(version: 20131011140133) do
 
   add_index "apis", ["user_id"], name: "index_apis_on_user_id"
 
+  create_table "authorizations", force: true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "remember_token"
+  end
+
+  add_index "authorizations", ["remember_token"], name: "index_authorizations_on_remember_token"
+
   create_table "fetch_tweets", force: true do |t|
     t.string   "tweet_id"
     t.string   "screen_name"
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "favorite_count"
+    t.string   "retweet_count"
   end
+
+  create_table "identities", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.string   "remember_token"
+    t.boolean  "admin",           default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "identities", ["email"], name: "index_identities_on_email", unique: true
 
   create_table "microposts", force: true do |t|
     t.string   "content"
@@ -68,6 +91,14 @@ ActiveRecord::Schema.define(version: 20131011140133) do
   add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id"
   add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id"
+
+  create_table "twitter_users", force: true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"
