@@ -4,7 +4,6 @@
 <div class="row">
 	<div class="span6 offset3">
 		<%= simple_form_for @user, url: '/auth/identity/register' do |f| %>
-		  <%= @user.inspect %>
 		  <h1>Create an Account</h1>
 		  <%# specify :input_html to avoid params nesting %>
 		  <%= f.input :name, :input_html => {:name => 'name'} %>
