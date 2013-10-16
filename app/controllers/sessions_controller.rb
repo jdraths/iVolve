@@ -4,15 +4,19 @@ class SessionsController < ApplicationController
 	end
 
 	def create
-
 		@authorization = Authorization.find_from_omniauth(auth)
+		#@credentials = Authorization.credentials_from_omniauth(auth)
 	    if @authorization.nil?
 	      # If no authorization was found, create a new one here
 	      @authorization = Authorization.create_from_omniauth(auth)
+	    #else
+	    	#@credentials = Authorization.credentials_from_omniauth(auth)
+	    	#@credentials.save!
 	    end
 
 		if signed_in?
 			if @authorization.user == current_user
+				#@credentials.save!
 				# User is signed in so they are trying to link an authorization with their
 		        # account. But we found the authorization and the user associated with it 
 		        # is the current user. So the authorization is already associated with 
@@ -24,26 +28,29 @@ class SessionsController < ApplicationController
 		        # associate the authorization
 		        @authorization.user = current_user
 		        @authorization.save
+		        #@credentials.save!
 		        redirect_to root_path, notice: "Account successfully authenticated."
-		      end
-		    else # no user is signed_in
-		      if @authorization.user.present?
+		    end
+		else # no user is signed_in
+		    if @authorization.user.present?
 		        # The authorization we found had a user associated with it so let's 
 		        # just log them in here
 		        self.current_user = @authorization.user
+		        #@credentials.save!
 		        redirect_to root_path, notice: "Signed in!"
-		      else
+		    else
 		        # The authorization has no user assigned and there is no user signed in
 		        # Our decision here is to create a new account for the user
 		        # But your app may do something different (eg. ask the user
 		        # if he already signed up with some other service)
-		        if @authorization.provider == 'identity'
+		       	if @authorization.provider == 'identity'
 		          u = User.find(@authorization.uid)
 		          # If the provider is identity, then it means we already created a user
 		          # So we just load it up
 		        else
 		          # otherwise we have to create a user with the auth hash
 		          u = User.create_from_omniauth(auth)
+		          # This method will only save user name... never used right now.
 		          # NOTE: we will handle the different types of data we get back
 		          # from providers at the model level in create_from_omniauth
 		        end

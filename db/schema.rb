@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20131013201002) do
+ActiveRecord::Schema.define(version: 20131016052622) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -47,6 +46,9 @@ ActiveRecord::Schema.define(version: 20131013201002) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "remember_token"
+    t.string   "oauth_token"
+    t.string   "oauth_secret"
+    t.string   "screen_name"
   end
 
   add_index "authorizations", ["remember_token"], name: "index_authorizations_on_remember_token"
@@ -59,8 +61,6 @@ ActiveRecord::Schema.define(version: 20131013201002) do
     t.datetime "updated_at"
     t.string   "favorite_count"
     t.string   "retweet_count"
-<<<<<<< HEAD
-=======
   end
 
   create_table "identities", force: true do |t|
@@ -71,7 +71,6 @@ ActiveRecord::Schema.define(version: 20131013201002) do
     t.boolean  "admin",           default: false
     t.datetime "created_at"
     t.datetime "updated_at"
->>>>>>> add_twitter
   end
 
   add_index "identities", ["email"], name: "index_identities_on_email", unique: true
