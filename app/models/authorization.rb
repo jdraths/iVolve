@@ -2,7 +2,7 @@ class Authorization < ActiveRecord::Base
 	belongs_to :user
 	validates :uid, presence: true, uniqueness: {scope: :provider}
 	validates :provider, presence: true
-	attr_accessor :provider, :uid, :screen_name
+	validates :screen_name, presence: true
 
 	def self.find_from_omniauth(auth)
 		find_by_provider_and_uid(auth['provider'], auth['uid']) #|| create_from_omniauth(auth)
@@ -14,8 +14,7 @@ class Authorization < ActiveRecord::Base
 	end
 
 	def self.create_from_omniauth(auth)
-		create(
-			uid: auth['uid'],
+		create(uid: auth['uid'],
 			provider: auth['provider'],
 			screen_name: auth['info']['nickname'],
 			oauth_token: auth["credentials"]["token"],
@@ -46,9 +45,10 @@ class Authorization < ActiveRecord::Base
 		user
 	end
 
-	def twitter
-		if provider == "twitter"
-			@twitter ||= Twitter::Client.new(oauth_token: oauth_token, oauth_token_secret: oauth_secret)
-		end
-	end
+#below is put into Application controller....
+	#def twitter
+	#	if provider == "twitter"
+	#		@twitter ||= Twitter::Client.new(oauth_token: oauth_token, oauth_token_secret: oauth_secret)
+	#	end
+	#end
 end

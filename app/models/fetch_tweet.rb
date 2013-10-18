@@ -3,11 +3,14 @@
 
 class FetchTweet < ActiveRecord::Base
 # NEED STRONG PARAMS SET UP IN CONTROLLER!
+#require 'twitter'
 
-	def self.pull_user_timeline(name, count)
-		@name = name
-		@count = count
-		Twitter.user_timeline(@name, count: @count, since_id: maximum(:tweet_id)).each do |tweet|
+
+# will need to iterate through each user.
+	def self.pull_user_timeline(user)
+		@twitter_user = Authorization.find_by_user_id_and_provider(user, 'twitter')
+		twitter_client = Twitter::Client.new(:oauth_token => @twitter_user.oauth_token, :oauth_token_secret => @twitter_user.oauth_secret)
+		twitter_client.user_timeline(@twitter_user.screen_name, count: 20, since_id: maximum(:tweet_id)).each do |tweet|
 			unless exists?(tweet_id: tweet.id)
 				create!(
 					tweet_id: tweet.id,
@@ -26,8 +29,37 @@ class FetchTweet < ActiveRecord::Base
 		@name = name
 		@count = count
 #		a_user = Twitter.user(@name)
-# a_user.Twitter.mentions_timeline... might work
 		Twitter.mentions_timeline(count: @count, since_id: maximum(:tweet_id)).each do |tweet|
+			unless exists?(tweet_id: tweet.id)
+				create!(
+					tweet_id: tweet.id,
+					content: tweet.text,
+					screen_name: tweet.user.screen_name,
+					favorite_count: tweet.favorite_count,
+					retweet_count: tweet.retweet_count,
+					)
+			end
+		end
+	end
+
+# need to fix since id , before id...
+	def self.manual_user_timeline
+		Twitter.user_timeline("packyryan", count: 20).each do |tweet|
+			unless exists?(tweet_id: tweet.id)
+				create!(
+					tweet_id: tweet.id,
+					content: tweet.text,
+					screen_name: tweet.user.screen_name,
+					favorite_count: tweet.favorite_count,
+					retweet_count: tweet.retweet_count,
+					)
+			end
+		end
+	end
+# need to fix since id, before id
+	def self.manual_mentions_timeline
+		a_user = Twitter.user("packyryan")
+		Twitter.mentions_timeline(count: 20, since_id: maximum(:tweet_id)).each do |tweet|
 			unless exists?(tweet_id: tweet.id)
 				create!(
 					tweet_id: tweet.id,

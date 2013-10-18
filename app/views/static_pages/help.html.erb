@@ -2,9 +2,15 @@
 
 	<h1>Help</h1>
 	<p>
-	  Get help on the Ruby on Rails Tutorial at the 
-	  <a href="http://railstutorial.org/help">Rails Tutorial help page.</a>
-	</br>
-      To get help on this sample app, see the 
-	  <a href="http://railstutorial.org/book">Rails Tutorial book</a>
+	  <!-- ====== The following section is temporary ===== -->
+	<div id="testimonies">
+	 <% FetchTweet.pull_user_timeline(@twitter_name, count: 2).each do |tweet| %>
+	   <blockquote><%= tweet.text %></blockquote>
+	   <p>Favorited: <%= tweet.favorite_count %>  times.</p>
+	   <p>Retweeted: <%= tweet.retweet_count %> times.</p>
+	   <div class="from">&mdash; @<%= tweet.user.screen_name %></div>
+	 <% end %>
+
+	</div>
+	<!-- ====== End Temporary section ====== -->
 	</p>

@@ -1,5 +1,5 @@
 class User < OmniAuth::Identity::Models::ActiveRecord
-	has_many :authorizations
+	has_many :authorizations, dependent: :destroy
 	has_many :microposts, dependent: :destroy
 	has_many :relationships, foreign_key: "follower_id", dependent: :destroy
 	has_many :followed_users, through: :relationships, source: :followed 

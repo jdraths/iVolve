@@ -3,15 +3,11 @@
 <p>
 	<!-- ====== The following section is temporary ===== -->
 	<div id="testimonies">
-	 <% Twitter.user_timeline(authorization.screen_name, count: 2).each do |tweet| %>
+	 <%= @timeline.each do |tweet| %>
 	   <blockquote><%= tweet.text %></blockquote>
 	   <p>Favorited: <%= tweet.favorite_count %>  times.</p>
 	   <p>Retweeted: <%= tweet.retweet_count %> times.</p>
 	   <div class="from">&mdash; @<%= tweet.user.screen_name %></div>
-	 <% end %>
-
-	 <% if a_user = Twitter.user(@authorization.screen_name) %>
-	   <p>Followers: <%= a_user.followers_count.to_s %>.</p>
 	 <% end %>
 	</div>
 	<!-- ====== End Temporary section ====== -->

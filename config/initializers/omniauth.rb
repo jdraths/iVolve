@@ -1,3 +1,5 @@
+# This file initializes the omniauth client to authenticate users.
+# Need to put iVolve Consumer Token and Secret in Environment variables.
 Rails.application.config.middleware.use OmniAuth::Builder do
   # provider :developer unless Rails.env.production?
   provider :twitter, 'iA0zWYfLeg2aWA35cxi5g', 'S0GVADK1a4HGjp9QgVKydKn7YgetC0uHLtqScNa0'
