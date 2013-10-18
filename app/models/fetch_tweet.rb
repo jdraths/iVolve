@@ -7,10 +7,11 @@ class FetchTweet < ActiveRecord::Base
 
 
 # will need to iterate through each user.
+# heroku says since_id paramater is invalid... since_id: maximum(:tweet_id)
 	def self.pull_user_timeline(user)
 		@twitter_user = Authorization.find_by_user_id_and_provider(user, 'twitter')
 		twitter_client = Twitter::Client.new(:oauth_token => @twitter_user.oauth_token, :oauth_token_secret => @twitter_user.oauth_secret)
-		twitter_client.user_timeline(@twitter_user.screen_name, count: 20, since_id: maximum(:tweet_id)).each do |tweet|
+		twitter_client.user_timeline(@twitter_user.screen_name, count: 20).each do |tweet|
 			unless exists?(tweet_id: tweet.id)
 				create!(
 					tweet_id: tweet.id,
