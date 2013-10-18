@@ -11,8 +11,8 @@ class FetchTweet < ActiveRecord::Base
 	def self.pull_user_timeline(user)
 		@twitter_user = Authorization.find_by_user_id_and_provider(user, 'twitter')
 		twitter_client = Twitter::Client.new(:oauth_token => @twitter_user.oauth_token, :oauth_token_secret => @twitter_user.oauth_secret)
-		twitter_client.user_timeline(@twitter_user.screen_name, count: 20).each do |tweet|
-			unless exists?(tweet_id: tweet.id)
+		twitter_client.user_timeline(@twitter_user.screen_name, count: 1).each do |tweet|
+			#unless exists?(tweet_id: tweet.id)
 				create!(
 					tweet_id: tweet.id,
 					content: tweet.text,
@@ -20,7 +20,7 @@ class FetchTweet < ActiveRecord::Base
 					favorite_count: tweet.favorite_count,
 					retweet_count: tweet.retweet_count,
 					)
-			end
+			#end
 		end
 	end
 
