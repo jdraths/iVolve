@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
 		        # is the current user. So the authorization is already associated with 
 		        # this user. So let's display an error message.
 				# Log the authorizing user in.
-				redirect root_path, notice: "you have already linked this account."
+				redirect_to root_path, notice: "you have already linked this account."
 			else
 				# The authorization is not associated with the current_user so lets 
 		        # associate the authorization
