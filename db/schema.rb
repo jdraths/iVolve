@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131020184951) do
+ActiveRecord::Schema.define(version: 20131023013539) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -122,11 +122,34 @@ ActiveRecord::Schema.define(version: 20131020184951) do
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id"
 
   create_table "twitter_users", force: true do |t|
-    t.string   "provider"
-    t.string   "uid"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
+    t.string   "connections"
+    t.string   "contributors_enabled"
+    t.string   "default_profile"
+    t.string   "default_profile_image"
+    t.string   "description"
+    t.string   "favorite_count"
+    t.string   "follow_request_sent"
+    t.string   "followers_count"
+    t.string   "friends_count"
+    t.string   "geo_enabled"
+    t.string   "is_translator"
+    t.string   "lang"
+    t.string   "listed_count"
+    t.string   "location"
+    t.string   "notifications"
+    t.string   "protected_user"
+    t.string   "tweet_count"
+    t.string   "time_zone"
+    t.string   "url"
+    t.string   "utc_offset"
+    t.string   "verified"
+    t.string   "description_urls"
+    t.string   "status"
+    t.integer  "uid"
   end
 
   create_table "users", force: true do |t|
