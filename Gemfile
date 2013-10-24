@@ -11,6 +11,7 @@ gem 'will_paginate', '3.0.4'
 gem 'bootstrap-will_paginate', '0.0.9'
 gem 'newrelic_rpm' #really meant for Rails 3...
 gem 'twitter', '~> 4.8.0'
+gem 'koala', '~> 1.7.0rc1' # for Facebook
 gem 'omniauth-twitter', '~>1.0.0'
 gem 'omniauth-facebook', '~>1.4.0'
 gem 'omniauth-google-oauth2', '~>0.2.0'

@@ -2,7 +2,6 @@ class Authorization < ActiveRecord::Base
 	belongs_to :user
 	validates :uid, presence: true, uniqueness: {scope: :provider}
 	validates :provider, presence: true
-	validates :screen_name, presence: true
 
 	def self.find_from_omniauth(auth)
 		find_by_provider_and_uid(auth['provider'], auth['uid']) #|| create_from_omniauth(auth)
@@ -14,6 +13,7 @@ class Authorization < ActiveRecord::Base
 	end
 
 	def self.create_from_omniauth(auth)
+		#Facebook Tokens expire so credentials must be updated.  Facebook Railscast shows how to do this.
 		create(uid: auth['uid'],
 			provider: auth['provider'],
 			screen_name: auth['info']['nickname'],
@@ -35,17 +35,22 @@ class Authorization < ActiveRecord::Base
 		#	)
 	end
 	# This method must be run to grab credentials from everything but Identity.  this cannot be grabbed in identity, will fail.
-	def self.credentials_from_omniauth(auth)
-		user = where(auth.slice("provider", "uid")).first
-		user.uid = auth['uid']
-		user.provider = auth['provider']
-		user.oauth_token = auth["credentials"]["token"]
-		user.oauth_secret = auth["credentials"]["secret"]
-		user.save!
-		user
+	def self.from_omniauth(auth)
+		where(auth.slice(:provider, :uid)).first_or_initialize.tap do |authorized|
+			authorized.uid = auth.uid
+			authorized.provider = auth.provider
+			authorized.name = auth.info.name
+			authorized.screen_name = auth.info.nickname
+			authorized.oauth_token = auth.credentials.token
+			authorized.oauth_secret = auth.credentials.secret
+			unless auth.credentials.expires_at.nil?
+				authorized.oauth_expires_at = Time.at(auth.credentials.expires_at)
+			end
+			authorized.save!
+		end
 	end
 
-#below is put into Application controller....
+ #below is put into Application controller....
 	#def twitter
 	#	if provider == "twitter"
 	#		@twitter ||= Twitter::Client.new(oauth_token: oauth_token, oauth_token_secret: oauth_secret)

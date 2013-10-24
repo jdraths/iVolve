@@ -4,15 +4,18 @@ class SessionsController < ApplicationController
 	end
 
 	def create
-		@authorization = Authorization.find_from_omniauth(auth)
+		@authorization = Authorization.from_omniauth(auth)
+	 #					 Authorization.find_from_omniauth(auth)
 		#@credentials = Authorization.credentials_from_omniauth(auth)
-	    if @authorization.nil?
+	    
+	 #     This if should no longer be necessary.
+	 #    if @authorization.nil?
 	      # If no authorization was found, create a new one here
-	      @authorization = Authorization.create_from_omniauth(auth)
+	 #      @authorization = Authorization.create_from_omniauth(auth)
 	    #else
 	    	#@credentials = Authorization.credentials_from_omniauth(auth)
 	    	#@credentials.save!
-	    end
+	 #    end
 
 		if signed_in?
 			if @authorization.user == current_user
