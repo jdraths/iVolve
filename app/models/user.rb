@@ -42,7 +42,10 @@ class User < OmniAuth::Identity::Models::ActiveRecord
 	end
 
 	def twitter
-		TwitterUser.find_by_user_id(self)
+		# This needs to be changed to find_by_user_id, but user_id needs to populate
+		# to TwitterUser first.
+		@authorization = Authorization.find_by_user_id_and_provider(self, 'twitter')
+		TwitterUser.find_by_uid(@authorization.uid)
 	end	
 
 	def following?(other_user)

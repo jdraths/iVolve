@@ -34,11 +34,7 @@ class StaticPagesController < ApplicationController
   end
 
   def contact
-    #temporary controller for showing tweets
-    if signed_in?
-      @timeline = FetchTweet.pull_user_timeline(current_user)
 
-    end
   end
   
 end
