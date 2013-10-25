@@ -12,8 +12,10 @@ gem 'bootstrap-will_paginate', '0.0.9'
 gem 'newrelic_rpm' #really meant for Rails 3...
 gem 'twitter', '~> 4.8.0'
 gem 'koala', '~> 1.7.0rc1' # for Facebook
+gem 'fitbit', '~> 0.2.0' # for Fitbit, not updated since 4/11/11!!!
 gem 'omniauth-twitter', '~>1.0.0'
 gem 'omniauth-facebook', '~>1.4.0'
+gem 'omniauth-fitbit', '~> 1.0.2' 
 gem 'omniauth-google-oauth2', '~>0.2.0'
 gem 'omniauth-identity', '~>1.1.0'
 gem 'simple_form', '~>3.0.0'
