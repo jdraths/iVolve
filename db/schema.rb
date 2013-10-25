@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131024053044) do
+ActiveRecord::Schema.define(version: 20131025073734) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(version: 20131024053044) do
     t.datetime "updated_at"
   end
 
-create_table "fetch_tweets", force: true do |t|
+  create_table "fetch_tweets", force: true do |t|
     t.string   "tweet_id"
     t.string   "screen_name"
     t.text     "content"
@@ -202,6 +202,7 @@ create_table "fetch_tweets", force: true do |t|
     t.string   "password_digest"
     t.string   "remember_token"
     t.boolean  "admin",           default: false
+    t.boolean  "active_user",     default: true
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
