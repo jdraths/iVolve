@@ -41,6 +41,7 @@ class User < OmniAuth::Identity::Models::ActiveRecord
 		Micropost.from_users_followed_by(self)
 	end
 
+#this method is not working...
 	def twitter
 		# This needs to be changed to find_by_user_id, but user_id needs to populate
 		# to TwitterUser first.
