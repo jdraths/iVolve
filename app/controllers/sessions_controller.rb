@@ -5,7 +5,6 @@ class SessionsController < ApplicationController
 
 	def create
 		@authorization = Authorization.from_omniauth(auth)
-	 #					 Authorization.find_from_omniauth(auth)
 		#@credentials = Authorization.credentials_from_omniauth(auth)
 	    
 	 #     This if should no longer be necessary.
@@ -63,12 +62,12 @@ class SessionsController < ApplicationController
 		        redirect_to root_path, notice: "Welcome to iVolve!"
 		    end
 		end
-		
+		# run api requests upon login!
+		FetchTweet.pull_user_timeline(current_user)
+		TwitterUser.pull_user_data(current_user)
+		FacebookUser.pull_user_data(current_user)
 
-	   # below is from rails cast omniauth
-	   #user = User.from_omniauth(auth_hash)
-	   #session[:user_id] = user.id
-	   #redirect_to root_url, notice: "Signed in."
+
 	end
 # This the native Login.  
 #		user = User.find_by(email: params[:session][:email].downcase)

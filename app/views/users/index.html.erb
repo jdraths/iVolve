@@ -2,6 +2,8 @@
 <h1>All users</h1>
 
 <%= will_paginate %>
+<!-- will_paginate automatically looks inside the current directory's view and finds the @currenty_directory object, the displays pagination links.
+	In this case we are in the users view, so it looks for @users. -->
 
 <ul class="users">
 	<%= render @users %>

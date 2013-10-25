@@ -16,6 +16,15 @@
 			<%= link_to "Link your Twitter!", "/auth/twitter?user_authorize=true", class: "btn btn-large btn-primary" %>
 			<%= link_to "Link your Facebook!", "/auth/facebook", class: "btn btn-large btn-primary" %>
 			<%= link_to "Link your Fitbit!", "/auth/fitbit", class: "btn btn-large btn-primary" %>
+			<h3>Activity Feed</h3>
+			<h4 style="border-top: 1px solid #e8e8e8">Twitter:</h4>
+			<h5>Name: <%= @twitter_name %></h5>
+			<h5>Description: <%= @twitter_description %> </h5>
+			<h5>Friends: <%= @twitter_friends %></h5>
+			<h5>Followers: <%= @twitter_followers %></h5>
+			<h5>Tweets Sent: <%= @twitter_sent %></h5>
+			<h5>Tweets Favorited: <%= @twitter_favorites %></h5>
+			<h5>Twitter Lists: <%= @twitter_lists %></h5>
 			<h3>Micropost Feed</h3>
 			<%= render 'shared/feed' %>
 		</div>

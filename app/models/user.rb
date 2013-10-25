@@ -8,8 +8,9 @@ class User < OmniAuth::Identity::Models::ActiveRecord
 									 dependent:   :destroy
 	has_many :followers, through: :reverse_relationships, source: :follower 
 
-	has_many :activities, dependent: :destroy
-	has_many :apis, dependent: :destroy
+	has_many :twitter_users, dependent: :destroy
+	has_many :fetch_tweets, dependent: :destroy
+	has_many :facebook_users, dependent: :destroy
 	# Put below back in and delete identity.rb?
 
 	has_secure_password
@@ -39,6 +40,10 @@ class User < OmniAuth::Identity::Models::ActiveRecord
 	def feed
 		Micropost.from_users_followed_by(self)
 	end
+
+	def twitter
+		TwitterUser.find_by_user_id(self)
+	end	
 
 	def following?(other_user)
 		relationships.find_by(followed_id: other_user.id)

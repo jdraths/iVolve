@@ -2,6 +2,7 @@
 #All Twitter methods may pull different information... may not work with only one database!
 
 class FetchTweet < ActiveRecord::Base
+	belongs_to :user
 # NEED STRONG PARAMS SET UP IN CONTROLLER!
 #require 'twitter'
 
@@ -42,9 +43,13 @@ class FetchTweet < ActiveRecord::Base
 					to_user_id: tweet.to_user_id,
 					to_user_name: tweet.to_user_name,
 					geo: tweet.geo{coordinates}.to_s,
+					# Arrays don't work in Active Record?
+					#geo_array: tweet.geo{coordinates},
 					# hashtags and media are arrays... issue: Can't convert array to string
 					hashtags: tweet.hashtags{text}.to_s,
+					#hashtags_array: tweet.hashtags{text},
 					media: tweet.media{photo.expanded_url}.to_s,
+					#media_array: tweet.media{photo.expanded_url},
 					metadata: tweet.metadata{result_type},
 					place_attributes: tweet.place{attributes},
 					place_country: tweet.place{country},
@@ -54,8 +59,9 @@ class FetchTweet < ActiveRecord::Base
 					place_type: tweet.place{type},
 					# symbols and url are arrays... issue: Can't convert array to string
 					symbols: tweet.symbols{text}.to_s,
+					#symbols_array: tweet.symbols{text},
 					incl_url: tweet.urls{expanded_url}.to_s,
-
+					#incl_url_array: tweet.urls{expanded_url}
 					)
 			#end
 		end
@@ -97,9 +103,13 @@ class FetchTweet < ActiveRecord::Base
 					to_user_id: tweet.to_user_id,
 					to_user_name: tweet.to_user_name,
 					geo: tweet.geo{coordinates}.to_s,
+					# Arrays don't work in Active Record?
+					#geo_array: tweet.geo{coordinates},
 					# hashtags and media are arrays... issue: Can't convert array to string
 					hashtags: tweet.hashtags{text}.to_s,
+					#hashtags_array: tweet.hashtags{text},
 					media: tweet.media{photo.expanded_url}.to_s,
+					#media_array: tweet.media{photo.expanded_url},
 					metadata: tweet.metadata{result_type},
 					place_attributes: tweet.place{attributes},
 					place_country: tweet.place{country},
@@ -109,8 +119,9 @@ class FetchTweet < ActiveRecord::Base
 					place_type: tweet.place{type},
 					# symbols and url are arrays... issue: Can't convert array to string
 					symbols: tweet.symbols{text}.to_s,
+					#symbols_array: tweet.symbols{text},
 					incl_url: tweet.urls{expanded_url}.to_s,
-
+					#incl_url_array: tweet.urls{expanded_url}
 					)
 			end
 		end
@@ -118,7 +129,7 @@ class FetchTweet < ActiveRecord::Base
 
 # need to fix since id , before id...
 	def self.manual_user_timeline
-		Twitter.user_timeline("whomikereilly", count: 1, max_id: 348915464061194241).each do |tweet|
+		Twitter.user_timeline("roanedraths", count: 1).each do |tweet|
 			# Add column for tweets.created_at (sent_at)...
 			#unless exists?(tweet_id: tweet.id)
 				create!(
@@ -154,9 +165,13 @@ class FetchTweet < ActiveRecord::Base
 					to_user_id: tweet.to_user_id,
 					to_user_name: tweet.to_user_name,
 					geo: tweet.geo{coordinates}.to_s,
+					# Arrays don't work in Active Record?
+					#geo_array: tweet.geo{coordinates},
 					# hashtags and media are arrays... issue: Can't convert array to string
 					hashtags: tweet.hashtags{text}.to_s,
+					#hashtags_array: tweet.hashtags{text},
 					media: tweet.media{photo.expanded_url}.to_s,
+					#media_array: tweet.media{photo.expanded_url},
 					metadata: tweet.metadata{result_type},
 					place_attributes: tweet.place{attributes},
 					place_country: tweet.place{country},
@@ -166,7 +181,9 @@ class FetchTweet < ActiveRecord::Base
 					place_type: tweet.place{type},
 					# symbols and url are arrays... issue: Can't convert array to string
 					symbols: tweet.symbols{text}.to_s,
+					#symbols_array: tweet.symbols{text},
 					incl_url: tweet.urls{expanded_url}.to_s,
+					#incl_url_array: tweet.urls{expanded_url}
 					)
 			#end
 		end
@@ -206,9 +223,13 @@ class FetchTweet < ActiveRecord::Base
 					to_user_id: tweet.to_user_id,
 					to_user_name: tweet.to_user_name,
 					geo: tweet.geo{coordinates}.to_s,
+					# Arrays don't work in Active Record?
+					#geo_array: tweet.geo{coordinates},
 					# hashtags and media are arrays... issue: Can't convert array to string
 					hashtags: tweet.hashtags{text}.to_s,
+					#hashtags_array: tweet.hashtags{text},
 					media: tweet.media{photo.expanded_url}.to_s,
+					#media_array: tweet.media{photo.expanded_url},
 					metadata: tweet.metadata{result_type},
 					place_attributes: tweet.place{attributes},
 					place_country: tweet.place{country},
@@ -218,8 +239,9 @@ class FetchTweet < ActiveRecord::Base
 					place_type: tweet.place{type},
 					# symbols and url are arrays... issue: Can't convert array to string
 					symbols: tweet.symbols{text}.to_s,
+					#symbols_array: tweet.symbols{text},
 					incl_url: tweet.urls{expanded_url}.to_s,
-
+					#incl_url_array: tweet.urls{expanded_url}
 					)
 			end
 		end

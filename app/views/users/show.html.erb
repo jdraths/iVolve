@@ -21,13 +21,6 @@
 			</ol>
 			<%= will_paginate @apis %>
 		<% end %>
-		<% if @user.activities.any? %>
-			<h3>Activities (<%= @user.activities.count %>)</h3>
-			<ol class="microposts">
-				<%= render @activities %>
-			</ol>
-			<%= will_paginate @activities %>
-		<% end %>
 		<% if @user.microposts.any? %>
 			<h3>Microposts (<%= @user.microposts.count %>)</h3>
 			<ol class="microposts">

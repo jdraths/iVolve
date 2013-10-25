@@ -1,8 +1,10 @@
 class TwitterUser < ActiveRecord::Base
+	belongs_to :user
 	def self.pull_user_data(user)
-		@authorized = Authorization.find_by_user_id_and_provider(user, 'twitter')
+		@twitter_user = Authorization.find_by_user_id_and_provider(user, 'twitter')
 		twitter_client = Twitter::Client.new(:oauth_token => @twitter_user.oauth_token, :oauth_token_secret => @twitter_user.oauth_secret)
-		twitter_client.user(@authorized.screen_name) do |twitter_user|
+		twitter_user = twitter_client.user(@twitter_user.screen_name)
+		@user = user
 			#unless exists?(uid: t_user.id)
 			# could use unless exists? create! and then when exists? save!,
 			# but that would not allow ivolve to track user changes over time.
@@ -10,7 +12,7 @@ class TwitterUser < ActiveRecord::Base
 					name: twitter_user.screen_name,
 					user_id: user,
 					connections: twitter_user.connections,
-					contributors_enabled: twitter_user.contributer_enabled,
+					contributors_enabled: twitter_user.contributors_enabled,
 					default_profile: twitter_user.default_profile,
 					default_profile_image: twitter_user.default_profile_image,
 					description: twitter_user.description,
@@ -32,15 +34,13 @@ class TwitterUser < ActiveRecord::Base
 					utc_offset: twitter_user.utc_offset,
 					verified: twitter_user.verified,
 					description_urls: twitter_user.description_urls.to_s,
-					status: twitter_user.status,
-
+					status: twitter_user.status.to_s,
 					)
 			#end
-		end
 	end
 
 	def self.manual_user_data
-		twitter_user = Twitter.user("whomikereilly")
+		twitter_user = Twitter.user("roanedraths")
 			#unless exists?(uid: t_user.id)
 			# could use unless exists? create! and then when exists? save!,
 			# but that would not allow ivolve to track user changes over time.
