@@ -11,15 +11,16 @@ module SessionsHelper
 		!current_user.nil?
 	end
 
-	def twitter?
-		@twitter = Authorization.find_by_user_id_and_provider(current_user, 'twitter')
-		!@twitter.nil?
-	end
+	# Need to fix these methods
+	#def twitter?
+	#	@twitter = Authorization.find_by_user_id_and_provider(current_user, 'twitter')
+	#	!@twitter.nil?
+	#end
 
-	def facebook?
-		@facebook = Authorization.find_by_user_id_and_provider(current_user, 'facebook')
-		!@facebook.nil?
-	end
+	#def facebook?
+	#	@facebook = Authorization.find_by_user_id_and_provider(current_user, 'facebook')
+	#	!@facebook.nil?
+	#end
 
 	def current_user=(user)
 		@current_user = user
