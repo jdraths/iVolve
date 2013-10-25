@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131025044348) do
+ActiveRecord::Schema.define(version: 20131024053044) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -95,8 +95,41 @@ ActiveRecord::Schema.define(version: 20131025044348) do
     t.datetime "updated_at"
   end
 
-# Could not dump table "fetch_tweets" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+create_table "fetch_tweets", force: true do |t|
+    t.string   "tweet_id"
+    t.string   "screen_name"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "favorite_count"
+    t.string   "retweet_count"
+    t.integer  "from_user_id"
+    t.string   "from_user_name"
+    t.string   "in_reply_to_attrs_id"
+    t.string   "in_reply_to_screen_name"
+    t.string   "in_reply_to_status_id_str"
+    t.string   "in_reply_to_user_id_str"
+    t.string   "lang"
+    t.string   "repliers"
+    t.integer  "repliers_count"
+    t.boolean  "retweeted",                 default: false
+    t.string   "retweeters"
+    t.string   "source"
+    t.string   "to_user"
+    t.string   "to_user_id"
+    t.string   "to_user_name"
+    t.string   "geo"
+    t.string   "hashtags"
+    t.string   "media"
+    t.string   "metadata"
+    t.string   "place_attributes"
+    t.string   "place_country"
+    t.string   "place_full_name"
+    t.string   "place_url"
+    t.string   "place_type"
+    t.string   "symbols"
+    t.string   "incl_url"
+  end
 
   create_table "identities", force: true do |t|
     t.string   "name"

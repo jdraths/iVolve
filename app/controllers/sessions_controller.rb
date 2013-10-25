@@ -18,7 +18,6 @@ class SessionsController < ApplicationController
 
 		if signed_in?
 			if @authorization.user == current_user
-				#@credentials.save!
 				# User is signed in so they are trying to link an authorization with their
 		        # account. But we found the authorization and the user associated with it 
 		        # is the current user. So the authorization is already associated with 
@@ -30,15 +29,23 @@ class SessionsController < ApplicationController
 		        # associate the authorization
 		        @authorization.user = current_user
 		        @authorization.save
-		        #@credentials.save!
 		        redirect_to root_path, notice: "Account successfully authenticated."
 		    end
+# ONLY RUN API REQUESTS UPON LOGIN and if Authorization exists.
+		    if twitter?
+				FetchTweet.pull_user_timeline(current_user)
+				TwitterUser.pull_user_data(current_user)
+			end
+
+			if facebook?
+				FacebookUser.pull_user_data(current_user)
+			end
+
 		else # no user is signed_in
 		    if @authorization.user.present?
 		        # The authorization we found had a user associated with it so let's 
 		        # just log them in here
 		        self.current_user = @authorization.user
-		        #@credentials.save!
 		        redirect_to root_path, notice: "Signed in!"
 		    else
 		        # The authorization has no user assigned and there is no user signed in
@@ -62,10 +69,6 @@ class SessionsController < ApplicationController
 		        redirect_to root_path, notice: "Welcome to iVolve!"
 		    end
 		end
-		# run api requests upon login!
-		FetchTweet.pull_user_timeline(current_user)
-		TwitterUser.pull_user_data(current_user)
-		FacebookUser.pull_user_data(current_user)
 
 
 	end
