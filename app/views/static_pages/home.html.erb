@@ -13,8 +13,6 @@
 		</aside>
 		<div class="span8">
 			<h3>Sign in more accounts!</h3>
-			
-			<%= link_to "Link your Facebook!", "/auth/facebook", class: "btn btn-large btn-primary" %>
 			<%= link_to "Link your Fitbit!", "/auth/fitbit", class: "btn btn-large btn-primary" %>
 			<h3>Activity Feed</h3>
 			<h4 style="border-top: 1px solid #e8e8e8">Twitter:</h4>
@@ -28,6 +26,14 @@
 				<h5>Twitter Lists: <%= @twitter_lists %></h5>
 			<% else %>
 				<%= link_to "Link your Twitter!", "/auth/twitter?user_authorize=true", class: "btn btn-large btn-primary" %>
+			<% end %>
+			<h4 style="border-top: 1px solid #e8e8e8">Facebook:</h4>
+			<% if facebook? %>
+				<h5>Name: <%= @facebook_name %></h5>
+				<h5>Bio: <%= @facebook_bio %> </h5>
+				<h5>Birthday: <%= @facebook_birthday %></h5>
+			<% else %>
+				<%= link_to "Link your Facebook!", "/auth/facebook", class: "btn btn-large btn-primary" %>
 			<% end %>
 			<h3>Micropost Feed</h3>
 			<%= render 'shared/feed' %>

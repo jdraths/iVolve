@@ -17,6 +17,13 @@ class StaticPagesController < ApplicationController
         @twitter_favorites = @twitter_user.favorite_count
         @twitter_lists = @twitter_user.listed_count
       end
+      if facebook?
+        @facebook_user = FacebookUser.find_by_uid(@facebook.uid)
+        @facebook_name = @facebook_user.name
+        # how common are bios?  Let's IF the bio in.
+        @facebook_bio = @facebook_user.bio
+        @facebook_birthday = @facebook_user.birthday
+      end
   	end
   end
 
