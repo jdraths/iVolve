@@ -5,7 +5,6 @@ class SessionsController < ApplicationController
 
 	def create
 		@authorization = Authorization.from_omniauth(auth)
-		#@credentials = Authorization.credentials_from_omniauth(auth)
 	    
 	 #     This if should no longer be necessary.
 	 #    if @authorization.nil?
@@ -31,15 +30,6 @@ class SessionsController < ApplicationController
 		        @authorization.save
 		        redirect_to root_path, notice: "Account successfully authenticated."
 		    end
-# ONLY RUN API REQUESTS UPON LOGIN and if Authorization exists.
-		    if twitter?
-				FetchTweet.pull_user_timeline(current_user)
-				TwitterUser.pull_user_data(current_user)
-			end
-
-			if facebook?
-				FacebookUser.pull_user_data(current_user)
-			end
 
 		else # no user is signed_in
 		    if @authorization.user.present?
@@ -69,7 +59,15 @@ class SessionsController < ApplicationController
 		        redirect_to root_path, notice: "Welcome to iVolve!"
 		    end
 		end
+# ONLY RUN API REQUESTS UPON LOGIN and if Authorization exists.
+	    if twitter?
+			FetchTweet.pull_user_timeline(current_user)
+			TwitterUser.pull_user_data(current_user)
+		end
 
+		if facebook?
+			FacebookUser.pull_user_data(current_user)
+		end
 
 	end
 # This the native Login.  
