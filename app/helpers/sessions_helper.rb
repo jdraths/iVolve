@@ -19,7 +19,7 @@ module SessionsHelper
 	def twitter?
 		if twitter_authorized?
 			@twitter_user = TwitterUser.find_by_uid(@twitter.uid)
-			!@twitter.nil? && !@twitter_user.nil?
+			!@twitter_user.nil?
 		end
 	end
 
@@ -31,7 +31,7 @@ module SessionsHelper
 	def facebook?
 		if facebook_authorized?
 			@facebook_user = FacebookUser.find_by_uid(@facebook.uid)
-			!@facebook.nil? && !@facebook_user.nil?
+			!@facebook_user.nil?
 		end
 	end
 
