@@ -3,6 +3,8 @@
 
 class FetchTweet < ActiveRecord::Base
 	belongs_to :user
+	# the default scope below will always find the newest record first
+	default_scope -> { order('created_at DESC') }
 # NEED STRONG PARAMS SET UP IN CONTROLLER!
 #require 'twitter'
 
@@ -12,7 +14,7 @@ class FetchTweet < ActiveRecord::Base
 	def self.pull_user_timeline(user)
 		@twitter_user = Authorization.find_by_user_id_and_provider(user, 'twitter')
 		twitter_client = Twitter::Client.new(:oauth_token => @twitter_user.oauth_token, :oauth_token_secret => @twitter_user.oauth_secret)
-		twitter_client.user_timeline(@twitter_user.screen_name, count: 1).each do |tweet|
+		twitter_client.user_timeline(@twitter_user.screen_name, count: 200).each do |tweet|
 			#unless exists?(tweet_id: tweet.id)
 				create!(
 					tweet_id: tweet.id,

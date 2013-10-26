@@ -13,32 +13,4 @@ class Identity < OmniAuth::Identity::Models::ActiveRecord
 
 	validates :password, length: { minimum: 6 }
 
-	#before_create :create_remember_token
-
-#	def Identity.new_remember_token
-#		SecureRandom.urlsafe_base64
-#	end
-#
-#	def Identity.encrypt(token)
-#		Digest::SHA1.hexdigest(token.to_s)
-#	end
-
-	# from Rails cast omniauth
-	#def self.from_omniauth(auth)
-	#	where(auth.slice("provider", "uid")).first || create_from_omniauth(auth)
-	#end
-
-	#def self.create_from_omniauth(auth)
-	#	create! do |user|
-	#		user.provider = auth["provider"]
-	#		user.uid = auth["uid"]
-	#		user.name = auth["info"]["nickname"]
-	#	end
-	#end
-
-	#private
-
-#		def create_remember_token
-#			self.remember_token = Identity.encrypt(Identity.new_remember_token)
-#		end
 end

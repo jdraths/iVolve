@@ -1,5 +1,8 @@
 class TwitterUser < ActiveRecord::Base
 	belongs_to :user
+	# the default scope below will always find the newest record first
+	default_scope -> { order('created_at DESC') }
+	
 	def self.pull_user_data(user)
 		@twitter_user = Authorization.find_by_user_id_and_provider(user, 'twitter')
 		twitter_client = Twitter::Client.new(:oauth_token => @twitter_user.oauth_token, :oauth_token_secret => @twitter_user.oauth_secret)

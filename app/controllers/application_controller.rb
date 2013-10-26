@@ -4,11 +4,4 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include SessionsHelper
   
-  def twitter
-    unless @twit_user
-      provider = Authorization.find_by_user_id(current_user)
-      @twit_user = Twitter::Client.new(:oauth_token => provider.token, :oauth_token_secret => provider.secret) rescue nil
-    end
-    @twit_user
-  end
 end

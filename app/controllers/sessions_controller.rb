@@ -22,13 +22,15 @@ class SessionsController < ApplicationController
 		        # is the current user. So the authorization is already associated with 
 		        # this user. So let's display an error message.
 				# Log the authorizing user in.
-				redirect_to root_path, notice: "you have already linked this account."
+				flash[:success] = "you have already linked this account."
+				redirect_to root_path
 			else
 				# The authorization is not associated with the current_user so lets 
 		        # associate the authorization
 		        @authorization.user = current_user
 		        @authorization.save
-		        redirect_to root_path, notice: "Account successfully authenticated."
+		        flash[:success] = "Account successfully authenticated."
+		        redirect_to root_path
 		    end
 
 		else # no user is signed_in
@@ -36,7 +38,8 @@ class SessionsController < ApplicationController
 		        # The authorization we found had a user associated with it so let's 
 		        # just log them in here
 		        self.current_user = @authorization.user
-		        redirect_to root_path, notice: "Signed in!"
+		        flash[:success] = "Signed in!"
+		        redirect_to root_path 
 		    else
 		        # The authorization has no user assigned and there is no user signed in
 		        # Our decision here is to create a new account for the user
@@ -56,7 +59,8 @@ class SessionsController < ApplicationController
 		        # We can now link the authorization with the user and log him in
 		        u.authorizations << @authorization
 		        self.current_user = u
-		        redirect_to root_path, notice: "Welcome to iVolve!"
+		        flash[:success] = "Welcome to iVolve!"
+		        redirect_to root_path
 		    end
 		end
 # ONLY RUN API REQUESTS UPON LOGIN and if Authorization exists.
@@ -84,7 +88,8 @@ class SessionsController < ApplicationController
 
 	def destroy
 		session[:user_id] = nil
-		redirect_to root_url, notice: "Signed out."
+		flash[:success] = "Signed out."
+		redirect_to root_url
 
 # This is native		
 #		sign_out

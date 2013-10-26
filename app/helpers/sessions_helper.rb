@@ -11,7 +11,6 @@ module SessionsHelper
 		!current_user.nil?
 	end
 
-	# Need to fix these methods
 	def twitter?
 		@twitter = Authorization.find_by_user_id_and_provider(current_user, 'twitter')
 		!@twitter.nil?
