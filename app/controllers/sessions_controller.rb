@@ -64,12 +64,12 @@ class SessionsController < ApplicationController
 		    end
 		end
 # ONLY RUN API REQUESTS UPON LOGIN and if Authorization exists.
-	    if twitter?
+	    if twitter_authorized?
 			FetchTweet.pull_user_timeline(current_user)
 			TwitterUser.pull_user_data(current_user)
 		end
 
-		if facebook?
+		if facebook_authorized?
 			FacebookUser.pull_user_data(current_user)
 		end
 

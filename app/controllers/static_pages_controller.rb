@@ -7,7 +7,6 @@ class StaticPagesController < ApplicationController
       # Need to fix this method
       if twitter?   # if twitter? definitely works
         # this twitter_users column should be renamed from name to screen_name
-        # the below @twitter is defined in sessions_helper in def twitter?
         @twitter_name = @twitter_user.name
         @twitter_description = @twitter_user.description
         @twitter_friends = @twitter_user.friends_count
@@ -17,8 +16,6 @@ class StaticPagesController < ApplicationController
         @twitter_lists = @twitter_user.listed_count
       end
       if facebook?
-        # The below @facebook is defined in sessions_helper in def facebook?
-        @facebook_user = FacebookUser.find_by_uid(@facebook.uid)
         @facebook_name = @facebook_user.name
         # how common are bios?  Let's IF the bio in.
         @facebook_bio = @facebook_user.bio
