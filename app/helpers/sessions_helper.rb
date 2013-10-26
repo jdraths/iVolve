@@ -15,6 +15,7 @@ module SessionsHelper
 		@twitter = Authorization.find_by_user_id_and_provider(current_user, 'twitter')
 		!@twitter.nil?
 		@twitter_user = TwitterUser.find_by_uid(@twitter.uid)
+		!@twitter_user.nil?
 	end
 
 	def facebook?

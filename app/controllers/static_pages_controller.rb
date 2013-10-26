@@ -8,7 +8,6 @@ class StaticPagesController < ApplicationController
       if twitter?   # if twitter? definitely works
         # this twitter_users column should be renamed from name to screen_name
         # the below @twitter is defined in sessions_helper in def twitter?
-        @twitter_user = TwitterUser.find_by_uid(@twitter.uid)
         @twitter_name = @twitter_user.name
         @twitter_description = @twitter_user.description
         @twitter_friends = @twitter_user.friends_count
