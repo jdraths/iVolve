@@ -17,9 +17,10 @@ module SessionsHelper
 	end
 
 	def twitter?
-		@twitter = Authorization.find_by_user_id_and_provider(current_user, 'twitter')
-		@twitter_user = TwitterUser.find_by_uid(@twitter.uid)
-		!@twitter.nil? && !@twitter_user.nil?
+		if twitter_authorized?
+			@twitter_user = TwitterUser.find_by_uid(@twitter.uid)
+			!@twitter.nil? && !@twitter_user.nil?
+		end
 	end
 
 	def facebook_authorized?
@@ -28,9 +29,10 @@ module SessionsHelper
 	end
 
 	def facebook?
-		@facebook = Authorization.find_by_user_id_and_provider(current_user, 'facebook')
-		@facebook_user = FacebookUser.find_by_uid(@facebook.uid)
-		!@facebook.nil? && !@facebook_user.nil?
+		if facebook_authorized?
+			@facebook_user = FacebookUser.find_by_uid(@facebook.uid)
+			!@facebook.nil? && !@facebook_user.nil?
+		end
 	end
 
 	def current_user=(user)
