@@ -32,6 +32,13 @@
 				<h5>Name: <%= @facebook_name %></h5>
 				<h5>Bio: <%= @facebook_bio %> </h5>
 				<h5>Birthday: <%= @facebook_birthday %></h5>
+				<h5>Friends: <%= @facebook_num_friends %></h5>
+				<h5>Likes: <%= @facebook_num_likes %></h5>
+				<h5>Posts: <%= @facebook_num_posts %></h5>
+				<h5>Statuses: <%= @facebook_num_statuses %></h5>
+				<h5>Achievements: <%= @facebook_num_achievements %></h5>
+				<h5>Subscribers: <%= @facebook_num_subscribers %></h5>
+				<h5>Subscribed to you: <%= @facebook_num_subscribed_to %></h5>
 			<% else %>
 				<%= link_to "Link your Facebook!", "/auth/facebook", class: "btn btn-large btn-primary" %>
 			<% end %>

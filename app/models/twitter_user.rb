@@ -4,9 +4,9 @@ class TwitterUser < ActiveRecord::Base
 	default_scope -> { order('created_at DESC') }
 	
 	def self.pull_user_data(user)
-		@twitter_user = Authorization.find_by_user_id_and_provider(user, 'twitter')
-		twitter_client = Twitter::Client.new(:oauth_token => @twitter_user.oauth_token, :oauth_token_secret => @twitter_user.oauth_secret)
-		twitter_user = twitter_client.user(@twitter_user.screen_name)
+		@twitter_auth = Authorization.find_by_user_id_and_provider(user, 'twitter')
+		twitter_client = Twitter::Client.new(:oauth_token => @twitter_auth.oauth_token, :oauth_token_secret => @twitter_auth.oauth_secret)
+		twitter_user = twitter_client.user(@twitter_auth.screen_name)
 		@user = user
 			#unless exists?(uid: t_user.id)
 			# could use unless exists? create! and then when exists? save!,

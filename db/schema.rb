@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131025073734) do
+ActiveRecord::Schema.define(version: 20131027005740) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -93,6 +93,13 @@ ActiveRecord::Schema.define(version: 20131025073734) do
     t.string   "work"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "num_achievements"
+    t.string   "num_subcribers"
+    t.string   "num_subscribed_to"
+    t.string   "num_statuses"
+    t.string   "num_posts"
+    t.string   "num_likes"
+    t.string   "num_friends"
   end
 
   create_table "fetch_tweets", force: true do |t|
