@@ -168,23 +168,60 @@ class FetchTweet < ActiveRecord::Base
 
 # need to fix since id , before id...
 	def self.manual_user_timeline
-		Twitter.user_timeline("packyryan", count: 1, max_id: 372154667318251520, include_entities: 1).each do |tweet|
+		Twitter.user_timeline("roanedraths", count: 1).each do |tweet|
 			# Add column for tweets.created_at (sent_at)...
 			#unless exists?(tweet_id: tweet.id)
-			tweet.urls.each do |entity| 
-				@url = entity['url'].to_s
+			if !tweet.urls.nil?
+				tweet.urls.each do |entity| 
+					@url = entity['url'].to_s
+				end
+			end
+			if !tweet.geo.nil?
+				tweet.geo.each do |entity|
+					@geo = entity['coordinates'].to_s
+				end
+			end
+			if !tweet.hashtags.nil?
+				tweet.hashtags.each do |entity|
+					@hashtags = entity['text'].to_s
+				end
+			end
+			if !tweet.media.nil?
+				tweet.media.each do |entity|
+					@media = entity['url'].to_s
+				end
+			end
+			if !tweet.metadata.nil?
+				tweet.metadata.each do |entity|
+					@metadata = entity['result_type'].to_s
+				end
+			end
+			if !tweet.place.nil?
+				#tweet.place.each do |entity|
+					@place_attributes = tweet.place.attributes.to_s
+						#['attributes'].to_s
+					@place_country = tweet.place.country.to_s
+						#entity['country'].to_s
+					@place_full_name = tweet.place.full_name.to_s
+						#entity['place_full_name'].to_s
+					@place_url = tweet.place.url.to_s
+						#entity['place_url'].to_s
+					@place_type = tweet.place.place_type.to_s
+						#entity['type'].to_s
+				#end
+			end
+			if !tweet.symbols.nil?
+				tweet.symbols.each do |entity|
+					@symbol_text = entity['text'].to_s
+				end
 			end
 				create!(
-					# tweet_id is a 64 bit integer
-					# tweet.id should be replaced with tweet.id_str (the string version)
 					tweet_id: tweet.id,
 					content: tweet.text,
 					screen_name: tweet.user.screen_name,
-					# favorite_count is an integer, but I'm saving it as a string
 					favorite_count: tweet.favorite_count,
-					# retweet_count is an integer, but I'm saving it as a string
 					retweet_count: tweet.retweet_count,
-					# the following needs migration:
+					# the following need a migration:
 					from_user_id: tweet.from_user_id,
 					from_user_name: tweet.from_user_name,
 					in_reply_to_attrs_id: tweet.in_reply_to_attrs_id,
@@ -206,23 +243,26 @@ class FetchTweet < ActiveRecord::Base
 					to_user: tweet.to_user,
 					to_user_id: tweet.to_user_id,
 					to_user_name: tweet.to_user_name,
-					geo: tweet.geo{coordinates}.to_s,
+					geo: @geo,
 					# Arrays don't work in Active Record?
 					#geo_array: tweet.geo{coordinates},
 					# hashtags and media are arrays... issue: Can't convert array to string
-					hashtags: tweet.hashtags{text}.to_s,
+					hashtags: @hashtags,
 					#hashtags_array: tweet.hashtags{text},
-					media: tweet.media{photo.expanded_url}.to_s,
+					media: @media,
 					#media_array: tweet.media{photo.expanded_url},
-					metadata: tweet.metadata{result_type},
-					place_attributes: tweet.place{attributes},
-					place_country: tweet.place{country},
-					place_full_name: tweet.place{place_full_name},
-					place_url: tweet.place{url},
+					metadata: @metadata,
+					place_attributes: @place_attributes,
+					place_country: @place_country,
+					place_full_name: @place_full_name,
+					place_url: @place_url,
 					# place_type is a string
-					place_type: tweet.place{type},
-					symbols: tweet.symbols{text}.to_s,
-					incl_url: @url
+					place_type: @place_type,
+					# symbols and url are arrays... issue: Can't convert array to string
+					symbols: @symbol_text,
+					#symbols_array: tweet.symbols{text},
+					incl_url: @url,
+					#incl_url_array: tweet.urls{expanded_url}
 					)
 			#end
 		end
