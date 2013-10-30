@@ -23,9 +23,10 @@ class FetchTweet < ActiveRecord::Base
 				end
 			end
 			if !tweet.geo.nil?
-				tweet.geo.each do |entity|
-					@geo = entity['coordinates'].to_s
-				end
+				#tweet.geo.each do |entity|
+					@geo = tweet.geo.coordinates.to_s
+						#entity['coordinates'].to_s
+				#end
 			end
 			if !tweet.hashtags.nil?
 				tweet.hashtags.each do |entity|
