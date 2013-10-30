@@ -20,7 +20,6 @@ SampleApp::Application.routes.draw do
   match '/contact', to: 'static_pages#contact', via: 'get'
   match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
   match '/auth/failure', to: 'sessions#failure', via: 'get'
-  match '/auth/identity/callback', to: 'sessions#failure', via: 'get'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

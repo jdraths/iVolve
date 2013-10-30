@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131030061326) do
+ActiveRecord::Schema.define(version: 20131030065112) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -78,26 +78,26 @@ ActiveRecord::Schema.define(version: 20131030061326) do
     t.string   "timezone"
     t.string   "updated_time"
     t.boolean  "verified"
-    t.string   "bio"
+    t.text     "bio"
     t.string   "birthday"
-    t.string   "cover_photo"
+    t.text     "cover_photo"
     t.string   "currency"
     t.string   "devices"
-    t.string   "education"
+    t.text     "education"
     t.string   "email"
     t.string   "hometown"
     t.string   "interested_in"
-    t.string   "location"
+    t.text     "location"
     t.string   "political"
-    t.string   "favorite_athletes"
-    t.string   "favorite_teams"
-    t.string   "profile_pic"
-    t.string   "quotes"
+    t.text     "favorite_athletes"
+    t.text     "favorite_teams"
+    t.text     "profile_pic"
+    t.text     "quotes"
     t.string   "relationship_status"
     t.string   "religion"
     t.string   "significant_other"
-    t.string   "website"
-    t.string   "work"
+    t.text     "website"
+    t.text     "work"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "num_achievements"
