@@ -84,7 +84,7 @@ class FacebookUser < ActiveRecord::Base
 	def self.manual_user_data(user)
 		#authorized = Authorization.find_by_user_id_and_provider(user, 'facebook')
 		facebook = Koala::Facebook::API.new(authorized.oauth_token)
-		facebook.get_object('me') do |data|
+		
 			num_achievements = facebook.get_connections('me', 'achievements').size
 		#end
 		#if !batch_api.get_connections('me', 'subscribers').nil?
