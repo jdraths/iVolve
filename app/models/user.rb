@@ -23,6 +23,7 @@ class User < OmniAuth::Identity::Models::ActiveRecord
 	validates :password, length: { minimum: 6 }
 
 	before_create :create_remember_token
+	after_validation :report_validation_errors_to_rollbar
 
 	def User.new_remember_token
 		SecureRandom.urlsafe_base64

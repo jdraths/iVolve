@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131027005740) do
+ActiveRecord::Schema.define(version: 20131028054120) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -51,6 +51,13 @@ ActiveRecord::Schema.define(version: 20131027005740) do
     t.string   "screen_name"
     t.datetime "oauth_expires_at"
     t.string   "name"
+    t.string   "email"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "location"
+    t.string   "description"
+    t.string   "image"
+    t.string   "phone"
   end
 
   add_index "authorizations", ["remember_token"], name: "index_authorizations_on_remember_token"
@@ -136,6 +143,36 @@ ActiveRecord::Schema.define(version: 20131027005740) do
     t.string   "place_type"
     t.string   "symbols"
     t.string   "incl_url"
+  end
+
+  create_table "fitbit_users", force: true do |t|
+    t.string   "about_me"
+    t.string   "avatar"
+    t.string   "avatar_onefifty"
+    t.string   "user_city"
+    t.string   "user_country"
+    t.string   "date_of_birth"
+    t.string   "display_name"
+    t.string   "distance_unit"
+    t.string   "encoded_id"
+    t.string   "full_name"
+    t.string   "gender"
+    t.string   "glucose_unit"
+    t.string   "height"
+    t.string   "height_unit"
+    t.string   "nickname"
+    t.string   "locale"
+    t.string   "member_since"
+    t.string   "utc_offset"
+    t.string   "home_state"
+    t.string   "stride_length_run"
+    t.string   "stride_length_walk"
+    t.string   "timezone"
+    t.string   "water_unit"
+    t.string   "weight"
+    t.string   "weight_unit"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "identities", force: true do |t|

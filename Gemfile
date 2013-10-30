@@ -19,6 +19,7 @@ gem 'omniauth-fitbit', '~> 1.0.2'
 gem 'omniauth-google-oauth2', '~>0.2.0'
 gem 'omniauth-identity', '~>1.1.0'
 gem 'simple_form', '~>3.0.0'
+gem 'rollbar'
 
 group :development, :test do
 	# Use sqlite3 as the database for Active Record

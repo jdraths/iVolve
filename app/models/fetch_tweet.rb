@@ -5,6 +5,7 @@ class FetchTweet < ActiveRecord::Base
 	belongs_to :user
 	# the default scope below will always find the newest record first
 	default_scope -> { order('tweet_id DESC') }
+	after_validation :report_validation_errors_to_rollbar
 # NEED STRONG PARAMS SET UP IN CONTROLLER!
 #require 'twitter'
 
