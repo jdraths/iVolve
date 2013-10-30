@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131028054120) do
+ActiveRecord::Schema.define(version: 20131030061326) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -46,8 +46,8 @@ ActiveRecord::Schema.define(version: 20131028054120) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "remember_token"
-    t.string   "oauth_token"
-    t.string   "oauth_secret"
+    t.text     "oauth_token"
+    t.text     "oauth_secret"
     t.string   "screen_name"
     t.datetime "oauth_expires_at"
     t.string   "name"
