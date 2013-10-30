@@ -22,12 +22,12 @@ class FetchTweet < ActiveRecord::Base
 					@url = entity['url'].to_s
 				end
 			end
-			if !tweet.geo.nil?
+			#if !tweet.geo.nil?
 				#tweet.geo.each do |entity|
-					@geo = tweet.geo.coordinates.to_s
+			#		@geo = tweet.geo.coordinates.to_s
 						#entity['coordinates'].to_s
 				#end
-			end
+			#end
 			if !tweet.hashtags.nil?
 				tweet.hashtags.each do |entity|
 					@hashtags = entity['text'].to_s
@@ -90,7 +90,7 @@ class FetchTweet < ActiveRecord::Base
 					to_user: tweet.to_user,
 					to_user_id: tweet.to_user_id,
 					to_user_name: tweet.to_user_name,
-					geo: @geo,
+					#geo: @geo,
 					# Arrays don't work in Active Record?
 					#geo_array: tweet.geo{coordinates},
 					# hashtags and media are arrays... issue: Can't convert array to string
