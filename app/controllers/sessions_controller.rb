@@ -90,11 +90,16 @@ class SessionsController < ApplicationController
 	def destroy
 		session[:user_id] = nil
 		flash[:success] = "Signed out."
-		redirect_to root_url
+		redirect_to root_path
 
 # This is native		
 #		sign_out
 #		redirect_to root_url
+	end
+
+	def failure
+		flash[:alert] = "Authentication failed, please try again."
+		redirect_to root_url
 	end
 
 	protected
