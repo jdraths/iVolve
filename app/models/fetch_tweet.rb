@@ -34,7 +34,7 @@ class FetchTweet < ActiveRecord::Base
 			end
 			if !tweet.media.nil?
 				tweet.media.each do |entity|
-					@media = entity['photo']['url'].to_s
+					@media = entity['url'].to_s
 				end
 			end
 			if !tweet.metadata.nil?
@@ -43,13 +43,18 @@ class FetchTweet < ActiveRecord::Base
 				end
 			end
 			if !tweet.place.nil?
-				tweet.place.each do |entity|
-					@place_attributes = entity['attributes'].to_s
-					@place_country = entity['country'].to_s
-					@place_full_name = entity['place_full_name'].to_s
-					@place_url = entity['place_url'].to_s
-					@place_type = entity['type'].to_s
-				end
+				#tweet.place.each do |entity|
+					@place_attributes = tweet.place.attributes.to_s
+						#['attributes'].to_s
+					@place_country = tweet.place.country.to_s
+						#entity['country'].to_s
+					@place_full_name = tweet.place.full_name.to_s
+						#entity['place_full_name'].to_s
+					@place_url = tweet.place.url.to_s
+						#entity['place_url'].to_s
+					@place_type = tweet.place.place_type.to_s
+						#entity['type'].to_s
+				#end
 			end
 			if !tweet.symbols.nil?
 				tweet.symbols.each do |entity|
