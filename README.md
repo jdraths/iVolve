@@ -1,5 +1,4 @@
-# Ruby on Rails Tutorial: sample application
+# iVolve
 
-This is the sample application for 
-the [*Ruby on Rails Tutorial*](http:railstutorial.org/)
-by [Michael Hartl](http://michaelhartl.com/).
+This is the iVolve application for 
+the [*iVolve*](http:ivolve.me/).
