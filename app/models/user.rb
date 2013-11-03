@@ -11,6 +11,8 @@ class User < OmniAuth::Identity::Models::ActiveRecord
 	has_many :twitter_users, dependent: :destroy
 	has_many :fetch_tweets, dependent: :destroy
 	has_many :facebook_users, dependent: :destroy
+	has_many :fitbit_users, dependent: :destroy
+	has_many :instagram_users, dependent: :destroy
 	# Put below back in and delete identity.rb?
 
 	has_secure_password
