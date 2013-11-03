@@ -3,7 +3,7 @@ task :twitter_sched => :environment do
 	puts "Twitter API..."
 	TwitterUser.sched_user_data
 	puts "completed twitter user, now to fetch tweets..."
-	FetchTweets.sched_fetch_tweets
+	FetchTweet.sched_fetch_tweets
 	puts "done."
 end
 
