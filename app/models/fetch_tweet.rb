@@ -331,4 +331,13 @@ class FetchTweet < ActiveRecord::Base
 			end
 		end
 	end
+
+	def self.sched_fetch_tweets
+		# twitter_sched could be a scope?
+		twitter_sched = Authorization.where(provider: 'twitter') 
+		# is there a better way to run the following method once we have 1000s of twitter auths??
+		twitter_sched.each do |twitter_sched|
+			FetchTweet.pull_user_timeline(twitter_sched.user)
+		end
+	end
 end

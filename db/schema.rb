@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131030065112) do
+ActiveRecord::Schema.define(version: 20131101053906) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -173,6 +173,42 @@ ActiveRecord::Schema.define(version: 20131030065112) do
     t.string   "weight_unit"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "best_tot_active_score_date"
+    t.string   "best_tot_active_score_value"
+    t.string   "best_tot_cal_out_date"
+    t.string   "best_tot_cal_out_value"
+    t.string   "best_tot_dist_date"
+    t.string   "best_tot_dist_value"
+    t.string   "best_tot_steps_date"
+    t.string   "best_tot_steps_value"
+    t.string   "best_track_cal_out_date"
+    t.string   "best_track_cal_out_value"
+    t.string   "lifetime_tot_active_score"
+    t.string   "lifetime_tot_cal_out"
+    t.string   "lifetime_tot_dist"
+    t.string   "lifetime_tot_steps"
+    t.string   "lifetime_track_active_score"
+    t.string   "lifetime_track_cal_out"
+    t.string   "lifetime_track_dist"
+    t.string   "lifetime_track_steps"
+    t.string   "fav_activity_name_one"
+    t.string   "fav_activity_name_two"
+    t.string   "fav_activity_name_three"
+    t.string   "freq_activity_name_one"
+    t.string   "freq_activity_name_two"
+    t.string   "freq_activity_name_three"
+    t.string   "freq_food_name_one"
+    t.string   "freq_food_name_two"
+    t.string   "freq_food_name_three"
+    t.string   "rec_activity_name_one"
+    t.string   "rec_activity_name_two"
+    t.string   "rec_activity_name_three"
+    t.string   "rec_activity_cal_one"
+    t.string   "rec_activity_cal_two"
+    t.string   "rec_activity_cal_three"
+    t.string   "rec_food_name_one"
+    t.string   "rec_food_name_two"
+    t.string   "rec_food_name_three"
   end
 
   create_table "identities", force: true do |t|

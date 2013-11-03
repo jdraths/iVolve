@@ -7,6 +7,7 @@ class FacebookUser < ActiveRecord::Base
 	def self.pull_user_data(user)
 		authorized = Authorization.find_by_user_id_and_provider(user, 'facebook')
 		facebook = Koala::Facebook::API.new(authorized.oauth_token)
+		# the below batch_api did not allow .nil?.
 		#batch_api.batch do |batch_api|
 		#if !batch_api.get_connections('me', 'achievements').nil?
 			num_achievements = facebook.get_connections('me', 'achievements').size
@@ -154,6 +155,15 @@ class FacebookUser < ActiveRecord::Base
 			num_likes: num_likes,
 			num_friends: num_friends
 			)
+		end
+	end
+
+	def self.sched_user_data
+		# facebook_sched could be a scope?
+		facebook_sched = Authorization.where(provider: 'facebook') 
+		# is there a better way to run the following method once we have 1000s of facebook auths??
+		facebook_sched.each do |facebook_sched|
+			FacebookUser.pull_user_data(facebook_sched.user)
 		end
 	end
 end

@@ -57,11 +57,5 @@ class Authorization < ActiveRecord::Base
 			authorized.save!
 		end
 	end
-
- #below is put into Application controller....
-	#def twitter
-	#	if provider == "twitter"
-	#		@twitter ||= Twitter::Client.new(oauth_token: oauth_token, oauth_token_secret: oauth_secret)
-	#	end
-	#end
+	
 end

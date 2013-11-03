@@ -80,4 +80,13 @@ class TwitterUser < ActiveRecord::Base
 			#end
 		#end
 	end
+
+	def self.sched_user_data
+		# twitter_sched could be a scope?
+		twitter_sched = Authorization.where(provider: 'twitter') 
+		# is there a better way to run the following method once we have 1000s of twitter auths??
+		twitter_sched.each do |twitter_sched|
+			TwitterUser.pull_user_data(twitter_sched.user)
+		end
+	end
 end
