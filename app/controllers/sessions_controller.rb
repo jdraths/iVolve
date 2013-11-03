@@ -66,15 +66,15 @@ class SessionsController < ApplicationController
 		end
 # ONLY RUN API REQUESTS UPON LOGIN and if Authorization exists.
 # methods defined in sessions_helper
-	    if twitter_authorized?
-	    	unless twitter?
+	    if twitter_authorized? # runs if twitter_auth exists
+	    	unless twitter? # runs if no TwitterUser has been saved
 				FetchTweet.pull_user_timeline(current_user)
 				TwitterUser.pull_user_data(current_user)
 			end
 		end
 
-		if facebook_authorized?
-			unless facebook?
+		if facebook_authorized? # runs if facebook_auth exists
+			unless facebook? # runs if no FacebookUser has been saved
 				FacebookUser.pull_user_data(current_user)
 			end
 		end
