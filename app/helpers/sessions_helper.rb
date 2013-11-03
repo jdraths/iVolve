@@ -35,6 +35,18 @@ module SessionsHelper
 		end
 	end
 
+	def instagram_authorized?
+		@instagram = Authorization.find_by_user_id_and_provider(current_user, 'instagram')
+		!@instagram.nil?
+	end
+
+	def instagram?
+		if instagram_authorized?
+			@instagram_auth_user = InstagramUser.find_by_uid(@instagram.uid)
+			!@instagram_auth_user.nil?
+		end
+	end
+
 	def current_user=(user)
 		@current_user = user
 		#from stefano bernardi

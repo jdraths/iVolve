@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131101053906) do
+ActiveRecord::Schema.define(version: 20131103163245) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -222,6 +222,21 @@ ActiveRecord::Schema.define(version: 20131101053906) do
   end
 
   add_index "identities", ["email"], name: "index_identities_on_email", unique: true
+
+  create_table "instagram_users", force: true do |t|
+    t.string   "full_name"
+    t.string   "username"
+    t.text     "bio"
+    t.string   "uid"
+    t.text     "profile_picture"
+    t.text     "website"
+    t.string   "num_followers"
+    t.string   "num_following"
+    t.string   "num_media"
+    t.string   "num_likes_out"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "microposts", force: true do |t|
     t.string   "content"

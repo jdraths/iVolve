@@ -42,6 +42,18 @@
 			<% else %>
 				<%= link_to "Link your Facebook!", "/auth/facebook", class: "btn btn-large btn-primary" %>
 			<% end %>
+			<h4 style="border-top: 1px solid #e8e8e8">Instagram:</h4>
+			<% if instagram? %>
+				<h5>Name: <%= @instagram_username %></h5>
+				<h5>Bio: <%= @instagram_bio %></h5>
+				<h5>Followers: <%= @instagram_num_followers %></h5>
+				<h5>Following: <%= @instagram_num_following %></h5>
+				<h5>Shared: <%= @instagram_num_media %></h5>
+				<h5>Likes: <%= @instagram_num_likes_out %></h5>
+				<h5>Website: <%= @instagram_website %></h5>
+			<% else %>
+				<%= link_to "Link your Instagram!", "/auth/instagram", class: "btn btn-large btn-primary" %>
+			<% end %>
 			<h3>Micropost Feed</h3>
 			<%= render 'shared/feed' %>
 		</div>

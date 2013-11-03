@@ -12,3 +12,9 @@ task :facebook_sched => :environment do
 	FacebookUser.sched_user_data
 	puts "done."
 end
+
+task :instagram_sched => :environment do
+	puts "Instagram API..."
+	InstagramUser.sched_user_data
+	puts "done."
+end

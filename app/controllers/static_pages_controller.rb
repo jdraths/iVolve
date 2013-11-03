@@ -28,6 +28,15 @@ class StaticPagesController < ApplicationController
         @facebook_num_subscribers = @facebook_auth_user.num_subcribers
         @facebook_num_subscribed_to = @facebook_auth_user.num_subscribed_to
       end
+      if instagram?
+        @instagram_username = @instagram_auth_user.username
+        @instagram_bio = @instagram_auth_user.bio
+        @instagram_num_followers = @instagram_auth_user.num_followers
+        @instagram_num_following = @instagram_auth_user.num_following
+        @instagram_num_media = @instagram_auth_user.num_media
+        @instagram_num_likes_out = @instagram_auth_user.num_likes_out
+        @instagram_website = @instagram_auth_user.website
+      end
   	end
   end
 

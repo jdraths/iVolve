@@ -78,6 +78,12 @@ class SessionsController < ApplicationController
 				FacebookUser.pull_user_data(current_user)
 			end
 		end
+
+		if instagram_authorized?
+			unless instagram?
+				InstagramUser.pull_user_data(current_user)
+			end
+		end
 			# This the native Login.  
 			#		user = User.find_by(email: params[:session][:email].downcase)
 			#		if user && user.authenticate(params[:session][:password])
