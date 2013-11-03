@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/intridea/omniauth-identity.git
+  revision: 005571f6b3a9c3a857c98f7a1e6528073123e092
+  specs:
+    omniauth-identity (1.1.1)
+      bcrypt-ruby (~> 3.0)
+      omniauth (~> 1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -111,9 +119,6 @@ GEM
     omniauth-google-oauth2 (0.2.1)
       omniauth (~> 1.0)
       omniauth-oauth2
-    omniauth-identity (1.1.1)
-      bcrypt-ruby (~> 3.0)
-      omniauth (~> 1.0)
     omniauth-oauth (1.0.1)
       oauth
       omniauth (~> 1.0)
@@ -230,7 +235,7 @@ DEPENDENCIES
   omniauth-facebook (~> 1.4.0)
   omniauth-fitbit (~> 1.0.2)
   omniauth-google-oauth2 (~> 0.2.0)
-  omniauth-identity (~> 1.1.0)
+  omniauth-identity!
   omniauth-twitter (~> 1.0.0)
   pg (= 0.15.1)
   rails (= 4.0.0)

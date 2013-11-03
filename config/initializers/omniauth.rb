@@ -10,8 +10,10 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   	display: 'popup',
   	auth_type: 'reauthenticate'
   provider :identity, fields: [:email, :name], model: User, on_failed_registration: lambda { |env|
-  	UsersController.action(:new).call(env)
-  }
+    	UsersController.action(:new).call(env)
+    }, locate_conditions: lambda { |req|
+        { model.auth_key => req['auth_key'].downcase }
+      }
 
   OmniAuth.config.logger = Rails.logger
 end

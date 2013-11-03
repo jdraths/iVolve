@@ -17,7 +17,7 @@ gem 'omniauth-twitter', '~>1.0.0'
 gem 'omniauth-facebook', '~>1.4.0'
 gem 'omniauth-fitbit', '~> 1.0.2' 
 gem 'omniauth-google-oauth2', '~>0.2.0'
-gem 'omniauth-identity', '~>1.1.0'
+gem 'omniauth-identity', git: 'https://github.com/intridea/omniauth-identity.git'
 gem 'simple_form', '~>3.0.0'
 gem 'rollbar'
 
