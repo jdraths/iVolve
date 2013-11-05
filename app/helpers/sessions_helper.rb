@@ -47,6 +47,18 @@ module SessionsHelper
 		end
 	end
 
+	def fitbit_authorized?
+		@fitbit = Authorization.find_by_user_id_and_provider(current_user, 'fitbit')
+		!@fitbit.nil?
+	end
+
+	def fitbit?
+		if fitbit_authorized?
+			@fitbit_auth_user = FitbitUser.find_by_encoded_id(@fitbit.uid)
+			!@fitbit_auth_user.nil?
+		end
+	end
+
 	def current_user=(user)
 		@current_user = user
 		#from stefano bernardi

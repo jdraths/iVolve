@@ -37,6 +37,26 @@ class StaticPagesController < ApplicationController
         @instagram_num_likes_out = @instagram_auth_user.num_likes_out
         @instagram_website = @instagram_auth_user.website
       end
+      if fitbit?
+        @fitbit_display_name = @fitbit_auth_user.display_name
+        @fitbit_height = @fitbit_auth_user.height
+        @fitbit_weight = @fitbit_auth_user.weight
+        @fitbit_member_since = @fitbit_auth_user.member_since
+        @fitbit_stride_length_run = @fitbit_auth_user.stride_length_run
+        @fitbit_stride_length_walk = @fitbit_auth_user.stride_length_walk
+        @fitbit_lifetime_tot_active_score = @fitbit_auth_user.lifetime_tot_active_score
+        @fitbit_best_tot_active_score_value = @fitbit_auth_user.best_tot_active_score_value
+        @fitbit_best_tot_active_date = @fitbit_auth_user.best_tot_active_score_date
+        @fitbit_lifetime_tot_cal_out = @fitbit_auth_user.lifetime_tot_cal_out
+        @fitbit_best_tot_cal_out_value = @fitbit_auth_user.best_tot_cal_out_value
+        @fitbit_best_tot_cal_out_date = @fitbit_auth_user.best_tot_cal_out_date
+        @fitbit_lifetime_tot_dist = @fitbit_auth_user.lifetime_tot_dist
+        @fitbit_best_tot_dist_value = @fitbit_auth_user.best_tot_dist_value
+        @fitbit_best_tot_dist_date = @fitbit_auth_user.best_tot_dist_date
+        @fitbit_lifetime_tot_steps = @fitbit_auth_user.lifetime_tot_steps
+        @fitbit_best_tot_steps_value = @fitbit_auth_user.best_tot_steps_value
+        @fitbit_best_tot_steps_date = @fitbit_auth_user.best_tot_steps_date
+      end
   	end
   end
 

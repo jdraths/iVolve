@@ -84,6 +84,12 @@ class SessionsController < ApplicationController
 				InstagramUser.pull_user_data(current_user)
 			end
 		end
+
+		if fitbit_authorized?
+			unless fitbit?
+				FitbitUser.pull_user_data(current_user)
+			end
+		end
 			# This the native Login.  
 			#		user = User.find_by(email: params[:session][:email].downcase)
 			#		if user && user.authenticate(params[:session][:password])
