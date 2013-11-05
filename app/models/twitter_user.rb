@@ -8,13 +8,13 @@ class TwitterUser < ActiveRecord::Base
 		@twitter_auth = Authorization.find_by_user_id_and_provider(user, 'twitter')
 		twitter_client = Twitter::Client.new(:oauth_token => @twitter_auth.oauth_token, :oauth_token_secret => @twitter_auth.oauth_secret)
 		twitter_user = twitter_client.user(@twitter_auth.screen_name)
-		@user = user
+		@user_id = user
 			#unless exists?(uid: t_user.id)
 			# could use unless exists? create! and then when exists? save!,
 			# but that would not allow ivolve to track user changes over time.
 				create!(
 					name: twitter_user.screen_name,
-					user_id: user,
+					user_id: @user_id,
 					connections: twitter_user.connections,
 					contributors_enabled: twitter_user.contributors_enabled,
 					default_profile: twitter_user.default_profile,
