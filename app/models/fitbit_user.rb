@@ -83,59 +83,81 @@ class FitbitUser < ActiveRecord::Base
 			end
 		if !client.activity_statistics.nil?
 			act_stat = client.activity_statistics
-			if !act_stat['best']['total']['activeScore']['date'].nil?
-				@best_tot_active_score_date = act_stat['best']['total']['activeScore']['date']
+			if !act_stat['best'].nil?
+				if !act_stat['best']['total'].nil?
+					if !act_stat['best']['total']['activeScore'].nil?
+						if !act_stat['best']['total']['activeScore']['date'].nil?
+							@best_tot_active_score_date = act_stat['best']['total']['activeScore']['date']
+						end
+						if !act_stat['best']['total']['activeScore']['value'].nil?
+							@best_tot_active_score_value = act_stat['best']['total']['activeScore']['value']
+						end
+					end
+					if !act_stat['best']['total']['caloriesOut'].nil?
+						if !act_stat['best']['total']['caloriesOut']['date'].nil?
+							@best_tot_cal_out_date= act_stat['best']['total']['caloriesOut']['date']
+						end
+						if !act_stat['best']['total']['caloriesOut']['value'].nil?
+							@best_tot_cal_out_value= act_stat['best']['total']['caloriesOut']['value']
+						end
+					end
+					if !act_stat['best']['total']['distance'].nil?
+						if !act_stat['best']['total']['distance']['date'].nil?
+							@best_tot_dist_date= act_stat['best']['total']['distance']['date']
+						end
+						if !act_stat['best']['total']['distance']['value'].nil?
+							@best_tot_dist_value= act_stat['best']['total']['distance']['value']
+						end
+					end
+					if !act_stat['best']['total']['steps'].nil?
+						if !act_stat['best']['total']['steps']['date'].nil?
+							@best_tot_steps_date= act_stat['best']['total']['steps']['date']
+						end
+						if !act_stat['best']['total']['steps']['value'].nil?
+							@best_tot_steps_value= act_stat['best']['total']['steps']['value']
+						end
+					end
+				end
+				if !act_stat['best']['tracker'].nil?
+					if !act_stat['best']['tracker']['caloriesOut'].nil?
+						if !act_stat['best']['tracker']['caloriesOut']['date'].nil?
+							@best_track_cal_out_date= act_stat['best']['tracker']['caloriesOut']['date']
+						end
+						if !act_stat['best']['tracker']['caloriesOut']['value'].nil?
+							@best_track_cal_out_value= act_stat['best']['tracker']['caloriesOut']['value']
+						end
+					end
+				end
 			end
-			if !act_stat['best']['total']['activeScore']['value'].nil?
-				@best_tot_active_score_value = act_stat['best']['total']['activeScore']['value']
-			end
-			if !act_stat['best']['total']['caloriesOut']['date'].nil?
-				@best_tot_cal_out_date= act_stat['best']['total']['caloriesOut']['date']
-			end
-			if !act_stat['best']['total']['caloriesOut']['value'].nil?
-				@best_tot_cal_out_value= act_stat['best']['total']['caloriesOut']['value']
-			end
-			if !act_stat['best']['total']['distance']['date'].nil?
-				@best_tot_dist_date= act_stat['best']['total']['distance']['date']
-			end
-			if !act_stat['best']['total']['distance']['value'].nil?
-				@best_tot_dist_value= act_stat['best']['total']['distance']['value']
-			end
-			if !act_stat['best']['total']['steps']['date'].nil?
-				@best_tot_steps_date= act_stat['best']['total']['steps']['date']
-			end
-			if !act_stat['best']['total']['steps']['value'].nil?
-				@best_tot_steps_value= act_stat['best']['total']['steps']['value']
-			end
-			if !act_stat['best']['tracker']['caloriesOut']['date'].nil?
-				@best_track_cal_out_date= act_stat['best']['tracker']['caloriesOut']['date']
-			end
-			if !act_stat['best']['tracker']['caloriesOut']['value'].nil?
-				@best_track_cal_out_value= act_stat['best']['tracker']['caloriesOut']['value']
-			end
-			if !act_stat['lifetime']['total']['activeScore'].nil?
-				@lifetime_tot_active_score= act_stat['lifetime']['total']['activeScore']
-			end
-			if !act_stat['lifetime']['total']['caloriesOut'].nil?
-				@lifetime_tot_cal_out= act_stat['lifetime']['total']['caloriesOut']
-			end
-			if !act_stat['lifetime']['total']['distance'].nil?
-				@lifetime_tot_dist= act_stat['lifetime']['total']['distance']
-			end
-			if !act_stat['lifetime']['total']['steps'].nil?
-				@lifetime_tot_steps= act_stat['lifetime']['total']['steps']
-			end
-			if !act_stat['lifetime']['tracker']['activeScore'].nil?
-				@lifetime_track_active_score= act_stat['lifetime']['tracker']['activeScore']
-			end
-			if !act_stat['lifetime']['tracker']['caloriesOut'].nil?
-				@lifetime_track_cal_out= act_stat['lifetime']['tracker']['caloriesOut']
-			end
-			if !act_stat['lifetime']['tracker']['distance'].nil?
-				@lifetime_track_dist= act_stat['lifetime']['tracker']['distance']
-			end
-			if !act_stat['lifetime']['tracker']['steps'].nil?
-				@lifetime_track_steps= act_stat['lifetime']['tracker']['steps']
+			if !act_stat['lifetime'].nil?
+				if !act_stat['lifetime']['total'].nil?
+					if !act_stat['lifetime']['total']['activeScore'].nil?
+						@lifetime_tot_active_score= act_stat['lifetime']['total']['activeScore']
+					end
+					if !act_stat['lifetime']['total']['caloriesOut'].nil?
+						@lifetime_tot_cal_out= act_stat['lifetime']['total']['caloriesOut']
+					end
+					if !act_stat['lifetime']['total']['distance'].nil?
+						@lifetime_tot_dist= act_stat['lifetime']['total']['distance']
+					end
+					if !act_stat['lifetime']['total']['steps'].nil?
+						@lifetime_tot_steps= act_stat['lifetime']['total']['steps']
+					end
+				end
+				if !act_stat['lifetime']['tracker'].nil?
+					if !act_stat['lifetime']['tracker']['activeScore'].nil?
+						@lifetime_track_active_score= act_stat['lifetime']['tracker']['activeScore']
+					end
+					if !act_stat['lifetime']['tracker']['caloriesOut'].nil?
+						@lifetime_track_cal_out= act_stat['lifetime']['tracker']['caloriesOut']
+					end
+					if !act_stat['lifetime']['tracker']['distance'].nil?
+						@lifetime_track_dist= act_stat['lifetime']['tracker']['distance']
+					end
+					if !act_stat['lifetime']['tracker']['steps'].nil?
+						@lifetime_track_steps= act_stat['lifetime']['tracker']['steps']
+					end
+				end
 			end
 		end
 		if !client.favorite_activities.nil?
@@ -348,59 +370,81 @@ class FitbitUser < ActiveRecord::Base
 			end
 		if !client.activity_statistics.nil?
 			act_stat = client.activity_statistics
-			if !act_stat['best']['total']['activeScore']['date'].nil?
-				@best_tot_active_score_date = act_stat['best']['total']['activeScore']['date']
+			if !act_stat['best'].nil?
+				if !act_stat['best']['total'].nil?
+					if !act_stat['best']['total']['activeScore'].nil?
+						if !act_stat['best']['total']['activeScore']['date'].nil?
+							@best_tot_active_score_date = act_stat['best']['total']['activeScore']['date']
+						end
+						if !act_stat['best']['total']['activeScore']['value'].nil?
+							@best_tot_active_score_value = act_stat['best']['total']['activeScore']['value']
+						end
+					end
+					if !act_stat['best']['total']['caloriesOut'].nil?
+						if !act_stat['best']['total']['caloriesOut']['date'].nil?
+							@best_tot_cal_out_date= act_stat['best']['total']['caloriesOut']['date']
+						end
+						if !act_stat['best']['total']['caloriesOut']['value'].nil?
+							@best_tot_cal_out_value= act_stat['best']['total']['caloriesOut']['value']
+						end
+					end
+					if !act_stat['best']['total']['distance'].nil?
+						if !act_stat['best']['total']['distance']['date'].nil?
+							@best_tot_dist_date= act_stat['best']['total']['distance']['date']
+						end
+						if !act_stat['best']['total']['distance']['value'].nil?
+							@best_tot_dist_value= act_stat['best']['total']['distance']['value']
+						end
+					end
+					if !act_stat['best']['total']['steps'].nil?
+						if !act_stat['best']['total']['steps']['date'].nil?
+							@best_tot_steps_date= act_stat['best']['total']['steps']['date']
+						end
+						if !act_stat['best']['total']['steps']['value'].nil?
+							@best_tot_steps_value= act_stat['best']['total']['steps']['value']
+						end
+					end
+				end
+				if !act_stat['best']['tracker'].nil?
+					if !act_stat['best']['tracker']['caloriesOut'].nil?
+						if !act_stat['best']['tracker']['caloriesOut']['date'].nil?
+							@best_track_cal_out_date= act_stat['best']['tracker']['caloriesOut']['date']
+						end
+						if !act_stat['best']['tracker']['caloriesOut']['value'].nil?
+							@best_track_cal_out_value= act_stat['best']['tracker']['caloriesOut']['value']
+						end
+					end
+				end
 			end
-			if !act_stat['best']['total']['activeScore']['value'].nil?
-				@best_tot_active_score_value = act_stat['best']['total']['activeScore']['value']
-			end
-			if !act_stat['best']['total']['caloriesOut']['date'].nil?
-				@best_tot_cal_out_date= act_stat['best']['total']['caloriesOut']['date']
-			end
-			if !act_stat['best']['total']['caloriesOut']['value'].nil?
-				@best_tot_cal_out_value= act_stat['best']['total']['caloriesOut']['value']
-			end
-			if !act_stat['best']['total']['distance']['date'].nil?
-				@best_tot_dist_date= act_stat['best']['total']['distance']['date']
-			end
-			if !act_stat['best']['total']['distance']['value'].nil?
-				@best_tot_dist_value= act_stat['best']['total']['distance']['value']
-			end
-			if !act_stat['best']['total']['steps']['date'].nil?
-				@best_tot_steps_date= act_stat['best']['total']['steps']['date']
-			end
-			if !act_stat['best']['total']['steps']['value'].nil?
-				@best_tot_steps_value= act_stat['best']['total']['steps']['value']
-			end
-			if !act_stat['best']['tracker']['caloriesOut']['date'].nil?
-				@best_track_cal_out_date= act_stat['best']['tracker']['caloriesOut']['date']
-			end
-			if !act_stat['best']['tracker']['caloriesOut']['value'].nil?
-				@best_track_cal_out_value= act_stat['best']['tracker']['caloriesOut']['value']
-			end
-			if !act_stat['lifetime']['total']['activeScore'].nil?
-				@lifetime_tot_active_score= act_stat['lifetime']['total']['activeScore']
-			end
-			if !act_stat['lifetime']['total']['caloriesOut'].nil?
-				@lifetime_tot_cal_out= act_stat['lifetime']['total']['caloriesOut']
-			end
-			if !act_stat['lifetime']['total']['distance'].nil?
-				@lifetime_tot_dist= act_stat['lifetime']['total']['distance']
-			end
-			if !act_stat['lifetime']['total']['steps'].nil?
-				@lifetime_tot_steps= act_stat['lifetime']['total']['steps']
-			end
-			if !act_stat['lifetime']['tracker']['activeScore'].nil?
-				@lifetime_track_active_score= act_stat['lifetime']['tracker']['activeScore']
-			end
-			if !act_stat['lifetime']['tracker']['caloriesOut'].nil?
-				@lifetime_track_cal_out= act_stat['lifetime']['tracker']['caloriesOut']
-			end
-			if !act_stat['lifetime']['tracker']['distance'].nil?
-				@lifetime_track_dist= act_stat['lifetime']['tracker']['distance']
-			end
-			if !act_stat['lifetime']['tracker']['steps'].nil?
-				@lifetime_track_steps= act_stat['lifetime']['tracker']['steps']
+			if !act_stat['lifetime'].nil?
+				if !act_stat['lifetime']['total'].nil?
+					if !act_stat['lifetime']['total']['activeScore'].nil?
+						@lifetime_tot_active_score= act_stat['lifetime']['total']['activeScore']
+					end
+					if !act_stat['lifetime']['total']['caloriesOut'].nil?
+						@lifetime_tot_cal_out= act_stat['lifetime']['total']['caloriesOut']
+					end
+					if !act_stat['lifetime']['total']['distance'].nil?
+						@lifetime_tot_dist= act_stat['lifetime']['total']['distance']
+					end
+					if !act_stat['lifetime']['total']['steps'].nil?
+						@lifetime_tot_steps= act_stat['lifetime']['total']['steps']
+					end
+				end
+				if !act_stat['lifetime']['tracker'].nil?
+					if !act_stat['lifetime']['tracker']['activeScore'].nil?
+						@lifetime_track_active_score= act_stat['lifetime']['tracker']['activeScore']
+					end
+					if !act_stat['lifetime']['tracker']['caloriesOut'].nil?
+						@lifetime_track_cal_out= act_stat['lifetime']['tracker']['caloriesOut']
+					end
+					if !act_stat['lifetime']['tracker']['distance'].nil?
+						@lifetime_track_dist= act_stat['lifetime']['tracker']['distance']
+					end
+					if !act_stat['lifetime']['tracker']['steps'].nil?
+						@lifetime_track_steps= act_stat['lifetime']['tracker']['steps']
+					end
+				end
 			end
 		end
 		if !client.favorite_activities.nil?
@@ -538,8 +582,8 @@ class FitbitUser < ActiveRecord::Base
 		# fitbit_sched could be a scope?
 		fitbit_sched = Authorization.where(provider: 'fitbit') 
 		# is there a better way to run the following method once we have 1000s of fitbit auths??
-		fitbit_auth.each do |fitbit_auth|
-			FitbitUser.pull_user_data(fitbit_auth.user)
+		fitbit_sched.each do |fitbit_sched|
+			FitbitUser.pull_user_data(fitbit_sched.user)
 		end
 	end
 end
