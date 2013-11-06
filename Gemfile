@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
+# ruby '1.9.3'
 #ruby-gemset=railstutorial_rails_4_0
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -22,9 +22,14 @@ gem 'simple_form', '~>3.0.0'
 
 group :development, :test do
 	# Use sqlite3 as the database for Active Record
-	gem 'sqlite3', '1.3.7'
+	gem 'sqlite3', '1.3.7' #HW: changed
 	gem 'rspec-rails', '2.13.1'
 end
+
+group :development do
+  gem 'annotate', '2.5.0'
+end
+
 
 group :test do
 	gem 'selenium-webdriver', '2.0.0'
