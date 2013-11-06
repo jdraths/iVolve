@@ -12,9 +12,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :instagram, 'eb1bb5ca723f45f1a45b16612c5a059b', '4eb71442bb5a4850b7ed05b4845bf7cb'
   provider :identity, fields: [:email, :name], model: User, on_failed_registration: lambda { |env|
     	UsersController.action(:new).call(env)
-    }, locate_conditions: lambda { |req|
-        { model.auth_key => req['auth_key'].downcase }
-      }
+    }
 
   OmniAuth.config.logger = Rails.logger
 end
