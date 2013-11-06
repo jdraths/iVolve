@@ -10,10 +10,12 @@
 			<section>
 				<%= render 'shared/micropost_form' %>
 			</section>
+			
+				<h3>Micropost Feed</h3>
+				<%= render 'shared/feed' %>
+			
 		</aside>
 		<div class="span8">
-			<h3>Sign in more accounts!</h3>
-			<%= link_to "Link your Fitbit!", "/auth/fitbit", class: "btn btn-large btn-primary" %>
 			<h3>Activity Feed</h3>
 			<h4 style="border-top: 1px solid #e8e8e8">Twitter:</h4>
 			<% if twitter? %>
@@ -32,11 +34,52 @@
 				<h5>Name: <%= @facebook_name %></h5>
 				<h5>Bio: <%= @facebook_bio %> </h5>
 				<h5>Birthday: <%= @facebook_birthday %></h5>
+				<h5>Friends: <%= @facebook_num_friends %></h5>
+				<h5>Likes: <%= @facebook_num_likes %></h5>
+				<h5>Posts: <%= @facebook_num_posts %></h5>
+				<h5>Statuses: <%= @facebook_num_statuses %></h5>
+				<h5>Achievements: <%= @facebook_num_achievements %></h5>
+				<h5>Subscribers: <%= @facebook_num_subscribers %></h5>
+				<h5>Subscribed to you: <%= @facebook_num_subscribed_to %></h5>
 			<% else %>
 				<%= link_to "Link your Facebook!", "/auth/facebook", class: "btn btn-large btn-primary" %>
 			<% end %>
-			<h3>Micropost Feed</h3>
-			<%= render 'shared/feed' %>
+			<h4 style="border-top: 1px solid #e8e8e8">Instagram:</h4>
+			<% if instagram? %>
+				<h5>Name: <%= @instagram_username %></h5>
+				<h5>Bio: <%= @instagram_bio %></h5>
+				<h5>Followers: <%= @instagram_num_followers %></h5>
+				<h5>Following: <%= @instagram_num_following %></h5>
+				<h5>Shared: <%= @instagram_num_media %></h5>
+				<h5>Likes: <%= @instagram_num_likes_out %></h5>
+				<h5>Website: <%= @instagram_website %></h5>
+			<% else %>
+				<%= link_to "Link your Instagram!", "/auth/instagram", class: "btn btn-large btn-primary" %>
+			<% end %>
+			<h4 style="border-top: 1px solid #e8e8e8">Fitbit:</h4>
+			<% if fitbit? %>
+				<h5>Name: <%= @fitbit_display_name %></h5>
+				<h5>Height: <%= @fitbit_height %></h5>
+				<h5>Weight: <%= @fitbit_weight %></h5>
+				<h5>Member Since: <%= @fitbit_member_since %></h5>
+				<h5>Running stride length: <%= @fitbit_stride_length_run %></h5>
+				<h5>Walking stride length: <%= @fitbit_stride_length_walk %></h5>
+				<h5>Lifetime Total Active Score: <%= @fitbit_lifetime_tot_active_score %></h5>
+				<h5>Best Total Active Score: <%= @fitbit_best_tot_active_score_value %></h5>
+				<h5>Date Accomplished: <%= @fitbit_best_tot_active_score_date %></h5>
+				<h5>Lifetime Total Calories Out: <%= @fitbit_lifetime_tot_cal_out %></h5>
+				<h5>Best Total Calories Out: <%= @fitbit_best_tot_cal_out_value %></h5>
+				<h5>Date Accomplished: <%= @fitbit_best_tot_cal_out_date %></h5>
+				<h5>Lifetime Total Distance: <%= @fitbit_lifetime_tot_dist %></h5>
+				<h5>Best Total Distance: <%= @fitbit_best_tot_dist_value %></h5>
+				<h5>Date Accomplished: <%= @fitbit_best_tot_dist_date %></h5>
+				<h5>Lifetime Total Steps: <%= @fitbit_lifetime_tot_steps %></h5>
+				<h5>Best Total Steps: <%= @fitbit_best_tot_steps_value %></h5>
+				<h5>Date Accomplished: <%= @fitbit_best_tot_steps_date %></h5>
+			<% else %>
+				<%= link_to "Link your Fitbit!", "/auth/fitbit", class: "btn btn-large btn-primary" %>
+			<% end %>
+		
 		</div>
 	</div>
 <% else %>

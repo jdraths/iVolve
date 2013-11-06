@@ -2,6 +2,7 @@ class Authorization < ActiveRecord::Base
 	belongs_to :user
 	validates :uid, presence: true, uniqueness: {scope: :provider}
 	validates :provider, presence: true
+	after_validation :report_validation_errors_to_rollbar
 
 	def self.find_from_omniauth(auth)
 		find_by_provider_and_uid(auth['provider'], auth['uid']) #|| create_from_omniauth(auth)
@@ -40,7 +41,14 @@ class Authorization < ActiveRecord::Base
 			authorized.uid = auth.uid
 			authorized.provider = auth.provider
 			authorized.name = auth.info.name
-			authorized.screen_name = auth.info.nickname
+			#authorized.email = auth.info.email
+			#authorized.screen_name = auth.info.nickname
+			#authorized.first_name = auth.info.first_name
+			#authorized.last_name = auth.info.last_name
+			#authorized.location = auth.info.location
+			#authorized.description = auth.info.description
+			#authorized.image = auth.info.image
+			#authorized.phone = auth.info.phone
 			authorized.oauth_token = auth.credentials.token
 			authorized.oauth_secret = auth.credentials.secret
 			unless auth.credentials.expires_at.nil?
@@ -49,11 +57,5 @@ class Authorization < ActiveRecord::Base
 			authorized.save!
 		end
 	end
-
- #below is put into Application controller....
-	#def twitter
-	#	if provider == "twitter"
-	#		@twitter ||= Twitter::Client.new(oauth_token: oauth_token, oauth_token_secret: oauth_secret)
-	#	end
-	#end
+	
 end

@@ -5,6 +5,7 @@ class FetchTweet < ActiveRecord::Base
 	belongs_to :user
 	# the default scope below will always find the newest record first
 	default_scope -> { order('tweet_id DESC') }
+	after_validation :report_validation_errors_to_rollbar
 # NEED STRONG PARAMS SET UP IN CONTROLLER!
 #require 'twitter'
 
@@ -12,10 +13,55 @@ class FetchTweet < ActiveRecord::Base
 # will need to iterate through each user.
 # heroku says since_id paramater is invalid... since_id: maximum(:tweet_id)
 	def self.pull_user_timeline(user)
-		@twitter_user = Authorization.find_by_user_id_and_provider(user, 'twitter')
-		twitter_client = Twitter::Client.new(:oauth_token => @twitter_user.oauth_token, :oauth_token_secret => @twitter_user.oauth_secret)
-		twitter_client.user_timeline(@twitter_user.screen_name, count: 200).each do |tweet|
+		@twitter_auth = Authorization.find_by_user_id_and_provider(user, 'twitter')
+		twitter_client = Twitter::Client.new(:oauth_token => @twitter_auth.oauth_token, :oauth_token_secret => @twitter_auth.oauth_secret)
+		twitter_client.user_timeline(@twitter_auth.screen_name, count: 200).each do |tweet|
 			#unless exists?(tweet_id: tweet.id)
+			if !tweet.urls.nil?
+				tweet.urls.each do |entity| 
+					@url = entity['url'].to_s
+				end
+			end
+			#if !tweet.geo.nil?
+				#tweet.geo.each do |entity|
+			#		@geo = tweet.geo.coordinates.to_s
+						#entity['coordinates'].to_s
+				#end
+			#end
+			if !tweet.hashtags.nil?
+				tweet.hashtags.each do |entity|
+					@hashtags = entity['text'].to_s
+				end
+			end
+			if !tweet.media.nil?
+				tweet.media.each do |entity|
+					@media = entity['url'].to_s
+				end
+			end
+			if !tweet.metadata.nil?
+				tweet.metadata.each do |entity|
+					@metadata = entity['result_type'].to_s
+				end
+			end
+			if !tweet.place.nil?
+				#tweet.place.each do |entity|
+					@place_attributes = tweet.place.attributes.to_s
+						#['attributes'].to_s
+					@place_country = tweet.place.country.to_s
+						#entity['country'].to_s
+					@place_full_name = tweet.place.full_name.to_s
+						#entity['place_full_name'].to_s
+					@place_url = tweet.place.url.to_s
+						#entity['place_url'].to_s
+					@place_type = tweet.place.place_type.to_s
+						#entity['type'].to_s
+				#end
+			end
+			if !tweet.symbols.nil?
+				tweet.symbols.each do |entity|
+					@symbol_text = entity['text'].to_s
+				end
+			end
 				create!(
 					tweet_id: tweet.id,
 					content: tweet.text,
@@ -44,25 +90,25 @@ class FetchTweet < ActiveRecord::Base
 					to_user: tweet.to_user,
 					to_user_id: tweet.to_user_id,
 					to_user_name: tweet.to_user_name,
-					geo: tweet.geo{coordinates}.to_s,
+					#geo: @geo,
 					# Arrays don't work in Active Record?
 					#geo_array: tweet.geo{coordinates},
 					# hashtags and media are arrays... issue: Can't convert array to string
-					hashtags: tweet.hashtags{text}.to_s,
+					hashtags: @hashtags,
 					#hashtags_array: tweet.hashtags{text},
-					media: tweet.media{photo.expanded_url}.to_s,
+					media: @media,
 					#media_array: tweet.media{photo.expanded_url},
-					metadata: tweet.metadata{result_type},
-					place_attributes: tweet.place{attributes},
-					place_country: tweet.place{country},
-					place_full_name: tweet.place{place_full_name},
-					place_url: tweet.place{url},
+					metadata: @metadata,
+					place_attributes: @place_attributes,
+					place_country: @place_country,
+					place_full_name: @place_full_name,
+					place_url: @place_url,
 					# place_type is a string
-					place_type: tweet.place{type},
+					place_type: @place_type,
 					# symbols and url are arrays... issue: Can't convert array to string
-					symbols: tweet.symbols{text}.to_s,
+					symbols: @symbol_text,
 					#symbols_array: tweet.symbols{text},
-					incl_url: tweet.urls{expanded_url}.to_s,
+					incl_url: @url,
 					#incl_url_array: tweet.urls{expanded_url}
 					)
 			#end
@@ -72,8 +118,8 @@ class FetchTweet < ActiveRecord::Base
 # The mentions_timeline method does not allow a parameter for user name.  It simply returns the mentions
 # timeline for the authenticating user...
 	def self.pull_mentions_timeline(user)
-		@twitter_user = Authorization.find_by_user_id_and_provider(user, 'twitter')
-		twitter_client = Twitter::Client.new(:oauth_token => @twitter_user.oauth_token, :oauth_token_secret => @twitter_user.oauth_secret)
+		@twitter_auth = Authorization.find_by_user_id_and_provider(user, 'twitter')
+		twitter_client = Twitter::Client.new(:oauth_token => @twitter_auth.oauth_token, :oauth_token_secret => @twitter_auth.oauth_secret)
 		twitter_client.mentions_timeline(count: @count, since_id: maximum(:tweet_id)).each do |tweet|
 			unless exists?(tweet_id: tweet.id)
 				create!(
@@ -119,11 +165,8 @@ class FetchTweet < ActiveRecord::Base
 					place_url: tweet.place{url},
 					# place_type is a string
 					place_type: tweet.place{type},
-					# symbols and url are arrays... issue: Can't convert array to string
 					symbols: tweet.symbols{text}.to_s,
-					#symbols_array: tweet.symbols{text},
-					incl_url: tweet.urls{expanded_url}.to_s,
-					#incl_url_array: tweet.urls{expanded_url}
+					incl_url: @url,
 					)
 			end
 		end
@@ -134,17 +177,57 @@ class FetchTweet < ActiveRecord::Base
 		Twitter.user_timeline("roanedraths", count: 1).each do |tweet|
 			# Add column for tweets.created_at (sent_at)...
 			#unless exists?(tweet_id: tweet.id)
+			if !tweet.urls.nil?
+				tweet.urls.each do |entity| 
+					@url = entity['url'].to_s
+				end
+			end
+			if !tweet.geo.nil?
+				tweet.geo.each do |entity|
+					@geo = entity['coordinates'].to_s
+				end
+			end
+			if !tweet.hashtags.nil?
+				tweet.hashtags.each do |entity|
+					@hashtags = entity['text'].to_s
+				end
+			end
+			if !tweet.media.nil?
+				tweet.media.each do |entity|
+					@media = entity['url'].to_s
+				end
+			end
+			if !tweet.metadata.nil?
+				tweet.metadata.each do |entity|
+					@metadata = entity['result_type'].to_s
+				end
+			end
+			if !tweet.place.nil?
+				#tweet.place.each do |entity|
+					@place_attributes = tweet.place.attributes.to_s
+						#['attributes'].to_s
+					@place_country = tweet.place.country.to_s
+						#entity['country'].to_s
+					@place_full_name = tweet.place.full_name.to_s
+						#entity['place_full_name'].to_s
+					@place_url = tweet.place.url.to_s
+						#entity['place_url'].to_s
+					@place_type = tweet.place.place_type.to_s
+						#entity['type'].to_s
+				#end
+			end
+			if !tweet.symbols.nil?
+				tweet.symbols.each do |entity|
+					@symbol_text = entity['text'].to_s
+				end
+			end
 				create!(
-					# tweet_id is a 64 bit integer
-					# tweet.id should be replaced with tweet.id_str (the string version)
 					tweet_id: tweet.id,
 					content: tweet.text,
 					screen_name: tweet.user.screen_name,
-					# favorite_count is an integer, but I'm saving it as a string
 					favorite_count: tweet.favorite_count,
-					# retweet_count is an integer, but I'm saving it as a string
 					retweet_count: tweet.retweet_count,
-					# the following needs migration:
+					# the following need a migration:
 					from_user_id: tweet.from_user_id,
 					from_user_name: tweet.from_user_name,
 					in_reply_to_attrs_id: tweet.in_reply_to_attrs_id,
@@ -166,25 +249,25 @@ class FetchTweet < ActiveRecord::Base
 					to_user: tweet.to_user,
 					to_user_id: tweet.to_user_id,
 					to_user_name: tweet.to_user_name,
-					geo: tweet.geo{coordinates}.to_s,
+					geo: @geo,
 					# Arrays don't work in Active Record?
 					#geo_array: tweet.geo{coordinates},
 					# hashtags and media are arrays... issue: Can't convert array to string
-					hashtags: tweet.hashtags{text}.to_s,
+					hashtags: @hashtags,
 					#hashtags_array: tweet.hashtags{text},
-					media: tweet.media{photo.expanded_url}.to_s,
+					media: @media,
 					#media_array: tweet.media{photo.expanded_url},
-					metadata: tweet.metadata{result_type},
-					place_attributes: tweet.place{attributes},
-					place_country: tweet.place{country},
-					place_full_name: tweet.place{place_full_name},
-					place_url: tweet.place{url},
+					metadata: @metadata,
+					place_attributes: @place_attributes,
+					place_country: @place_country,
+					place_full_name: @place_full_name,
+					place_url: @place_url,
 					# place_type is a string
-					place_type: tweet.place{type},
+					place_type: @place_type,
 					# symbols and url are arrays... issue: Can't convert array to string
-					symbols: tweet.symbols{text}.to_s,
+					symbols: @symbol_text,
 					#symbols_array: tweet.symbols{text},
-					incl_url: tweet.urls{expanded_url}.to_s,
+					incl_url: @url,
 					#incl_url_array: tweet.urls{expanded_url}
 					)
 			#end
@@ -246,6 +329,15 @@ class FetchTweet < ActiveRecord::Base
 					#incl_url_array: tweet.urls{expanded_url}
 					)
 			end
+		end
+	end
+
+	def self.sched_fetch_tweets
+		# twitter_sched could be a scope?
+		twitter_sched = Authorization.where(provider: 'twitter') 
+		# is there a better way to run the following method once we have 1000s of twitter auths??
+		twitter_sched.each do |twitter_sched|
+			FetchTweet.pull_user_timeline(twitter_sched.user)
 		end
 	end
 end

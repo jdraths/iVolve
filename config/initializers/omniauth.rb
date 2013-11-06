@@ -9,9 +9,12 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   	scope: "user_likes, user_about_me, user_birthday, user_education_history, email, user_hometown, user_relationship_details, user_location, user_religion_politics, user_relationships, user_website, user_work_history, manage_pages, user_games_activity, user_activities, user_photos, user_checkins, user_events, read_stream, read_friendlists, user_groups, user_interests, user_notes, read_mailbox, user_questions, user_videos",
   	display: 'popup',
   	auth_type: 'reauthenticate'
+  provider :instagram, 'eb1bb5ca723f45f1a45b16612c5a059b', '4eb71442bb5a4850b7ed05b4845bf7cb'
   provider :identity, fields: [:email, :name], model: User, on_failed_registration: lambda { |env|
-  	UsersController.action(:new).call(env)
-  }
+    	UsersController.action(:new).call(env)
+    }, locate_conditions: lambda { |req|
+        { model.auth_key => req['auth_key'].downcase }
+      }
 
   OmniAuth.config.logger = Rails.logger
 end

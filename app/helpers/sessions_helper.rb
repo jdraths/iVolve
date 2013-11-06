@@ -18,8 +18,8 @@ module SessionsHelper
 
 	def twitter?
 		if twitter_authorized?
-			@twitter_user = TwitterUser.find_by_uid(@twitter.uid)
-			!@twitter_user.nil?
+			@twitter_auth_user = TwitterUser.find_by_uid(@twitter.uid)
+			!@twitter_auth_user.nil?
 		end
 	end
 
@@ -30,8 +30,32 @@ module SessionsHelper
 
 	def facebook?
 		if facebook_authorized?
-			@facebook_user = FacebookUser.find_by_uid(@facebook.uid)
-			!@facebook_user.nil?
+			@facebook_auth_user = FacebookUser.find_by_uid(@facebook.uid)
+			!@facebook_auth_user.nil?
+		end
+	end
+
+	def instagram_authorized?
+		@instagram = Authorization.find_by_user_id_and_provider(current_user, 'instagram')
+		!@instagram.nil?
+	end
+
+	def instagram?
+		if instagram_authorized?
+			@instagram_auth_user = InstagramUser.find_by_uid(@instagram.uid)
+			!@instagram_auth_user.nil?
+		end
+	end
+
+	def fitbit_authorized?
+		@fitbit = Authorization.find_by_user_id_and_provider(current_user, 'fitbit')
+		!@fitbit.nil?
+	end
+
+	def fitbit?
+		if fitbit_authorized?
+			@fitbit_auth_user = FitbitUser.find_by_encoded_id(@fitbit.uid)
+			!@fitbit_auth_user.nil?
 		end
 	end
 

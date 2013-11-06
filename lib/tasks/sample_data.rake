@@ -1,11 +1,11 @@
 namespace :db do
 	desc "Fill database with sample data"
 	task populate: :environment do
-		make_users
-		make_microposts
-		make_relationships
-		make_activities
-		make_apis
+		#make_users
+		#make_microposts
+		#make_relationships
+		#make_activities
+		#make_apis
 	end
 end
 

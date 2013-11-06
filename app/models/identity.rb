@@ -12,5 +12,6 @@ class Identity < OmniAuth::Identity::Models::ActiveRecord
 			uniqueness: { case_sensitive: false }
 
 	validates :password, length: { minimum: 6 }
+	after_validation :report_validation_errors_to_rollbar
 
 end

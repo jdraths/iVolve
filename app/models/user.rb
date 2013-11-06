@@ -11,6 +11,8 @@ class User < OmniAuth::Identity::Models::ActiveRecord
 	has_many :twitter_users, dependent: :destroy
 	has_many :fetch_tweets, dependent: :destroy
 	has_many :facebook_users, dependent: :destroy
+	has_many :fitbit_users, dependent: :destroy
+	has_many :instagram_users, dependent: :destroy
 	# Put below back in and delete identity.rb?
 
 	has_secure_password
@@ -23,6 +25,7 @@ class User < OmniAuth::Identity::Models::ActiveRecord
 	validates :password, length: { minimum: 6 }
 
 	before_create :create_remember_token
+	after_validation :report_validation_errors_to_rollbar
 
 	def User.new_remember_token
 		SecureRandom.urlsafe_base64

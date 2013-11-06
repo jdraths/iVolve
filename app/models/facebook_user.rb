@@ -2,10 +2,34 @@ class FacebookUser < ActiveRecord::Base
 	belongs_to :user
 	# the default scope below will always find the newest record first
 	default_scope -> { order('created_at DESC') }
+	after_validation :report_validation_errors_to_rollbar
 	
 	def self.pull_user_data(user)
-		@authorized = Authorization.find_by_user_id_and_provider(user, 'facebook')
-		facebook = Koala::Facebook::API.new(@authorized.oauth_token)
+		authorized = Authorization.find_by_user_id_and_provider(user, 'facebook')
+		facebook = Koala::Facebook::API.new(authorized.oauth_token)
+		# the below batch_api did not allow .nil?.
+		#batch_api.batch do |batch_api|
+		#if !batch_api.get_connections('me', 'achievements').nil?
+			num_achievements = facebook.get_connections('me', 'achievements').size
+		#end
+		#if !batch_api.get_connections('me', 'subscribers').nil?
+			num_subcribers = facebook.get_connections('me', 'subscribers').size
+		#end
+		#if !batch_api.get_connections('me', 'subcribedto').nil?
+			num_subscribed_to = facebook.get_connections('me', 'subscribedto').size
+		#end
+		#if !batch_api.get_connections('me', 'statuses').nil?
+			num_statuses = facebook.get_connections('me', 'statuses').size
+		#end
+		#if !batch_api.get_connections('me', 'posts').nil?
+			num_posts = facebook.get_connections('me', 'posts').size
+		#end
+		#if !batch_api.get_connections('me', 'likes').nil?
+			num_likes = facebook.get_connections('me', 'likes').size
+		#end
+		#if !batch_api.get_connections('me', 'friends').nil?
+			num_friends = facebook.get_connections('me', 'friends').size
+		#end
 		facebook.get_object('me') do |data|
 			create!(
 			uid: data['id'],
@@ -44,14 +68,44 @@ class FacebookUser < ActiveRecord::Base
 			religion: data['religion'],
 			significant_other: data['significant_other'].to_s,
 			website: data['website'],
-			work: data['work'].to_s
+			work: data['work'].to_s,
+			num_achievements: num_achievements,
+			#figure out a way to sum all the app_scores
+			  # app_scores: facebook.get_connections('me', 'scores') { |data| data['score'] }
+			num_subcribers: num_subcribers,
+			num_subscribed_to: num_subscribed_to,
+			num_statuses: num_statuses,
+			num_posts: num_posts,
+			num_likes: num_likes,
+			num_friends: num_friends
 			)
 		end
 	end
 
-	def self.manual_user_data(user)
-		@authorized = Authorization.find_by_user_id_and_provider(user, 'facebook')
-		facebook = Koala::Facebook::API.new(@authorized.oauth_token)
+	def self.manual_user_data
+		#authorized = Authorization.find_by_user_id_and_provider(user, 'facebook')
+		facebook = Koala::Facebook::API.new("CAAJSUNQEbtkBAPPZCfdrZA5oc797HV5slL5evOZB2bKar1GiBRXwiYfggS8uuZCSCYf8qaewWVYV1ncgdlZCCs5fFxPxTIq5XkeuukkRhpEA8h6BubIcCrAKpHOVol4I0EzFnFswuLSfssUKk3CJShZAXBwxhrck1p7rLhL6LO7weRhDDX2KDNCR07ZCVj15DpccHYwThVFhop8GqJd3dXdgwNnH5ogDccZD")
+
+			num_achievements = facebook.get_connections('me', 'achievements').size
+		#end
+		#if !batch_api.get_connections('me', 'subscribers').nil?
+			num_subcribers = facebook.get_connections('me', 'subscribers').size
+		#end
+		#if !batch_api.get_connections('me', 'subcribedto').nil?
+			num_subscribed_to = facebook.get_connections('me', 'subscribedto').size
+		#end
+		#if !batch_api.get_connections('me', 'statuses').nil?
+			num_statuses = facebook.get_connections('me', 'statuses').size
+		#end
+		#if !batch_api.get_connections('me', 'posts').nil?
+			num_posts = facebook.get_connections('me', 'posts').size
+		#end
+		#if !batch_api.get_connections('me', 'likes').nil?
+			num_likes = facebook.get_connections('me', 'likes').size
+		#end
+		#if !batch_api.get_connections('me', 'friends').nil?
+			num_friends = facebook.get_connections('me', 'friends').size
+		#end
 		facebook.get_object('me') do |data|
 			create!(
 			uid: data['id'],
@@ -90,8 +144,26 @@ class FacebookUser < ActiveRecord::Base
 			religion: data['religion'],
 			significant_other: data['significant_other'].to_s,
 			website: data['website'],
-			work: data['work'].to_s
+			work: data['work'].to_s,
+			num_achievements: num_achievements,
+			#figure out a way to sum all the app_scores
+			  # app_scores: facebook.get_connections('me', 'scores') { |data| data['score'] }
+			num_subcribers: num_subcribers,
+			num_subscribed_to: num_subscribed_to,
+			num_statuses: num_statuses,
+			num_posts: num_posts,
+			num_likes: num_likes,
+			num_friends: num_friends
 			)
+		end
+	end
+
+	def self.sched_user_data
+		# facebook_sched could be a scope?
+		facebook_sched = Authorization.where(provider: 'facebook') 
+		# is there a better way to run the following method once we have 1000s of facebook auths??
+		facebook_sched.each do |facebook_sched|
+			FacebookUser.pull_user_data(facebook_sched.user)
 		end
 	end
 end

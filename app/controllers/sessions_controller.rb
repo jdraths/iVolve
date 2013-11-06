@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
 	end
 
 	def create
+		#raise env['omniauth.auth'].to_yaml
 		@authorization = Authorization.from_omniauth(auth)
 	    
 	 #     This if should no longer be necessary.
@@ -65,36 +66,56 @@ class SessionsController < ApplicationController
 		end
 # ONLY RUN API REQUESTS UPON LOGIN and if Authorization exists.
 # methods defined in sessions_helper
-	    if twitter_authorized?
-			FetchTweet.pull_user_timeline(current_user)
-			TwitterUser.pull_user_data(current_user)
+	    if twitter_authorized? # runs if twitter_auth exists
+	    	unless twitter? # runs if no TwitterUser has been saved
+				FetchTweet.pull_user_timeline(current_user)
+				TwitterUser.pull_user_data(current_user)
+			end
 		end
 
-		if facebook_authorized?
-			FacebookUser.pull_user_data(current_user)
+		if facebook_authorized? # runs if facebook_auth exists
+			unless facebook? # runs if no FacebookUser has been saved
+				FacebookUser.pull_user_data(current_user)
+			end
 		end
 
+		if instagram_authorized?
+			unless instagram?
+				InstagramUser.pull_user_data(current_user)
+			end
+		end
+
+		if fitbit_authorized?
+			unless fitbit?
+				FitbitUser.pull_user_data(current_user)
+			end
+		end
+			# This the native Login.  
+			#		user = User.find_by(email: params[:session][:email].downcase)
+			#		if user && user.authenticate(params[:session][:password])
+						# Sign the user in and redirect to the user's show page.
+			#			sign_in user
+			#			redirect_back_or user
+			#		else
+						# Create an error message and re-render the signin form.
+			#			flash.now[:error] = 'Invalid email/password combination' 
+			#			render 'new'
+			#		end
 	end
-# This the native Login.  
-#		user = User.find_by(email: params[:session][:email].downcase)
-#		if user && user.authenticate(params[:session][:password])
-			# Sign the user in and redirect to the user's show page.
-#			sign_in user
-#			redirect_back_or user
-#		else
-			# Create an error message and re-render the signin form.
-#			flash.now[:error] = 'Invalid email/password combination' 
-#			render 'new'
-#		end
 
 	def destroy
 		session[:user_id] = nil
 		flash[:success] = "Signed out."
-		redirect_to root_url
+		redirect_to root_path
 
 # This is native		
 #		sign_out
 #		redirect_to root_url
+	end
+
+	def failure
+		flash[:error] = "Authentication failed, please try again."
+		redirect_to root_url
 	end
 
 	protected
