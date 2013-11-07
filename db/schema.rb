@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131103163245) do
+ActiveRecord::Schema.define(version: 20131107054458) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -100,13 +100,13 @@ ActiveRecord::Schema.define(version: 20131103163245) do
     t.text     "work"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "num_achievements"
-    t.string   "num_subcribers"
-    t.string   "num_subscribed_to"
-    t.string   "num_statuses"
-    t.string   "num_posts"
-    t.string   "num_likes"
-    t.string   "num_friends"
+    t.integer  "num_achievements",    limit: 255
+    t.integer  "num_subcribers",      limit: 255
+    t.integer  "num_subscribed_to",   limit: 255
+    t.integer  "num_statuses",        limit: 255
+    t.integer  "num_posts",           limit: 255
+    t.integer  "num_likes",           limit: 255
+    t.integer  "num_friends",         limit: 255
   end
 
   create_table "fetch_tweets", force: true do |t|

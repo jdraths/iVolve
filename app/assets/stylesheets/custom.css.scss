@@ -238,6 +238,18 @@ input {
 	@extend .error;
 }
 
+/* tables */
+table {
+	text-align: center;
+	margin: auto;
+	border: 4px solid blue;
+}
+
+td {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
 /* miscellaneous */
 
 .debug_dump {
