@@ -1,25 +1,26 @@
 class ChangeFacebookUsers < ActiveRecord::Migration
-  def up
+
+  def self.up
   	change_table :facebook_users do |t|
-  		t.change :num_friends, :integer
-  		t.change :num_likes, :integer
-  		t.change :num_posts, :integer
-  		t.change :num_statuses, :integer
-  		t.change :num_subscribed_to, :integer
-  		t.change :num_subcribers, :integer
-  		t.change :num_achievements, :integer
+  		t.integer :int_friends
+  		t.integer :int_likes
+  		t.integer :int_posts
+  		t.integer :int_statuses
+  		t.integer :int_subscribed_to
+  		t.integer :int_subscribers
+  		t.integer :int_achievements
   	end
   end
 
-  def down
+  def self.down
   	change_table :facebook_users do |t|
-  		t.change :num_achievements, :string
-  		t.change :num_subcribers, :string
-  		t.change :num_subscribed_to, :string
-  		t.change :num_statuses, :string
-  		t.change :num_posts, :string
-  		t.change :num_likes, :string
-  		t.change :num_friends, :string
+  		t.remove :int_achievements
+  		t.remove :int_subcribers
+  		t.remove :int_subscribed_to
+  		t.remove :int_statuses
+  		t.remove :int_posts
+  		t.remove :int_likes
+  		t.remove :int_friends
   	end
   end
 end

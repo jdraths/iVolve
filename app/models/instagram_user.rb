@@ -17,9 +17,13 @@ class InstagramUser < ActiveRecord::Base
 			profile_picture: user_data.profile_picture,
 			website: user_data.website,
 			num_followers: user_data.counts.followed_by,
+			int_followers: user_data.counts.followed_by,
 			num_following: user_data.counts.follows,
+			int_following: user_data.counts.follows,
 			num_media: user_data.counts.media,
+			int_media: user_data.counts.media,
 			num_likes_out: liked.size,
+			int_likes_out: liked.size,
 			)
 	end
 

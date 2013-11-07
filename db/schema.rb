@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131107054458) do
+ActiveRecord::Schema.define(version: 20131107151203) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -100,13 +100,20 @@ ActiveRecord::Schema.define(version: 20131107054458) do
     t.text     "work"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "num_achievements",    limit: 255
-    t.integer  "num_subcribers",      limit: 255
-    t.integer  "num_subscribed_to",   limit: 255
-    t.integer  "num_statuses",        limit: 255
-    t.integer  "num_posts",           limit: 255
-    t.integer  "num_likes",           limit: 255
-    t.integer  "num_friends",         limit: 255
+    t.string   "num_achievements"
+    t.string   "num_subcribers"
+    t.string   "num_subscribed_to"
+    t.string   "num_statuses"
+    t.string   "num_posts"
+    t.string   "num_likes"
+    t.string   "num_friends"
+    t.integer  "int_friends"
+    t.integer  "int_likes"
+    t.integer  "int_posts"
+    t.integer  "int_statuses"
+    t.integer  "int_subscribed_to"
+    t.integer  "int_subcribers"
+    t.integer  "int_achievements"
   end
 
   create_table "fetch_tweets", force: true do |t|
@@ -209,6 +216,23 @@ ActiveRecord::Schema.define(version: 20131107054458) do
     t.string   "rec_food_name_one"
     t.string   "rec_food_name_two"
     t.string   "rec_food_name_three"
+    t.integer  "height_int"
+    t.integer  "weight_int"
+    t.integer  "best_tot_active_score_int"
+    t.integer  "best_tot_cal_out_int"
+    t.integer  "best_tot_dist_int"
+    t.integer  "best_tot_steps_int"
+    t.integer  "best_track_cal_out_int"
+    t.integer  "lifetime_tot_active_score_int"
+    t.integer  "lifetime_tot_cal_out_int"
+    t.integer  "lifetime_tot_dist_int"
+    t.integer  "lifetime_tot_steps_int"
+    t.integer  "lifetime_track_active_score_int"
+    t.integer  "lifetime_track_cal_out_int"
+    t.integer  "lifetime_track_dist_int"
+    t.integer  "lifetime_track_steps_int"
+    t.integer  "stride_length_run_int"
+    t.integer  "stride_length_walk_int"
   end
 
   create_table "identities", force: true do |t|
@@ -236,6 +260,10 @@ ActiveRecord::Schema.define(version: 20131107054458) do
     t.string   "num_likes_out"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "int_followers"
+    t.integer  "int_following"
+    t.integer  "int_media"
+    t.integer  "int_likes_out"
   end
 
   create_table "microposts", force: true do |t|
@@ -287,6 +315,11 @@ ActiveRecord::Schema.define(version: 20131107054458) do
     t.string   "description_urls"
     t.string   "status"
     t.integer  "uid"
+    t.integer  "favorite_int_count"
+    t.integer  "followers_int_count"
+    t.integer  "friends_int_count"
+    t.integer  "listed_int_count"
+    t.integer  "tweet_int_count"
   end
 
   create_table "users", force: true do |t|

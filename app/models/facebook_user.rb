@@ -70,14 +70,21 @@ class FacebookUser < ActiveRecord::Base
 			website: data['website'],
 			work: data['work'].to_s,
 			num_achievements: num_achievements,
+			int_achievements: num_achievements,
 			#figure out a way to sum all the app_scores
 			  # app_scores: facebook.get_connections('me', 'scores') { |data| data['score'] }
 			num_subcribers: num_subcribers,
+			int_subcribers: num_subcribers,
 			num_subscribed_to: num_subscribed_to,
+			int_subscribed_to: num_subscribed_to,
 			num_statuses: num_statuses,
+			int_statuses: num_statuses,
 			num_posts: num_posts,
+			int_posts: num_posts,
 			num_likes: num_likes,
-			num_friends: num_friends
+			int_likes: num_likes,
+			num_friends: num_friends,
+			int_friends: num_friends
 			)
 		end
 	end
