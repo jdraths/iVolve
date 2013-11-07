@@ -33,8 +33,8 @@ class StaticPagesController < ApplicationController
         @facebook_avg_statuses = avg_num(FacebookUser, 'int_statuses')
         @facebook_int_achievements = @facebook_auth_user.int_achievements
         @facebook_avg_achievements = avg_num(FacebookUser, 'int_achievements')
-        @facebook_int_subscribers = @facebook_auth_user.int_subcribers
-        @facebook_avg_subscribers = avg_num(FacebookUser, 'int_subcribers')
+        @facebook_int_subscribers = @facebook_auth_user.int_subscribers
+        @facebook_avg_subscribers = avg_num(FacebookUser, 'int_subscribers')
         @facebook_int_subscribed_to = @facebook_auth_user.int_subscribed_to
         @facebook_avg_subscribed_to = avg_num(FacebookUser, 'int_subscribed_to')
       end

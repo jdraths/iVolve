@@ -15,7 +15,7 @@ class ChangeFacebookUsers < ActiveRecord::Migration
   def self.down
   	change_table :facebook_users do |t|
   		t.remove :int_achievements
-  		t.remove :int_subcribers
+  		t.remove :int_subscribers
   		t.remove :int_subscribed_to
   		t.remove :int_statuses
   		t.remove :int_posts

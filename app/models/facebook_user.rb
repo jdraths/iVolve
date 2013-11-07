@@ -74,7 +74,7 @@ class FacebookUser < ActiveRecord::Base
 			#figure out a way to sum all the app_scores
 			  # app_scores: facebook.get_connections('me', 'scores') { |data| data['score'] }
 			num_subcribers: num_subcribers,
-			int_subcribers: num_subcribers,
+			int_subscribers: num_subcribers,
 			num_subscribed_to: num_subscribed_to,
 			int_subscribed_to: num_subscribed_to,
 			num_statuses: num_statuses,
