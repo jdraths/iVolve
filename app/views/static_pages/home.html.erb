@@ -11,7 +11,7 @@
 				<%= render 'shared/micropost_form' %>
 			</section>
 			
-				<h3>Micropost Feed</h3>
+				<h3>Peanut Gallery</h3>
 				<%= render 'shared/feed' %>
 			
 		</aside>
@@ -19,9 +19,9 @@
 			<h3>Activity Feed</h3>
 			<h4 style="border-top: 1px solid #e8e8e8">Twitter:</h4>
 			<% if twitter? %>
-			<table>
+			<table class="table table-hover">
 				<tr>
-					<td><h5>Twitter</h5></td>
+					<td><h5></h5></td>
 					<td><h5>User Name</h5></td>
 					<td><h5>iVolve Index</h5></td>
 				</tr>
@@ -56,14 +56,12 @@
 			<% end %>
 			<h4 style="border-top: 1px solid #e8e8e8">Facebook:</h4>
 			<% if facebook? %>
-			<table>
-				<th>
-					<tr>
-						<td><h5>Facebook</h5></td>
-						<td><h5>User_name</h5></td>
-						<td><h5>iVolve Index</h5></td>
-					</tr>
-				</th>
+			<table class="table table-hover">
+				<tr>
+					<td><h5></h5></td>
+					<td><h5>User_name</h5></td>
+					<td><h5>iVolve Index</h5></td>
+				</tr>
 				<tr>
 					<td><h5>Friends:</h5></td> 
 					<td><h5><%= @facebook_int_friends %></h5></td> 
@@ -105,9 +103,9 @@
 			<% end %>
 			<h4 style="border-top: 1px solid #e8e8e8">Instagram:</h4>
 			<% if instagram? %>
-			<table>
+			<table class="table table-hover">
 				<tr>
-					<td><h5>Instagram</h5></td>
+					<td><h5></h5></td>
 					<td><h5>User Name</h5></td>
 					<td><h5>iVolve Index</h5></td>
 				</tr>
@@ -137,9 +135,9 @@
 			<% end %>
 			<h4 style="border-top: 1px solid #e8e8e8">Fitbit:</h4>
 			<% if fitbit? %>
-			<table>
+			<table class="table table-hover">
 				<tr>
-					<td><h5>Fitbit</h5></td>
+					<td><h5></h5></td>
 					<td><h5>User Name</h5></td>
 					<td><h5>iVolve Index</h5></td>
 				</tr>
@@ -174,10 +172,6 @@
 					<td><h5><%= @fitbit_avg_best_active_score %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Date Accomplished:</h5></td>
-					<td><h5><%= @fitbit_best_tot_active_score_date %></h5></td>
-				</tr>
-				<tr>
 					<td><h5>Lifetime Total Calories Out:</h5></td>
 					<td><h5><%= @fitbit_lifetime_tot_cal_out_int %></h5></td>
 					<td><h5><%= @fitbit_avg_life_cal_out %></h5></td>
@@ -186,10 +180,6 @@
 					<td><h5>Best Total Calories Out:</h5></td>
 					<td><h5><%= @fitbit_best_tot_cal_out_int %></h5></td>
 					<td><h5><%= @fitbit_avg_best_cal_out %></h5></td>
-				</tr>
-				<tr>
-					<td><h5>Date Accomplished:</h5></td>
-					<td><h5><%= @fitbit_best_tot_cal_out_date %></h5></td>
 				</tr>
 				<tr>
 					<td><h5>Lifetime Total Distance:</h5></td>
@@ -202,10 +192,6 @@
 					<td><h5><%= @fitbit_avg_best_dist %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Date Accomplished:</h5></td>
-					<td><h5><%= @fitbit_best_tot_dist_date %></h5></td>
-				</tr>
-				<tr>
 					<td><h5>Lifetime Total Steps:</h5></td>
 					<td><h5><%= @fitbit_lifetime_tot_steps_int %></h5></td>
 					<td><h5><%= @fitbit_avg_life_tot_steps %></h5></td>
@@ -214,10 +200,6 @@
 					<td><h5>Best Total Steps:</h5></td>
 					<td><h5><%= @fitbit_best_tot_steps_int %></h5></td>
 					<td><h5><%= @fitbit_avg_best_tot_steps %></h5></td>
-				</tr>
-				<tr>
-					<td><h5>Date Accomplished:</h5></td>
-					<td><h5><%= @fitbit_best_tot_steps_date %></h5></td>
 				</tr>
 			</table>
 			<% else %>

@@ -107,12 +107,13 @@ ActiveRecord::Schema.define(version: 20131107151203) do
     t.string   "num_posts"
     t.string   "num_likes"
     t.string   "num_friends"
+    t.integer  "int_subcribers"
     t.integer  "int_friends"
     t.integer  "int_likes"
     t.integer  "int_posts"
     t.integer  "int_statuses"
     t.integer  "int_subscribed_to"
-    t.integer  "int_subcribers"
+    t.integer  "int_subscribers"
     t.integer  "int_achievements"
   end
 
