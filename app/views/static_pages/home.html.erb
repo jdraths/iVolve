@@ -19,36 +19,36 @@
 			<h3>Activity Feed</h3>
 			<h4 style="border-top: 1px solid #e8e8e8">Twitter:</h4>
 			<% if twitter? %>
-			<table class="table table-hover">
+			<table class="my_table table table-hover">
 				<tr>
 					<td><h5></h5></td>
-					<td><h5>User Name</h5></td>
-					<td><h5>iVolve Index</h5></td>
+					<td id="stats"><h5>User Name</h5></td>
+					<td id="stats"><h5>iVolve Index</h5></td>
 				</tr>
 				<tr>
-					<td><h5>Friends:</h5></td>
-					<td><h5><%= @twitter_int_friends %></h5></td>
-					<td><h5><%= @twitter_avg_friends %></h5></td>
+					<td><h5>Friends</h5></td>
+					<td id="stats"><h5><%= @twitter_int_friends %></h5></td>
+					<td id="stats"><h5><%= @twitter_avg_friends %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Followers:</h5></td>
-					<td><h5><%= @twitter_int_followers %></h5></td>
-					<td><h5><%= @twitter_avg_followers %></h5></td>
+					<td><h5>Followers</h5></td>
+					<td id="stats"><h5><%= @twitter_int_followers %></h5></td>
+					<td id="stats"><h5><%= @twitter_avg_followers %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Tweets Sent:</h5></td>
-					<td><h5><%= @twitter_int_sent %></h5></td>
-					<td><h5><%= @twitter_avg_sent %></h5></td>
+					<td><h5>Tweets Sent</h5></td>
+					<td id="stats"><h5><%= @twitter_int_sent %></h5></td>
+					<td id="stats"><h5><%= @twitter_avg_sent %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Tweets Favorited:</h5></td>
-					<td><h5><%= @twitter_int_favorites %></h5></td>
-					<td><h5><%= @twitter_avg_fav %></h5></td>
+					<td><h5>Tweets Favorited</h5></td>
+					<td id="stats"><h5><%= @twitter_int_favorites %></h5></td>
+					<td id="stats"><h5><%= @twitter_avg_fav %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Twitter Lists:</h5></td>
-					<td><h5><%= @twitter_int_lists %></h5></td>
-					<td><h5><%= @twitter_avg_lists %></h5></td>
+					<td><h5>Twitter Lists</h5></td>
+					<td id="stats"><h5><%= @twitter_int_lists %></h5></td>
+					<td id="stats"><h5><%= @twitter_avg_lists %></h5></td>
 				</tr>
 			</table>
 			<% else %>
@@ -56,46 +56,46 @@
 			<% end %>
 			<h4 style="border-top: 1px solid #e8e8e8">Facebook:</h4>
 			<% if facebook? %>
-			<table class="table table-hover">
+			<table class="my_table table table-hover">
 				<tr>
 					<td><h5></h5></td>
-					<td><h5>User_name</h5></td>
-					<td><h5>iVolve Index</h5></td>
+					<td id="stats"><h5>User_name</h5></td>
+					<td id="stats"><h5>iVolve Index</h5></td>
 				</tr>
 				<tr>
-					<td><h5>Friends:</h5></td> 
-					<td><h5><%= @facebook_int_friends %></h5></td> 
-					<td><h5><%= @facebook_avg_friends %></h5></td>
+					<td><h5>Friends</h5></td> 
+					<td id="stats"><h5><%= @facebook_int_friends %></h5></td> 
+					<td id="stats"><h5><%= @facebook_avg_friends %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Likes:</h5></td>
-					<td><h5><%= @facebook_int_likes %></h5></td>
-					<td><h5><%= @facebook_avg_likes %></h5></td>
+					<td><h5>Likes</h5></td>
+					<td id="stats"><h5><%= @facebook_int_likes %></h5></td>
+					<td id="stats"><h5><%= @facebook_avg_likes %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Posts:</h5></td>
-					<td><h5><%= @facebook_int_posts %></h5></td>
-					<td><h5><%= @facebook_avg_posts %></h5></td>
+					<td><h5>Posts</h5></td>
+					<td id="stats"><h5><%= @facebook_int_posts %></h5></td>
+					<td id="stats"><h5><%= @facebook_avg_posts %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Statuses:</h5></td>
-					<td><h5><%= @facebook_int_statuses %></h5></td>
-					<td><h5><%= @facebook_avg_statuses %></h5></td>
+					<td><h5>Statuses</h5></td>
+					<td id="stats"><h5><%= @facebook_int_statuses %></h5></td>
+					<td id="stats"><h5><%= @facebook_avg_statuses %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Achievements:</h5></td>
-					<td><h5><%= @facebook_int_achievements %></h5></td>
-					<td><h5><%= @facebook_avg_achievements %></h5></td>
+					<td><h5>Achievements</h5></td>
+					<td id="stats"><h5><%= @facebook_int_achievements %></h5></td>
+					<td id="stats"><h5><%= @facebook_avg_achievements %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Subscribers:</h5></td>
-					<td><h5><%= @facebook_int_subscribers %></h5></td>
-					<td><h5><%= @facebook_avg_subscribers %></h5></td>
+					<td><h5>Subscribers</h5></td>
+					<td id="stats"><h5><%= @facebook_int_subscribers %></h5></td>
+					<td id="stats"><h5><%= @facebook_avg_subscribers %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Subscribed to you:</h5></td>
-					<td><h5><%= @facebook_int_subscribed_to %></h5></td>
-					<td><h5><%= @facebook_avg_subscribed_to %></h5></td>
+					<td><h5>Subscribed to you</h5></td>
+					<td id="stats"><h5><%= @facebook_int_subscribed_to %></h5></td>
+					<td id="stats"><h5><%= @facebook_avg_subscribed_to %></h5></td>
 				</tr>
 			</table>
 			<% else %>
@@ -103,31 +103,31 @@
 			<% end %>
 			<h4 style="border-top: 1px solid #e8e8e8">Instagram:</h4>
 			<% if instagram? %>
-			<table class="table table-hover">
+			<table class="my_table table table-hover">
 				<tr>
 					<td><h5></h5></td>
-					<td><h5>User Name</h5></td>
-					<td><h5>iVolve Index</h5></td>
+					<td id="stats"><h5>User Name</h5></td>
+					<td id="stats"><h5>iVolve Index</h5></td>
 				</tr>
 				<tr>
-					<td><h5>Followers:</h5></td>
-					<td><h5><%= @instagram_int_followers %></h5></td>
-					<td><h5><%= @instagram_avg_followers %></h5></td>
+					<td><h5>Followers</h5></td>
+					<td id="stats"><h5><%= @instagram_int_followers %></h5></td>
+					<td id="stats"><h5><%= @instagram_avg_followers %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Following:</h5></td>
-					<td><h5><%= @instagram_int_following %></h5></td>
-					<td><h5><%= @instagram_avg_following %></h5></td>
+					<td><h5>Following</h5></td>
+					<td id="stats"><h5><%= @instagram_int_following %></h5></td>
+					<td id="stats"><h5><%= @instagram_avg_following %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Shared:</h5></td>
-					<td><h5><%= @instagram_int_media %></h5></td>
-					<td><h5><%= @instagram_avg_media %></h5></td>
+					<td><h5>Shared</h5></td>
+					<td id="stats"><h5><%= @instagram_int_media %></h5></td>
+					<td id="stats"><h5><%= @instagram_avg_media %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Likes:</h5></td>
-					<td><h5><%= @instagram_int_likes_out %></h5></td>
-					<td><h5><%= @instagram_avg_likes_out %></h5></td>
+					<td><h5>Likes</h5></td>
+					<td id="stats"><h5><%= @instagram_int_likes_out %></h5></td>
+					<td id="stats"><h5><%= @instagram_avg_likes_out %></h5></td>
 				</tr>
 			</table>
 			<% else %>
@@ -135,71 +135,71 @@
 			<% end %>
 			<h4 style="border-top: 1px solid #e8e8e8">Fitbit:</h4>
 			<% if fitbit? %>
-			<table class="table table-hover">
+			<table class="my_table table table-hover">
 				<tr>
 					<td><h5></h5></td>
-					<td><h5>User Name</h5></td>
-					<td><h5>iVolve Index</h5></td>
+					<td id="stats"><h5>User Name</h5></td>
+					<td id="stats"><h5>iVolve Index</h5></td>
 				</tr>
 				<tr>
-					<td><h5>Height:</h5></td>
-					<td><h5><%= @fitbit_height_int %></h5></td>
-					<td><h5><%= @fitbit_avg_height %></h5></td>
+					<td><h5>Height</h5></td>
+					<td id="stats"><h5><%= @fitbit_height_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_height %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Weight:</h5></td>
-					<td><h5><%= @fitbit_weight_int %></h5></td>
-					<td><h5><%= @fitbit_avg_weight %></h5></td>
+					<td><h5>Weight</h5></td>
+					<td id="stats"><h5><%= @fitbit_weight_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_weight %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Running stride length:</h5></td>
-					<td><h5><%= @fitbit_stride_length_run_int %></h5></td>
-					<td><h5><%= @fitbit_avg_length_run %></h5></td>
+					<td><h5>Running stride length</h5></td>
+					<td id="stats"><h5><%= @fitbit_stride_length_run_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_length_run %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Walking stride length:</h5></td>
-					<td><h5><%= @fitbit_stride_length_walk_int %></h5></td>
-					<td><h5><%= @fitbit_avg_length_walk %></h5></td>
+					<td><h5>Walking stride length</h5></td>
+					<td id="stats"><h5><%= @fitbit_stride_length_walk_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_length_walk %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Lifetime Total Active Score:</h5></td>
-					<td><h5><%= @fitbit_lifetime_tot_active_score_int %></h5></td>
-					<td><h5><%= @fitbit_avg_life_active_score %></h5></td>
+					<td><h5>Lifetime Total Active Score</h5></td>
+					<td id="stats"><h5><%= @fitbit_lifetime_tot_active_score_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_life_active_score %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Best Total Active Score:</h5></td>
-					<td><h5><%= @fitbit_best_tot_active_score_int %></h5></td>
-					<td><h5><%= @fitbit_avg_best_active_score %></h5></td>
+					<td><h5>Best Total Active Score</h5></td>
+					<td id="stats"><h5><%= @fitbit_best_tot_active_score_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_best_active_score %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Lifetime Total Calories Out:</h5></td>
-					<td><h5><%= @fitbit_lifetime_tot_cal_out_int %></h5></td>
-					<td><h5><%= @fitbit_avg_life_cal_out %></h5></td>
+					<td><h5>Lifetime Total Calories Out</h5></td>
+					<td id="stats"><h5><%= @fitbit_lifetime_tot_cal_out_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_life_cal_out %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Best Total Calories Out:</h5></td>
-					<td><h5><%= @fitbit_best_tot_cal_out_int %></h5></td>
-					<td><h5><%= @fitbit_avg_best_cal_out %></h5></td>
+					<td><h5>Best Total Calories Out</h5></td>
+					<td id="stats"><h5><%= @fitbit_best_tot_cal_out_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_best_cal_out %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Lifetime Total Distance:</h5></td>
-					<td><h5><%= @fitbit_lifetime_tot_dist_int %></h5></td>
-					<td><h5><%= @fitbit_avg_life_tot_dist %></h5></td>
+					<td><h5>Lifetime Total Distance</h5></td>
+					<td id="stats"><h5><%= @fitbit_lifetime_tot_dist_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_life_tot_dist %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Best Total Distance:</h5></td>
-					<td><h5><%= @fitbit_best_tot_dist_int %></h5></td>
-					<td><h5><%= @fitbit_avg_best_dist %></h5></td>
+					<td><h5>Best Total Distance</h5></td>
+					<td id="stats"><h5><%= @fitbit_best_tot_dist_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_best_dist %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Lifetime Total Steps:</h5></td>
-					<td><h5><%= @fitbit_lifetime_tot_steps_int %></h5></td>
-					<td><h5><%= @fitbit_avg_life_tot_steps %></h5></td>
+					<td><h5>Lifetime Total Steps</h5></td>
+					<td id="stats"><h5><%= @fitbit_lifetime_tot_steps_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_life_tot_steps %></h5></td>
 				</tr>
 				<tr>
-					<td><h5>Best Total Steps:</h5></td>
-					<td><h5><%= @fitbit_best_tot_steps_int %></h5></td>
-					<td><h5><%= @fitbit_avg_best_tot_steps %></h5></td>
+					<td><h5>Best Total Steps</h5></td>
+					<td id="stats"><h5><%= @fitbit_best_tot_steps_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_best_tot_steps %></h5></td>
 				</tr>
 			</table>
 			<% else %>
