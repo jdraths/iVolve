@@ -9,9 +9,9 @@ class StaticPagesController < ApplicationController
       if twitter?   # if twitter? definitely works
         # this twitter_users column should be renamed from name to screen_name
         @twitter_int_friends = @twitter_auth_user.friends_int_count
-        @twitter_avg_friends = @ivolveindex.iv_twitter_friend
+        @twitter_avg_friends = @ivolveindex.iv_twitter_friends
         @twitter_int_followers = @twitter_auth_user.followers_int_count
-        @twitter_avg_followers = @ivolveindex.iv_twitter_followers
+        @twitter_avg_followers = @ivolveindex.iv_twitter_follwers
         @twitter_int_sent = @twitter_auth_user.tweet_int_count
         @twitter_avg_sent = @ivolveindex.iv_twitter_tweets_sent
         @twitter_int_favorites = @twitter_auth_user.favorite_int_count
@@ -37,7 +37,7 @@ class StaticPagesController < ApplicationController
         @facebook_int_subscribers = @facebook_auth_user.int_subscribers
         @facebook_avg_subscribers = @ivolveindex.iv_facebook_subscribers
         @facebook_int_subscribed_to = @facebook_auth_user.int_subscribed_to
-        @facebook_avg_subscribed_to = @ivolveindex.iv_facebook_subscribed_to
+        @facebook_avg_subscribed_to = @ivolveindex.iv_facebook_subscribed_to_you
       end
       if instagram?
         @instagram_int_followers = @instagram_auth_user.int_followers
