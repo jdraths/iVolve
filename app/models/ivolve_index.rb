@@ -21,10 +21,10 @@ class IvolveIndex < ActiveRecord::Base
 	
 	def self.populate_data
 
-		@twitter_users = TwitterUser.where('created_at >= ?', TwitterUser.last.created_at.beginning_of_day)
-		@facebook_users = FacebookUser.where('created_at >= ?', FacebookUser.last.created_at.beginning_of_day)
-		@instagram_users = InstagramUser.where('created_at >= ?', InstagramUser.last.created_at.beginning_of_day)
-		@fitbit_users = FitbitUser.where('created_at >= ?', FitbitUser.last.created_at.beginning_of_day)
+		@twitter_users = TwitterUser.where('created_at >= ?', TwitterUser.first.created_at.beginning_of_day)
+		@facebook_users = FacebookUser.where('created_at >= ?', FacebookUser.first.created_at.beginning_of_day)
+		@instagram_users = InstagramUser.where('created_at >= ?', InstagramUser.first.created_at.beginning_of_day)
+		@fitbit_users = FitbitUser.where('created_at >= ?', FitbitUser.first.created_at.beginning_of_day)
 
 # MOVE THESE SIZE METHODS INTO avg_stats if they aren't directly used in self.populate_data
 		@twitter_num_users = @twitter_users.size
