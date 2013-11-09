@@ -24,3 +24,9 @@ task :fitbit_sched => :environment do
 	FitbitUser.sched_user_data
 	puts "done."
 end
+
+task :index_sched => :environment do
+	puts "Calcing Index..."
+	IvolveIndex.populate_data
+	puts "done."
+end
