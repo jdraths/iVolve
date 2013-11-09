@@ -59,11 +59,6 @@ module SessionsHelper
 		end
 	end
 
-	def avg_num(database, column)
-		todays_users = database.where('created_at >= ?', Time.zone.now.beginning_of_day)
-		avg = todays_users.sum(column)/todays_users.size
-	end
-
 	def current_user=(user)
 		@current_user = user
 		#from stefano bernardi
