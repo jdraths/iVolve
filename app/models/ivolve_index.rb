@@ -1,6 +1,10 @@
 class IvolveIndex < ActiveRecord::Base
 	default_scope -> { order('created_at DESC') }
 
+# The following method is for graphs
+	def self.total_grouped_by_day(start)
+	end
+
 	def self.avg_stats(db, column)
 		case db
 			when 'twitter_db'
