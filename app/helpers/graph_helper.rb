@@ -7,11 +7,11 @@ module GraphHelper
 		(2.weeks.ago.to_date..Date.today).map do |date|
 			if !data_by_day[date].nil?
 				created_at = date
-				friends_count = data_by_day[date][0].try(:friends_int_count)
-				followers_count = data_by_day[date][0].try(:followers_int_count)
-				tweets_count = data_by_day[date][0].try(:tweet_int_count)
-				favd_count = data_by_day[date][0].try(:favorite_int_count)
-				list_count = data_by_day[date][0].try(:listed_int_count)
+				friends_count = data_by_day[date].first.try(:friends_int_count)
+				followers_count = data_by_day[date].first.try(:followers_int_count)
+				tweets_count = data_by_day[date].first.try(:tweet_int_count)
+				favd_count = data_by_day[date].first.try(:favorite_int_count)
+				list_count = data_by_day[date].first.try(:listed_int_count)
 			else
 				created_at = date
 				friends_count = 0
