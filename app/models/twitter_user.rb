@@ -1,9 +1,17 @@
 class TwitterUser < ActiveRecord::Base
 	belongs_to :user
 	# the default scope below will always find the newest record first
+
 	default_scope -> { order('created_at DESC') }
 	after_validation :report_validation_errors_to_rollbar
-	
+
+	def self.total_grouped_by_date(start)
+		data = where(created_at: start.beginning_of_day..Time.zone.now)
+		data = data.group("date(created_at)")
+		data = data.select("created_at, favorite_int_count, followers_int_count, friends_int_count, listed_int_count, tweet_int_count")
+		data.group_by { |d| d.created_at.to_date }
+	end
+
 	def self.pull_user_data(user)
 		@twitter_auth = Authorization.find_by_user_id_and_provider(user, 'twitter')
 		twitter_client = Twitter::Client.new(:oauth_token => @twitter_auth.oauth_token, :oauth_token_secret => @twitter_auth.oauth_secret)

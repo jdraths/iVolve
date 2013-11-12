@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131108153238) do
+ActiveRecord::Schema.define(version: 20131111152634) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -60,7 +60,10 @@ ActiveRecord::Schema.define(version: 20131108153238) do
     t.string   "phone"
   end
 
+  add_index "authorizations", ["provider"], name: "index_authorizations_on_provider"
   add_index "authorizations", ["remember_token"], name: "index_authorizations_on_remember_token"
+  add_index "authorizations", ["uid"], name: "index_authorizations_on_uid"
+  add_index "authorizations", ["user_id"], name: "index_authorizations_on_user_id"
 
   create_table "facebook_users", force: true do |t|
     t.string   "uid"
