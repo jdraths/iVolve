@@ -6,12 +6,14 @@ module GraphHelper
 		data_by_day = @twitter_graph_user.total_grouped_by_date(2.weeks.ago)
 		(2.weeks.ago.to_date..Date.today).map do |date|
 			if !data_by_day[date].nil?
+				created_at = data_by_day[date][0].try(:created_at)
 				friends_count = data_by_day[date][0].try(:friends_int_count)
 				followers_count = data_by_day[date][0].try(:followers_int_count)
 				tweets_count = data_by_day[date][0].try(:tweet_int_count)
 				favd_count = data_by_day[date][0].try(:favorite_int_count)
 				list_count = data_by_day[date][0].try(:listed_int_count)
 			else
+				created_at = date
 				friends_count = 0
 				followers_count = 0
 				tweets_count = 0
@@ -19,7 +21,7 @@ module GraphHelper
 				list_count = 0
 			end
 			{
-				event: date,
+				created_at: date,
 				num_friends: friends_count,
 				num_followers: followers_count,
 				tweets_sent: tweets_count,
