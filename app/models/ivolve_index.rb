@@ -2,7 +2,13 @@ class IvolveIndex < ActiveRecord::Base
 	default_scope -> { order('created_at DESC') }
 
 # The following method is for graphs
-	def self.total_grouped_by_day(start)
+	def self.twitter_grouped_by_day(start)
+		data = where(created_at: start.beginning_of_day..Time.zone.now)
+		data = data.group("date(created_at)")
+		data = data.select("date(created_at) as created_at, sum(iv_twitter_friends) as iv_twitter_friends,
+		 sum(iv_twitter_follwers) as iv_twitter_follwers, sum(iv_twitter_tweets_sent) as iv_twitter_tweets_sent,
+		  sum(iv_twitter_tweets_favd) as iv_twitter_tweets_favd, sum(iv_twitter_lists) as iv_twitter_lists")
+		data.group_by { |d| d.created_at.to_date }
 	end
 
 	def self.avg_stats(db, column)

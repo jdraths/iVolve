@@ -57,6 +57,7 @@
 			<% end %>
 			<h4 style="border-top: 1px solid #e8e8e8">Facebook:</h4>
 			<% if facebook? %>
+			<%= content_tag :div, "", id: "facebook-graph", data: {facebook: facebook_user_data } %>
 			<table class="my_table table table-hover">
 				<tr>
 					<td><h5></h5></td>
