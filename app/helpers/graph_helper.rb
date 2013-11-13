@@ -2,7 +2,7 @@ module GraphHelper
 	def twitter_user_data
 		# IT WOULD BE NICE TO RE-FACTOR THIS SO IT IS THE SAME current_user as for other stats display...
 		@twitter_graph = Authorization.where("user_id = ?", current_user).where("provider = ?", "twitter")
-		@twitter_graph_user = TwitterUser.where("uid = ?", @twitter_graph[0]['uid'])
+		@twitter_graph_user = TwitterUser.where("uid = ?", @twitter_graph.first['uid'])
 		data_by_day = @twitter_graph_user.total_grouped_by_date(2.weeks.ago)
 		(2.weeks.ago.to_date..Date.today).map do |date|
 			if !data_by_day[date].nil?
