@@ -22,6 +22,7 @@ gem 'omniauth-instagram', '~>1.0.0'
 gem 'omniauth-identity', git: 'https://github.com/intridea/omniauth-identity.git'
 gem 'simple_form', '~>3.0.0'
 gem 'rollbar'
+gem 'jquery-turbolinks' #used in place of $(document).on-page_load
 
 group :development, :test do
 	# Use sqlite3 as the database for Active Record

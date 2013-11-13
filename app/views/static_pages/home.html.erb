@@ -105,6 +105,7 @@
 			<% end %>
 			<h4 style="border-top: 1px solid #e8e8e8">Instagram:</h4>
 			<% if instagram? %>
+			<%= content_tag :div, "", id: "instagram-graph", data: {instagram: instagram_user_data } %>
 			<table class="my_table table table-hover">
 				<tr>
 					<td><h5></h5></td>

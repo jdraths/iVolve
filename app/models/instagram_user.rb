@@ -4,6 +4,13 @@ class InstagramUser < ActiveRecord::Base
 	default_scope -> { order('created_at DESC') }
 	after_validation :report_validation_errors_to_rollbar
 
+	def self.total_grouped_by_date(start)
+		data = where(created_at: start.beginning_of_day..Time.zone.now)
+		data = data.group("date(created_at)")
+		data = data.select("date(created_at) as created_at, sum(int_followers) as int_followers, sum(int_following) as int_following, sum(int_media) as int_media, sum(int_likes_out) as int_likes_out")
+		data.group_by { |d| d.created_at.to_date }
+	end
+
 	def self.pull_user_data(user)
 		authorized = Authorization.find_by_user_id_and_provider(user, 'instagram')
 		instagram = Instagram.client(access_token: authorized.oauth_token)
