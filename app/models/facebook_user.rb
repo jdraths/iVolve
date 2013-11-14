@@ -26,13 +26,13 @@ class FacebookUser < ActiveRecord::Base
 			num_subscribed_to = facebook.get_connections('me', 'subscribedto').size
 		#end
 		#if !batch_api.get_connections('me', 'statuses').nil?
-			num_statuses = facebook.get_connections('me', 'statuses').size
+			num_statuses = facebook.get_connections('me', 'statuses', limit: 9000).size
 		#end
 		#if !batch_api.get_connections('me', 'posts').nil?
-			num_posts = facebook.get_connections('me', 'posts').size
+			num_posts = facebook.get_connections('me', 'posts', limit: 9000).size
 		#end
 		#if !batch_api.get_connections('me', 'likes').nil?
-			num_likes = facebook.get_connections('me', 'likes').size
+			num_likes = facebook.get_connections('me', 'likes', limit: 9000).size
 		#end
 		#if !batch_api.get_connections('me', 'friends').nil?
 			num_friends = facebook.get_connections('me', 'friends').size
