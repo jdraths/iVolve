@@ -16,26 +16,27 @@ class FacebookUser < ActiveRecord::Base
 	def self.pull_user_data(user)
 		authorized = Authorization.find_by_user_id_and_provider(user, 'facebook')
 		facebook = Koala::Facebook::API.new(authorized.oauth_token)
-		# the below batch_api did not allow .nil?.
-		#batch_api.batch do |batch_api|
-		#if !batch_api.get_connections('me', 'achievements').nil?
+		if !facebook.get_connections('me', 'achievements').nil?
 			num_achievements = facebook.get_connections('me', 'achievements').size
-		#end
-		#if !batch_api.get_connections('me', 'subscribers').nil?
+		end
+		if !facebook.get_connections('me', 'subscribers').nil?
 			num_subcribers = facebook.get_connections('me', 'subscribers').size
-		#end
-		#if !batch_api.get_connections('me', 'subcribedto').nil?
+		end
+		if !facebook.get_connections('me', 'subscribedto').nil?
 			num_subscribed_to = facebook.get_connections('me', 'subscribedto').size
-
+		end
+		if !facebook.get_connections('me', 'statuses', limit: 9000).nil?
 			num_statuses = facebook.get_connections('me', 'statuses', limit: 9000).size
-
+		end
+		if !facebook.get_connections('me', 'posts', limit: 9000).nil?
 			num_posts = facebook.get_connections('me', 'posts', limit: 9000).size
-
+		end
+		if !facebook.get_connections('me', 'likes', limit: 9000).nil?
 			num_likes = facebook.get_connections('me', 'likes', limit: 9000).size
-		#end
-		#if !batch_api.get_connections('me', 'friends').nil?
+		end
+		if !facebook.get_connections('me', 'friends').nil?
 			num_friends = facebook.get_connections('me', 'friends').size
-		#end
+		end
 		facebook.get_object('me') do |data|
 			create!(
 			uid: data['id'],
