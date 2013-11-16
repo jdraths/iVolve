@@ -7,7 +7,7 @@ class FacebookUser < ActiveRecord::Base
 	def self.total_grouped_by_date(start)
 		t = Time.zone.now
 		time_now = t + t.utc_offset
-		data = where(created_at: start.beginning_of_day..time_now)
+		data = where(created_at: start.beginning_of_day..time_now.end_of_day)
 		data = data.group("date(created_at)")
 		data = data.select("date(created_at) as created_at, sum(int_friends) as int_friends, sum(int_likes) as int_likes, sum(int_posts) as int_posts, sum(int_statuses) as int_statuses")
 		data.group_by { |d| d.created_at.to_date }
