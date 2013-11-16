@@ -6,7 +6,9 @@ class TwitterUser < ActiveRecord::Base
 	after_validation :report_validation_errors_to_rollbar
 
 	def self.total_grouped_by_date(start)
-		data = where(created_at: start.beginning_of_day..Time.zone.now)
+		t = Time.zone.now
+		time_now = t + t.utc_offset
+		data = where(created_at: start.beginning_of_day..time_now)
 		data = data.group("date(created_at)")
 		data = data.select("date(created_at) as created_at, sum(favorite_int_count) as favorite_int_count, sum(followers_int_count) as followers_int_count, sum(friends_int_count) as friends_int_count, sum(listed_int_count) as listed_int_count, sum(tweet_int_count) as tweet_int_count")
 		data.group_by { |d| d.created_at.to_date }

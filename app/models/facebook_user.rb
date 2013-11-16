@@ -5,7 +5,9 @@ class FacebookUser < ActiveRecord::Base
 	after_validation :report_validation_errors_to_rollbar
 	
 	def self.total_grouped_by_date(start)
-		data = where(created_at: start.beginning_of_day..Time.zone.now)
+		t = Time.zone.now
+		time_now = t + t.utc_offset
+		data = where(created_at: start.beginning_of_day..time_now)
 		data = data.group("date(created_at)")
 		data = data.select("date(created_at) as created_at, sum(int_friends) as int_friends, sum(int_likes) as int_likes, sum(int_posts) as int_posts, sum(int_statuses) as int_statuses")
 		data.group_by { |d| d.created_at.to_date }
