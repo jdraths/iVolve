@@ -85,6 +85,12 @@ class SessionsController < ApplicationController
 			end
 		end
 
+		if foursquare_authorized?
+			unless foursquare?
+				FoursquareUser.pull_user_data(current_user)
+			end
+		end
+
 		if fitbit_authorized?
 			unless fitbit?
 				FitbitUser.pull_user_data(current_user)
