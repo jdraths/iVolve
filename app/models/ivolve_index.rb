@@ -15,6 +15,9 @@ class IvolveIndex < ActiveRecord::Base
 			when 'fitbit_db'
 				database = @fitbit_users
 				db_size = @fitbit_num_users
+			when 'foursquare_db'
+				database = @foursquare_users
+				db_size = @foursquare_num_users
 		end
 		database.sum(column)/db_size
 	end
@@ -25,6 +28,8 @@ class IvolveIndex < ActiveRecord::Base
 		@facebook_users = FacebookUser.where('created_at >= ?', FacebookUser.first.created_at.beginning_of_day)
 		@instagram_users = InstagramUser.where('created_at >= ?', InstagramUser.first.created_at.beginning_of_day)
 		@fitbit_users = FitbitUser.where('created_at >= ?', FitbitUser.first.created_at.beginning_of_day)
+		@foursquare_users = FoursquareUser.where('created_at >= ?', FoursquareUser.first.created_at.beginning_of_day)
+
 
 # MOVE THESE SIZE METHODS INTO avg_stats if they aren't directly used in self.populate_data
 		# The following 4 variables calculate the size Today's DBs, aka the Number of Users in each service
@@ -32,6 +37,7 @@ class IvolveIndex < ActiveRecord::Base
 		@facebook_num_users = @facebook_users.size
 		@instagram_num_users = @instagram_users.size
 		@fitbit_num_users = @fitbit_users.size
+		@foursquare_num_users = @foursquare_users.size
 		# TWITTER STATS BELOW	
 		@iv_twitter_friends = avg_stats('twitter_db', 'friends_int_count')	
 		@iv_twitter_follwers = avg_stats('twitter_db', 'followers_int_count')
@@ -64,6 +70,14 @@ class IvolveIndex < ActiveRecord::Base
 		@iv_fitbit_best_tot_dist = avg_stats('fitbit_db', 'best_tot_dist_int')
 		@iv_fitbit_life_tot_steps = avg_stats('fitbit_db', 'lifetime_tot_steps_int')
 		@iv_fitbit_best_tot_steps = avg_stats('fitbit_db', 'best_tot_steps_int')
+		# Foursquare STATS BELOW
+		@iv_foursquare_friends = avg_stats('foursquare_db', 'friends_count')
+		@iv_foursquare_following = avg_stats('foursquare_db', 'following_count')
+		@iv_foursquare_checkins = avg_stats('foursquare_db', 'checkins_count')
+		@iv_foursquare_badges = avg_stats('foursquare_db', 'badges_count')
+		@iv_foursquare_mayor = avg_stats('foursquare_db', 'mayor_count')
+		@iv_foursquare_tips = avg_stats('foursquare_db', 'tips_count')
+		@iv_foursquare_photos = avg_stats('foursquare_db', 'photos_count')		
 
 		create!(
 			iv_total: nil,
@@ -119,6 +133,14 @@ class IvolveIndex < ActiveRecord::Base
 			iv_fitbit_best_tot_dist: @iv_fitbit_best_tot_dist,
 			iv_fitbit_life_tot_steps: @iv_fitbit_life_tot_steps,
 			iv_fitbit_best_tot_steps: @iv_fitbit_best_tot_steps,
+			iv_foursquare_friends: @iv_foursquare_friends,
+			iv_foursquare_following: @iv_foursquare_following,
+			iv_foursquare_checkins: @iv_foursquare_checkins,
+			iv_foursquare_badges: @iv_foursquare_badges,
+			iv_foursquare_mayor: @iv_foursquare_mayor,
+			iv_foursquare_tips: @iv_foursquare_tips,
+			iv_foursquare_photos: @iv_foursquare_photos,
+
 		)
 	end
 end

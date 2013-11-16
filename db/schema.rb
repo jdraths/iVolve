@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131111152634) do
+ActiveRecord::Schema.define(version: 20131116222247) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -239,6 +239,28 @@ ActiveRecord::Schema.define(version: 20131111152634) do
     t.integer  "stride_length_walk_int"
   end
 
+  create_table "foursquare_users", force: true do |t|
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "uid"
+    t.string   "gender"
+    t.integer  "friends_count"
+    t.integer  "badges_count"
+    t.integer  "tips_count"
+    t.string   "home_city"
+    t.string   "bio"
+    t.string   "email"
+    t.string   "facebook_uid"
+    t.integer  "mayor_count"
+    t.integer  "checkins_count"
+    t.integer  "following_count"
+    t.integer  "photos_count"
+    t.integer  "scores_max"
+    t.integer  "scores_recent"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "identities", force: true do |t|
     t.string   "name"
     t.string   "email"
@@ -326,6 +348,13 @@ ActiveRecord::Schema.define(version: 20131111152634) do
     t.integer  "iv_fitbit_best_tot_steps"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "iv_foursquare_friends"
+    t.integer  "iv_foursquare_following"
+    t.integer  "iv_foursquare_checkins"
+    t.integer  "iv_foursquare_badges"
+    t.integer  "iv_foursquare_mayor"
+    t.integer  "iv_foursquare_tips"
+    t.integer  "iv_foursquare_photos"
   end
 
   create_table "microposts", force: true do |t|

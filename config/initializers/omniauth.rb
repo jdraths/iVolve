@@ -10,6 +10,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   	display: 'popup',
   	auth_type: 'reauthenticate'
   provider :instagram, 'eb1bb5ca723f45f1a45b16612c5a059b', '4eb71442bb5a4850b7ed05b4845bf7cb'
+  provider :foursquare, 'MYEXMUEOG2T53YWKGVRGHURRCDHXGQUL3GNGWV54RR0CRMXM', 'QTEOI5MOL0VS5GHIKXSNVQFI4WWNVPPEA4HREABLUYMKRA3H'
   provider :identity, fields: [:email, :name], model: User, on_failed_registration: lambda { |env|
     	UsersController.action(:new).call(env)
     }

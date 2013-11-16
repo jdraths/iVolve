@@ -49,6 +49,22 @@ class StaticPagesController < ApplicationController
         @instagram_int_likes_out = @instagram_auth_user.int_likes_out
         @instagram_avg_likes_out = @ivolveindex.iv_instagram_likes_sent
       end
+      if foursquare?
+        @foursquare_friends_count = @foursquare_auth_user.friends_count
+        @foursquare_avg_friends = @ivolveindex.iv_foursquare_friends
+        @foursquare_following_count = @foursquare_auth_user.following_count
+        @foursquare_avg_following = @ivolveindex.iv_foursquare_following
+        @foursquare_checkins_count = @foursquare_auth_user.checkins_count
+        @foursquare_avg_checkins = @ivolveindex.iv_foursquare_checkins
+        @foursquare_badges_count = @foursquare_auth_user.badges_count
+        @foursquare_avg_badges = @ivolveindex.iv_foursquare_badges
+        @foursquare_mayor_count = @foursquare_auth_user.mayor_count
+        @foursquare_avg_mayors = @ivolveindex.iv_foursquare_mayor
+        @foursquare_tips_count = @foursquare_auth_user.tips_count
+        @foursquare_avg_tips = @ivolveindex.iv_foursquare_tips
+        @foursquare_photos_count = @foursquare_auth_user.photos_count
+        @foursquare_avg_photos = @ivolveindex.iv_foursquare_photos
+      end
       if fitbit?
         @fitbit_height_int = @fitbit_auth_user.height_int
         @fitbit_avg_height = @ivolveindex.iv_fitbit_height

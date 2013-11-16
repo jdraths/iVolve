@@ -8,7 +8,7 @@ class TwitterUser < ActiveRecord::Base
 	def self.total_grouped_by_date(start)
 		t = Time.zone.now
 		time_now = t + t.utc_offset
-		data = where(created_at: start.beginning_of_day..time_now)
+		data = where(created_at: start.beginning_of_day..time_now.end_of_day)
 		data = data.group("date(created_at)")
 		data = data.select("date(created_at) as created_at, sum(favorite_int_count) as favorite_int_count, sum(followers_int_count) as followers_int_count, sum(friends_int_count) as friends_int_count, sum(listed_int_count) as listed_int_count, sum(tweet_int_count) as tweet_int_count")
 		data.group_by { |d| d.created_at.to_date }
@@ -56,44 +56,6 @@ class TwitterUser < ActiveRecord::Base
 					status: twitter_user.status.to_s,
 					)
 			#end
-	end
-
-	def self.manual_user_data
-		twitter_user = Twitter.user("roanedraths")
-			#unless exists?(uid: t_user.id)
-			# could use unless exists? create! and then when exists? save!,
-			# but that would not allow ivolve to track user changes over time.
-				create!(
-					name: twitter_user.screen_name,
-					#user_id: Authorization.find_by_provider_and_screen_name('twitter', 'whomikereilly'),
-					connections: twitter_user.connections,
-					contributors_enabled: twitter_user.contributors_enabled,
-					default_profile: twitter_user.default_profile,
-					default_profile_image: twitter_user.default_profile_image,
-					description: twitter_user.description,
-					favorite_count: twitter_user.favorite_count,
-					follow_request_sent: twitter_user.follow_request_sent,
-					followers_count: twitter_user.followers_count,
-					friends_count: twitter_user.friends_count,
-					geo_enabled: twitter_user.geo_enabled,
-					is_translator: twitter_user.is_translator,
-					lang: twitter_user.lang,
-					listed_count: twitter_user.listed_count,
-					location: twitter_user.location,
-					notifications: twitter_user.notifications,
-					protected_user: twitter_user.protected,
-					uid: twitter_user.id,
-					tweet_count: twitter_user.statuses_count,
-					time_zone: twitter_user.time_zone,
-					url: twitter_user.url,
-					utc_offset: twitter_user.utc_offset,
-					verified: twitter_user.verified,
-					description_urls: twitter_user.description_urls.to_s,
-					status: twitter_user.status.to_s,
-
-					)
-			#end
-		#end
 	end
 
 	def self.sched_user_data

@@ -47,6 +47,18 @@ module SessionsHelper
 		end
 	end
 
+	def foursquare_authorized?
+		@foursquare = Authorization.find_by_user_id_and_provider(current_user, 'foursquare')
+		!@foursquare.nil?
+	end
+
+	def foursquare?
+		if foursquare_authorized?
+			@foursquare_auth_user = FoursquareUser.find_by_uid(@foursquare.uid)
+			!@foursquare_auth_user.nil?
+		end
+	end
+
 	def fitbit_authorized?
 		@fitbit = Authorization.find_by_user_id_and_provider(current_user, 'fitbit')
 		!@fitbit.nil?

@@ -22,19 +22,6 @@ module GraphHelper
 				list_count = 0
 			end
 
-			#if !twitter_index_by_day[date].nil?
-			#	twitter_index_friends = twitter_index_by_day[date].first.try(:iv_twitter_friends)
-			#	twitter_index_followers = twitter_index_by_day[date].first.try(:iv_twitter_follwers)
-			#	twitter_index_sent = twitter_index_by_day[date].first.try(:iv_twitter_tweets_sent)
-			#	twitter_index_favd = twitter_index_by_day[date].first.try(:iv_twitter_tweets_favd)
-			#	twitter_index_lists = twitter_index_by_day[date].first.try(:iv_twitter_lists)
-			#else
-			#	twitter_index_friends = 0
-			#	twitter_index_followers = 0
-			#	twitter_index_sent = 0
-			#	twitter_index_favd = 0
-			#	twitter_index_lists = 0
-			#end
 			{
 				created_at: date,
 				num_friends: friends_count,
@@ -109,6 +96,46 @@ module GraphHelper
 				insta_following: following_count,
 				insta_media: media_count,
 				insta_likes: likes_count,
+			}
+		end
+	end
+
+	def foursquare_user_data
+		# IT WOULD BE NICE TO RE-FACTOR THIS SO IT IS THE SAME current_user as for other stats display...
+		@foursquare_graph = Authorization.where("user_id = ?", current_user).where("provider = ?", "foursquare")
+		@foursquare_graph_user = FoursquareUser.where("uid = ?", @foursquare_graph.first['uid'])
+		data_by_day = @foursquare_graph_user.total_grouped_by_date(2.weeks.ago)
+	
+		(2.weeks.ago.to_date..Date.today).map do |date|
+			if !data_by_day[date].nil?
+				created_at = date
+				friends_count = data_by_day[date].first.try(:friends_count)
+				following_count = data_by_day[date].first.try(:following_count)
+				checkins_count = data_by_day[date].first.try(:checkins_count)
+				badges_count = data_by_day[date].first.try(:badges_count)
+				mayor_count = data_by_day[date].first.try(:mayor_count)
+				tips_count = data_by_day[date].first.try(:tips_count)
+				photos_count = data_by_day[date].first.try(:photos_count)
+			else
+				created_at = date
+				friends_count = 0
+				following_count = 0
+				checkins_count = 0
+				badges_count = 0
+				mayor_count = 0
+				tips_count = 0
+				photos = 0
+			end
+
+			{
+				created_at: date,
+				foursquare_friends: friends_count,
+				foursquare_following: following_count,
+				foursquare_checkins: checkins_count,
+				foursquare_badges: badges_count,
+				foursquare_mayor: mayor_count,
+				foursquare_tips: tips_count,
+				foursquare_photos: photos_count,
 			}
 		end
 	end

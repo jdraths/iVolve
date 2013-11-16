@@ -19,6 +19,12 @@ task :instagram_sched => :environment do
 	puts "done."
 end
 
+task :foursquare_sched => :environment do
+	puts "Foursquare API..."
+	FoursquareUser.sched_user_data
+	puts "done."
+end
+
 task :fitbit_sched => :environment do
 	puts "Fitbit API..."
 	FitbitUser.sched_user_data

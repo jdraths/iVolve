@@ -17,3 +17,9 @@ jQuery ->
     xkey: 'created_at'   # y is really the value on the X-Axis
     ykeys: ['insta_followers', 'insta_following', 'insta_media', 'insta_likes']  # a is really the value on the Y-Axis
     labels: ['Followers', 'Following', 'Shared', 'Likes']
+  Morris.Line
+    element: 'foursquare-graph'
+    data: $('#foursquare-graph').data('foursquare')
+    xkey: 'created_at'   # y is really the value on the X-Axis
+    ykeys: ['foursquare_friends', 'foursquare_following', 'foursquare_checkins', 'foursquare_badges', 'foursquare_mayor', 'foursquare_tips', 'foursquare_photos']  # a is really the value on the Y-Axis
+    labels: ['Friends', 'Following', 'Checkins', 'Badges', 'Mayorships', 'Tips Given', 'Photos']
