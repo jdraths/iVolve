@@ -64,7 +64,7 @@ class SessionsController < ApplicationController
 		        redirect_to root_path
 		    end
 		end
-# ONLY RUN API REQUESTS UPON LOGIN and if Authorization exists.
+# ONLY RUN API REQUESTS if No Authorization exists, AKA IF NEW USER.
 # methods defined in sessions_helper
 	    if twitter_authorized? # runs if twitter_auth exists
 	    	unless twitter? # runs if no TwitterUser has been saved
@@ -82,6 +82,12 @@ class SessionsController < ApplicationController
 		if instagram_authorized?
 			unless instagram?
 				InstagramUser.pull_user_data(current_user)
+			end
+		end
+
+		if foursquare_authorized?
+			unless foursquare?
+				FoursquareUser.pull_user_data(current_user)
 			end
 		end
 

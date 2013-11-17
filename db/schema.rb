@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131103163245) do
+ActiveRecord::Schema.define(version: 20131116222247) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -60,7 +60,10 @@ ActiveRecord::Schema.define(version: 20131103163245) do
     t.string   "phone"
   end
 
+  add_index "authorizations", ["provider"], name: "index_authorizations_on_provider"
   add_index "authorizations", ["remember_token"], name: "index_authorizations_on_remember_token"
+  add_index "authorizations", ["uid"], name: "index_authorizations_on_uid"
+  add_index "authorizations", ["user_id"], name: "index_authorizations_on_user_id"
 
   create_table "facebook_users", force: true do |t|
     t.string   "uid"
@@ -107,6 +110,14 @@ ActiveRecord::Schema.define(version: 20131103163245) do
     t.string   "num_posts"
     t.string   "num_likes"
     t.string   "num_friends"
+    t.integer  "int_subcribers"
+    t.integer  "int_friends"
+    t.integer  "int_likes"
+    t.integer  "int_posts"
+    t.integer  "int_statuses"
+    t.integer  "int_subscribed_to"
+    t.integer  "int_subscribers"
+    t.integer  "int_achievements"
   end
 
   create_table "fetch_tweets", force: true do |t|
@@ -209,6 +220,45 @@ ActiveRecord::Schema.define(version: 20131103163245) do
     t.string   "rec_food_name_one"
     t.string   "rec_food_name_two"
     t.string   "rec_food_name_three"
+    t.integer  "height_int"
+    t.integer  "weight_int"
+    t.integer  "best_tot_active_score_int"
+    t.integer  "best_tot_cal_out_int"
+    t.integer  "best_tot_dist_int"
+    t.integer  "best_tot_steps_int"
+    t.integer  "best_track_cal_out_int"
+    t.integer  "lifetime_tot_active_score_int"
+    t.integer  "lifetime_tot_cal_out_int"
+    t.integer  "lifetime_tot_dist_int"
+    t.integer  "lifetime_tot_steps_int"
+    t.integer  "lifetime_track_active_score_int"
+    t.integer  "lifetime_track_cal_out_int"
+    t.integer  "lifetime_track_dist_int"
+    t.integer  "lifetime_track_steps_int"
+    t.integer  "stride_length_run_int"
+    t.integer  "stride_length_walk_int"
+  end
+
+  create_table "foursquare_users", force: true do |t|
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "uid"
+    t.string   "gender"
+    t.integer  "friends_count"
+    t.integer  "badges_count"
+    t.integer  "tips_count"
+    t.string   "home_city"
+    t.string   "bio"
+    t.string   "email"
+    t.string   "facebook_uid"
+    t.integer  "mayor_count"
+    t.integer  "checkins_count"
+    t.integer  "following_count"
+    t.integer  "photos_count"
+    t.integer  "scores_max"
+    t.integer  "scores_recent"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "identities", force: true do |t|
@@ -236,6 +286,75 @@ ActiveRecord::Schema.define(version: 20131103163245) do
     t.string   "num_likes_out"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "int_followers"
+    t.integer  "int_following"
+    t.integer  "int_media"
+    t.integer  "int_likes_out"
+  end
+
+  create_table "ivolve_indices", force: true do |t|
+    t.integer  "iv_total"
+    t.integer  "iv_physical"
+    t.integer  "iv_intellectual"
+    t.integer  "iv_social"
+    t.integer  "iv_spiritual"
+    t.integer  "iv_creative"
+    t.integer  "iv_emotional"
+    t.integer  "male_total"
+    t.integer  "male_physical"
+    t.integer  "male_intellectual"
+    t.integer  "male_social"
+    t.integer  "male_spiritual"
+    t.integer  "male_creative"
+    t.integer  "male_emotional"
+    t.integer  "female_total"
+    t.integer  "female_physical"
+    t.integer  "female_intellectual"
+    t.integer  "female_social"
+    t.integer  "female_spiritual"
+    t.integer  "female_creative"
+    t.integer  "female_emotional"
+    t.integer  "twitter_users_total"
+    t.integer  "facebook_users_total"
+    t.integer  "instagram_users_total"
+    t.integer  "fitbit_users_total"
+    t.integer  "iv_twitter_friends"
+    t.integer  "iv_twitter_follwers"
+    t.integer  "iv_twitter_tweets_sent"
+    t.integer  "iv_twitter_tweets_favd"
+    t.integer  "iv_twitter_lists"
+    t.integer  "iv_facebook_friends"
+    t.integer  "iv_facebook_likes_sent"
+    t.integer  "iv_facebook_posts"
+    t.integer  "iv_facebook_statuses"
+    t.integer  "iv_facebook_achievements"
+    t.integer  "iv_facebook_subscribers"
+    t.integer  "iv_facebook_subscribed_to_you"
+    t.integer  "iv_instagram_followers"
+    t.integer  "iv_instagram_following"
+    t.integer  "iv_instagram_shared"
+    t.integer  "iv_instagram_likes_sent"
+    t.integer  "iv_fitbit_height"
+    t.integer  "iv_fitbit_weight"
+    t.integer  "iv_fitbit_stride_length_run"
+    t.integer  "iv_fitbit_stride_length_walk"
+    t.integer  "iv_fitbit_life_tot_active_score"
+    t.integer  "iv_fitbit_best_tot_active_score"
+    t.integer  "iv_fitbit_life_tot_cal_out"
+    t.integer  "iv_fitbit_best_tot_cal_out"
+    t.integer  "iv_fitbit_life_tot_dist"
+    t.integer  "iv_fitbit_best_tot_dist"
+    t.integer  "iv_fitbit_life_tot_steps"
+    t.integer  "iv_fitbit_best_tot_steps"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "iv_foursquare_friends"
+    t.integer  "iv_foursquare_following"
+    t.integer  "iv_foursquare_checkins"
+    t.integer  "iv_foursquare_badges"
+    t.integer  "iv_foursquare_mayor"
+    t.integer  "iv_foursquare_tips"
+    t.integer  "iv_foursquare_photos"
   end
 
   create_table "microposts", force: true do |t|
@@ -287,6 +406,11 @@ ActiveRecord::Schema.define(version: 20131103163245) do
     t.string   "description_urls"
     t.string   "status"
     t.integer  "uid"
+    t.integer  "favorite_int_count"
+    t.integer  "followers_int_count"
+    t.integer  "friends_int_count"
+    t.integer  "listed_int_count"
+    t.integer  "tweet_int_count"
   end
 
   create_table "users", force: true do |t|

@@ -11,71 +11,248 @@
 				<%= render 'shared/micropost_form' %>
 			</section>
 			
-				<h3>Micropost Feed</h3>
+				<h3>Peanut Gallery</h3>
 				<%= render 'shared/feed' %>
 			
 		</aside>
-		<div class="span8">
+		<div class="span8">		
 			<h3>Activity Feed</h3>
 			<h4 style="border-top: 1px solid #e8e8e8">Twitter:</h4>
 			<% if twitter? %>
-				<h5>Name: <%= @twitter_name %></h5>
-				<h5>Description: <%= @twitter_description %> </h5>
-				<h5>Friends: <%= @twitter_friends %></h5>
-				<h5>Followers: <%= @twitter_followers %></h5>
-				<h5>Tweets Sent: <%= @twitter_sent %></h5>
-				<h5>Tweets Favorited: <%= @twitter_favorites %></h5>
-				<h5>Twitter Lists: <%= @twitter_lists %></h5>
+				<%= content_tag :div, "", id: "twitter-graph", data: {twitter: twitter_user_data } %>
+				<table class="my_table table table-hover">
+					<tr>
+						<td><h5></h5></td>
+						<td id="stats"><h5>User Name</h5></td>
+						<td id="stats"><h5>iVolve Index</h5></td>
+					</tr>
+					<tr>
+						<td><h5>Friends</h5></td>
+						<td id="stats"><h5><%= @twitter_int_friends %></h5></td>
+						<td id="stats"><h5><%= @twitter_avg_friends %></h5></td>
+					</tr>
+					<tr>
+						<td><h5>Followers</h5></td>
+						<td id="stats"><h5><%= @twitter_int_followers %></h5></td>
+						<td id="stats"><h5><%= @twitter_avg_followers %></h5></td>
+					</tr>
+					<tr>
+						<td><h5>Tweets Sent</h5></td>
+						<td id="stats"><h5><%= @twitter_int_sent %></h5></td>
+						<td id="stats"><h5><%= @twitter_avg_sent %></h5></td>
+					</tr>
+					<tr>
+						<td><h5>Tweets Favorited</h5></td>
+						<td id="stats"><h5><%= @twitter_int_favorites %></h5></td>
+						<td id="stats"><h5><%= @twitter_avg_fav %></h5></td>
+					</tr>
+					<tr>
+						<td><h5>Twitter Lists</h5></td>
+						<td id="stats"><h5><%= @twitter_int_lists %></h5></td>
+						<td id="stats"><h5><%= @twitter_avg_lists %></h5></td>
+					</tr>
+				</table>
 			<% else %>
 				<%= link_to "Link your Twitter!", "/auth/twitter?user_authorize=true", class: "btn btn-large btn-primary" %>
 			<% end %>
 			<h4 style="border-top: 1px solid #e8e8e8">Facebook:</h4>
 			<% if facebook? %>
-				<h5>Name: <%= @facebook_name %></h5>
-				<h5>Bio: <%= @facebook_bio %> </h5>
-				<h5>Birthday: <%= @facebook_birthday %></h5>
-				<h5>Friends: <%= @facebook_num_friends %></h5>
-				<h5>Likes: <%= @facebook_num_likes %></h5>
-				<h5>Posts: <%= @facebook_num_posts %></h5>
-				<h5>Statuses: <%= @facebook_num_statuses %></h5>
-				<h5>Achievements: <%= @facebook_num_achievements %></h5>
-				<h5>Subscribers: <%= @facebook_num_subscribers %></h5>
-				<h5>Subscribed to you: <%= @facebook_num_subscribed_to %></h5>
+				<%= content_tag :div, "", id: "facebook-graph", data: {facebook: facebook_user_data } %>
+				<table class="my_table table table-hover">
+					<tr>
+						<td><h5></h5></td>
+						<td id="stats"><h5>User Name</h5></td>
+						<td id="stats"><h5>iVolve Index</h5></td>
+					</tr>
+					<tr>
+						<td><h5>Friends</h5></td> 
+						<td id="stats"><h5><%= @facebook_int_friends %></h5></td> 
+						<td id="stats"><h5><%= @facebook_avg_friends %></h5></td>
+					</tr>
+					<tr>
+						<td><h5>Likes</h5></td>
+						<td id="stats"><h5><%= @facebook_int_likes %></h5></td>
+						<td id="stats"><h5><%= @facebook_avg_likes %></h5></td>
+					</tr>
+					<tr>
+						<td><h5>Posts</h5></td>
+						<td id="stats"><h5><%= @facebook_int_posts %></h5></td>
+						<td id="stats"><h5><%= @facebook_avg_posts %></h5></td>
+					</tr>
+					<tr>
+						<td><h5>Statuses</h5></td>
+						<td id="stats"><h5><%= @facebook_int_statuses %></h5></td>
+						<td id="stats"><h5><%= @facebook_avg_statuses %></h5></td>
+					</tr>
+					<tr>
+						<td><h5>Achievements</h5></td>
+						<td id="stats"><h5><%= @facebook_int_achievements %></h5></td>
+						<td id="stats"><h5><%= @facebook_avg_achievements %></h5></td>
+					</tr>
+					<tr>
+						<td><h5>Subscribers</h5></td>
+						<td id="stats"><h5><%= @facebook_int_subscribers %></h5></td>
+						<td id="stats"><h5><%= @facebook_avg_subscribers %></h5></td>
+					</tr>
+					<tr>
+						<td><h5>Subscribed to you</h5></td>
+						<td id="stats"><h5><%= @facebook_int_subscribed_to %></h5></td>
+						<td id="stats"><h5><%= @facebook_avg_subscribed_to %></h5></td>
+					</tr>
+				</table>
 			<% else %>
 				<%= link_to "Link your Facebook!", "/auth/facebook", class: "btn btn-large btn-primary" %>
 			<% end %>
 			<h4 style="border-top: 1px solid #e8e8e8">Instagram:</h4>
 			<% if instagram? %>
-				<h5>Name: <%= @instagram_username %></h5>
-				<h5>Bio: <%= @instagram_bio %></h5>
-				<h5>Followers: <%= @instagram_num_followers %></h5>
-				<h5>Following: <%= @instagram_num_following %></h5>
-				<h5>Shared: <%= @instagram_num_media %></h5>
-				<h5>Likes: <%= @instagram_num_likes_out %></h5>
-				<h5>Website: <%= @instagram_website %></h5>
+				<%= content_tag :div, "", id: "instagram-graph", data: {instagram: instagram_user_data } %>
+				<table class="my_table table table-hover">
+					<tr>
+						<td><h5></h5></td>
+						<td id="stats"><h5>User Name</h5></td>
+						<td id="stats"><h5>iVolve Index</h5></td>
+					</tr>
+					<tr>
+						<td><h5>Followers</h5></td>
+						<td id="stats"><h5><%= @instagram_int_followers %></h5></td>
+						<td id="stats"><h5><%= @instagram_avg_followers %></h5></td>
+					</tr>
+					<tr>
+						<td><h5>Following</h5></td>
+						<td id="stats"><h5><%= @instagram_int_following %></h5></td>
+						<td id="stats"><h5><%= @instagram_avg_following %></h5></td>
+					</tr>
+					<tr>
+						<td><h5>Shared</h5></td>
+						<td id="stats"><h5><%= @instagram_int_media %></h5></td>
+						<td id="stats"><h5><%= @instagram_avg_media %></h5></td>
+					</tr>
+					<tr>
+						<td><h5>Likes</h5></td>
+						<td id="stats"><h5><%= @instagram_int_likes_out %></h5></td>
+						<td id="stats"><h5><%= @instagram_avg_likes_out %></h5></td>
+					</tr>
+				</table>
 			<% else %>
 				<%= link_to "Link your Instagram!", "/auth/instagram", class: "btn btn-large btn-primary" %>
 			<% end %>
+			<h4 style="border-top: 1px solid #e8e8e8">Foursquare:</h4>
+			<% if foursquare? %>
+				<%= content_tag :div, "", id: "foursquare-graph", data: {foursquare: foursquare_user_data } %>
+				<table class="my_table table table-hover">
+					<tr>
+						<td><h5></h5></td>
+						<td id="stats"><h5>User Name</h5></td>
+						<td id="stats"><h5>iVolve Index</h5></td>
+					</tr>
+					<tr>
+						<td><h5>Friends</h5></td>
+						<td id="stats"><h5><%= @foursquare_friends_count %></h5></td>
+						<td id="stats"><h5><%= @foursquare_avg_friends %></h5></td>
+					</tr>
+					<tr>
+						<td><h5>Following</h5></td>
+						<td id="stats"><h5><%= @foursquare_following_count %></h5></td>
+						<td id="stats"><h5><%= @foursquare_avg_following %></h5></td>
+					</tr>
+					<tr>
+						<td><h5>Checkins</h5></td>
+						<td id="stats"><h5><%= @foursquare_checkins_count %></h5></td>
+						<td id="stats"><h5><%= @foursquare_avg_checkins %></h5></td>
+					</tr>
+					<tr>
+						<td><h5>Badges</h5></td>
+						<td id="stats"><h5><%= @foursquare_badges_count %></h5></td>
+						<td id="stats"><h5><%= @foursquare_avg_badges %></h5></td>
+					</tr>
+					<tr>
+						<td><h5>Mayor</h5></td>
+						<td id="stats"><h5><%= @foursquare_mayor_count %></h5></td>
+						<td id="stats"><h5><%= @foursquare_avg_mayors %></h5></td>
+					</tr>
+					<tr>
+						<td><h5>Tips</h5></td>
+						<td id="stats"><h5><%= @foursquare_tips_count %></h5></td>
+						<td id="stats"><h5><%= @foursquare_avg_tips %></h5></td>
+					</tr>
+					<tr>
+						<td><h5>Photos</h5></td>
+						<td id="stats"><h5><%= @foursquare_photos_count %></h5></td>
+						<td id="stats"><h5><%= @foursquare_avg_photos %></h5></td>
+					</tr>
+				</table>
+			<% else %>
+				<%= link_to "Link your Foursquare!", "/auth/foursquare", class: "btn btn-large btn-primary" %>
+			<% end %>
 			<h4 style="border-top: 1px solid #e8e8e8">Fitbit:</h4>
 			<% if fitbit? %>
-				<h5>Name: <%= @fitbit_display_name %></h5>
-				<h5>Height: <%= @fitbit_height %></h5>
-				<h5>Weight: <%= @fitbit_weight %></h5>
-				<h5>Member Since: <%= @fitbit_member_since %></h5>
-				<h5>Running stride length: <%= @fitbit_stride_length_run %></h5>
-				<h5>Walking stride length: <%= @fitbit_stride_length_walk %></h5>
-				<h5>Lifetime Total Active Score: <%= @fitbit_lifetime_tot_active_score %></h5>
-				<h5>Best Total Active Score: <%= @fitbit_best_tot_active_score_value %></h5>
-				<h5>Date Accomplished: <%= @fitbit_best_tot_active_score_date %></h5>
-				<h5>Lifetime Total Calories Out: <%= @fitbit_lifetime_tot_cal_out %></h5>
-				<h5>Best Total Calories Out: <%= @fitbit_best_tot_cal_out_value %></h5>
-				<h5>Date Accomplished: <%= @fitbit_best_tot_cal_out_date %></h5>
-				<h5>Lifetime Total Distance: <%= @fitbit_lifetime_tot_dist %></h5>
-				<h5>Best Total Distance: <%= @fitbit_best_tot_dist_value %></h5>
-				<h5>Date Accomplished: <%= @fitbit_best_tot_dist_date %></h5>
-				<h5>Lifetime Total Steps: <%= @fitbit_lifetime_tot_steps %></h5>
-				<h5>Best Total Steps: <%= @fitbit_best_tot_steps_value %></h5>
-				<h5>Date Accomplished: <%= @fitbit_best_tot_steps_date %></h5>
+			<table class="my_table table table-hover">
+				<tr>
+					<td><h5></h5></td>
+					<td id="stats"><h5>User Name</h5></td>
+					<td id="stats"><h5>iVolve Index</h5></td>
+				</tr>
+				<tr>
+					<td><h5>Height</h5></td>
+					<td id="stats"><h5><%= @fitbit_height_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_height %></h5></td>
+				</tr>
+				<tr>
+					<td><h5>Weight</h5></td>
+					<td id="stats"><h5><%= @fitbit_weight_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_weight %></h5></td>
+				</tr>
+				<tr>
+					<td><h5>Running stride length</h5></td>
+					<td id="stats"><h5><%= @fitbit_stride_length_run_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_length_run %></h5></td>
+				</tr>
+				<tr>
+					<td><h5>Walking stride length</h5></td>
+					<td id="stats"><h5><%= @fitbit_stride_length_walk_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_length_walk %></h5></td>
+				</tr>
+				<tr>
+					<td><h5>Lifetime Total Active Score</h5></td>
+					<td id="stats"><h5><%= @fitbit_lifetime_tot_active_score_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_life_active_score %></h5></td>
+				</tr>
+				<tr>
+					<td><h5>Best Total Active Score</h5></td>
+					<td id="stats"><h5><%= @fitbit_best_tot_active_score_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_best_active_score %></h5></td>
+				</tr>
+				<tr>
+					<td><h5>Lifetime Total Calories Out</h5></td>
+					<td id="stats"><h5><%= @fitbit_lifetime_tot_cal_out_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_life_cal_out %></h5></td>
+				</tr>
+				<tr>
+					<td><h5>Best Total Calories Out</h5></td>
+					<td id="stats"><h5><%= @fitbit_best_tot_cal_out_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_best_cal_out %></h5></td>
+				</tr>
+				<tr>
+					<td><h5>Lifetime Total Distance</h5></td>
+					<td id="stats"><h5><%= @fitbit_lifetime_tot_dist_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_life_tot_dist %></h5></td>
+				</tr>
+				<tr>
+					<td><h5>Best Total Distance</h5></td>
+					<td id="stats"><h5><%= @fitbit_best_tot_dist_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_best_dist %></h5></td>
+				</tr>
+				<tr>
+					<td><h5>Lifetime Total Steps</h5></td>
+					<td id="stats"><h5><%= @fitbit_lifetime_tot_steps_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_life_tot_steps %></h5></td>
+				</tr>
+				<tr>
+					<td><h5>Best Total Steps</h5></td>
+					<td id="stats"><h5><%= @fitbit_best_tot_steps_int %></h5></td>
+					<td id="stats"><h5><%= @fitbit_avg_best_tot_steps %></h5></td>
+				</tr>
+			</table>
 			<% else %>
 				<%= link_to "Link your Fitbit!", "/auth/fitbit", class: "btn btn-large btn-primary" %>
 			<% end %>
@@ -85,7 +262,7 @@
 <% else %>
 	<div class="center hero-unit">
 	
-		<%= link_to image_tag("ivolvelogo.jpg", alt: "about-ivolve"), 'http://ivolve.me/about-ivolve' %>
+		<%= link_to image_tag("ivolvelogo.png", alt: "about-ivolve"), 'http://ivolve.me/about-ivolve' %>
 		<h1 style="color: white;">Welcome to the iVolution!</h1>
 	  
 		<h2>

@@ -15,6 +15,14 @@ $blue: #049cdb;
 	box-sizing: border-box;
 }
 
+@mixin border-radius($radius) {
+	-webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+       -o-border-radius: $radius;
+          border-radius: $radius;
+}
+
 /* universal */
 
 html {
@@ -78,21 +86,61 @@ p {
 	margin-right: 10px;
 	font-size: 1.7em;
 	color: white;
-	text-transform: uppercase;
-	letter-spacing: -1px;
+	text-transform: none;
+	letter-spacing: 0.5px;
 	padding-top: 9px;
 	font-weight: bold;
 	line-height: 1;
-	&:hover {
+	text-decoration: none;
+	.red {
+	  color: red;
+	  &:hover {
 		color: white;
 		text-decoration: none;
+		}
+	}
+	.orange {
+	  color: orange;
+	  &:hover {
+		color: white;
+		text-decoration: none;
+		}
+	}
+	.yellow {
+	  color: yellow;
+	  &:hover {
+		color: white;
+		text-decoration: none;
+		}
+	}
+	.green {
+	  color: green;
+	  &:hover {
+		color: white;
+		text-decoration: none;
+		}
+	}
+	.blue {
+	  color: blue;
+	  &:hover {
+		color: white;
+		text-decoration: none;
+		}
+	}
+	.violet {
+	  color: violet;
+	  &:hover {
+		color: white;
+		text-decoration: none;
+		}
 	}
 }
+
 
 /* footer */
 
 footer {
-	marging-top: 45px;
+	margin-top: 45px;
 	padding-top: 5px;
 	border-top: 1px solid $grayMediumLight;
 	color: $grayLight;
@@ -241,6 +289,20 @@ input {
 .field_with_errors {
 	@extend .control-group;
 	@extend .error;
+}
+
+
+/* tables */
+.my_table {
+	border-collapse:inherit;
+	@include border-radius(5px);
+	margin: auto;
+	border: 2px solid;
+	tr {
+		#stats {
+			text-align: center;
+		}
+	}
 }
 
 /* miscellaneous */

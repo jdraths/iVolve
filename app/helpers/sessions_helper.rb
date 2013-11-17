@@ -47,6 +47,18 @@ module SessionsHelper
 		end
 	end
 
+	def foursquare_authorized?
+		@foursquare = Authorization.find_by_user_id_and_provider(current_user, 'foursquare')
+		!@foursquare.nil?
+	end
+
+	def foursquare?
+		if foursquare_authorized?
+			@foursquare_auth_user = FoursquareUser.find_by_uid(@foursquare.uid)
+			!@foursquare_auth_user.nil?
+		end
+	end
+
 	def fitbit_authorized?
 		@fitbit = Authorization.find_by_user_id_and_provider(current_user, 'fitbit')
 		!@fitbit.nil?
@@ -61,14 +73,12 @@ module SessionsHelper
 
 	def current_user=(user)
 		@current_user = user
-		#from stefano bernardi
 		session[:user_id] = user.nil? ? user : user.id
 	end
 
 	def current_user
 		#remember_token = User.encrypt(cookies[:remember_token])
 		#@current_user ||= User.find_by(remember_token: remember_token)
-		#from stefano bernardi
 		@current_user ||= User.find_by_id(session[:user_id])
 	end
 
