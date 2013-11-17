@@ -40,8 +40,8 @@ class Authorization < ActiveRecord::Base
 	# This method must be run to grab credentials from everything but Identity.  this cannot be grabbed in identity, will fail.
 	def self.from_omniauth(auth)
 		where(auth.slice(:provider, :uid)).first_or_initialize.tap do |authorized|
-			authorized.uid = auth.uid
 			authorized.provider = auth.provider
+			authorized.uid = auth.uid
 			authorized.name = auth.info.name
 			#authorized.email = auth.info.email
 			#authorized.screen_name = auth.info.nickname
