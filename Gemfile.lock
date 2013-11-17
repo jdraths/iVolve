@@ -39,8 +39,6 @@ GEM
     arel (4.0.0)
     atomic (1.1.14)
     bcrypt-ruby (3.0.1)
-    bootstrap-sass (2.3.2.0)
-      sass (~> 3.2)
     bootstrap-will_paginate (0.0.9)
       will_paginate
     builder (3.1.4)
@@ -76,6 +74,8 @@ GEM
     ffi (1.9.0)
     fitgem (0.8.0)
       oauth
+    font-awesome-sass (4.0.2)
+      sass-rails (>= 3.1.1)
     hashie (2.0.5)
     hike (1.2.3)
     httpauth (0.2.0)
@@ -131,6 +131,8 @@ GEM
     omniauth-instagram (1.0.1)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.0)
+    omniauth-linkedin (0.1.0)
+      omniauth-oauth (~> 1.0)
     omniauth-oauth (1.0.1)
       oauth
       omniauth (~> 1.0)
@@ -234,13 +236,13 @@ PLATFORMS
 DEPENDENCIES
   annotate (= 2.5.0)
   bcrypt-ruby (= 3.0.1)
-  bootstrap-sass (= 2.3.2.0)
   bootstrap-will_paginate (= 0.0.9)
   capybara (= 2.1.0)
   coffee-rails (= 4.0.0)
   factory_girl_rails (= 4.2.1)
   faker (= 1.1.2)
   fitgem
+  font-awesome-sass
   instagram (~> 0.10.0)
   jbuilder (= 1.0.2)
   jquery-rails (= 2.2.1)
@@ -251,6 +253,7 @@ DEPENDENCIES
   omniauth-google-oauth2 (~> 0.2.0)
   omniauth-identity!
   omniauth-instagram (~> 1.0.0)
+  omniauth-linkedin
   omniauth-twitter (~> 1.0.0)
   pg (= 0.15.1)
   rails (= 4.0.0)
