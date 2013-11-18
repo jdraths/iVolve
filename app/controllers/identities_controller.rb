@@ -17,6 +17,9 @@ class IdentitiesController < ApplicationController
   def new
   	#@identity = Identity.new
     @identity = env['omniauth.identity']
+    if @identity.save
+      UserMailer.welcome_email(@user).deliver
+    end
   end
 
   def create
