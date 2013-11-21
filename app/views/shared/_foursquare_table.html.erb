@@ -1,0 +1,48 @@
+<h4 style="border-top: 1px solid #e8e8e8">Foursquare:</h4>
+	<% if foursquare? %>
+		<%= content_tag :div, "", id: "foursquare-graph", data: {foursquare: foursquare_user_data } %>
+		<table class="my_table table table-hover">
+			<tr>
+				<td><h5></h5></td>
+				<td id="stats"><h5>User Name</h5></td>
+				<td id="stats"><h5>iVolve Index</h5></td>
+			</tr>
+			<tr>
+				<td><h5>Friends</h5></td>
+				<td id="stats"><h5><%= @foursquare_friends_count %></h5></td>
+				<td id="stats"><h5><%= @foursquare_avg_friends %></h5></td>
+			</tr>
+			<tr>
+				<td><h5>Following</h5></td>
+				<td id="stats"><h5><%= @foursquare_following_count %></h5></td>
+				<td id="stats"><h5><%= @foursquare_avg_following %></h5></td>
+			</tr>
+			<tr>
+				<td><h5>Checkins</h5></td>
+				<td id="stats"><h5><%= @foursquare_checkins_count %></h5></td>
+				<td id="stats"><h5><%= @foursquare_avg_checkins %></h5></td>
+			</tr>
+			<tr>
+				<td><h5>Badges</h5></td>
+				<td id="stats"><h5><%= @foursquare_badges_count %></h5></td>
+				<td id="stats"><h5><%= @foursquare_avg_badges %></h5></td>
+			</tr>
+			<tr>
+				<td><h5>Mayor</h5></td>
+				<td id="stats"><h5><%= @foursquare_mayor_count %></h5></td>
+				<td id="stats"><h5><%= @foursquare_avg_mayors %></h5></td>
+			</tr>
+			<tr>
+				<td><h5>Tips</h5></td>
+				<td id="stats"><h5><%= @foursquare_tips_count %></h5></td>
+				<td id="stats"><h5><%= @foursquare_avg_tips %></h5></td>
+			</tr>
+			<tr>
+				<td><h5>Photos</h5></td>
+				<td id="stats"><h5><%= @foursquare_photos_count %></h5></td>
+				<td id="stats"><h5><%= @foursquare_avg_photos %></h5></td>
+			</tr>
+		</table>
+	<% else %>
+		<%= link_to "Link your Foursquare!", "/auth/foursquare", class: "btn btn-large btn-primary" %>
+	<% end %>

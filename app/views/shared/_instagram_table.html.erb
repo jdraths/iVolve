@@ -1,0 +1,33 @@
+<h4 style="border-top: 1px solid #e8e8e8">Instagram:</h4>
+	<% if instagram? %>
+		<%= content_tag :div, "", id: "instagram-graph", data: {instagram: instagram_user_data } %>
+		<table class="my_table table table-hover">
+			<tr>
+				<td><h5></h5></td>
+				<td id="stats"><h5>User Name</h5></td>
+				<td id="stats"><h5>iVolve Index</h5></td>
+			</tr>
+			<tr>
+				<td><h5>Followers</h5></td>
+				<td id="stats"><h5><%= @instagram_int_followers %></h5></td>
+				<td id="stats"><h5><%= @instagram_avg_followers %></h5></td>
+			</tr>
+			<tr>
+				<td><h5>Following</h5></td>
+				<td id="stats"><h5><%= @instagram_int_following %></h5></td>
+				<td id="stats"><h5><%= @instagram_avg_following %></h5></td>
+			</tr>
+			<tr>
+				<td><h5>Shared</h5></td>
+				<td id="stats"><h5><%= @instagram_int_media %></h5></td>
+				<td id="stats"><h5><%= @instagram_avg_media %></h5></td>
+			</tr>
+			<tr>
+				<td><h5>Likes</h5></td>
+				<td id="stats"><h5><%= @instagram_int_likes_out %></h5></td>
+				<td id="stats"><h5><%= @instagram_avg_likes_out %></h5></td>
+			</tr>
+		</table>
+	<% else %>
+		<%= link_to "Link your Instagram!", "/auth/instagram", class: "btn btn-large btn-primary" %>
+	<% end %>

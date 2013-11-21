@@ -1,0 +1,38 @@
+<h4 style="border-top: 1px solid #e8e8e8">Twitter:</h4>
+	<% if twitter? %>
+		<%= content_tag :div, "", id: "twitter-graph", data: {twitter: twitter_user_data } %>
+		<table class="my_table table table-hover">
+			<tr>
+				<td><h5></h5></td>
+				<td id="stats"><h5>User Name</h5></td>
+				<td id="stats"><h5>iVolve Index</h5></td>
+			</tr>
+			<tr>
+				<td><h5>Friends</h5></td>
+				<td id="stats"><h5><%= @twitter_int_friends %></h5></td>
+				<td id="stats"><h5><%= @twitter_avg_friends %></h5></td>
+			</tr>
+			<tr>
+				<td><h5>Followers</h5></td>
+				<td id="stats"><h5><%= @twitter_int_followers %></h5></td>
+				<td id="stats"><h5><%= @twitter_avg_followers %></h5></td>
+			</tr>
+			<tr>
+				<td><h5>Tweets Sent</h5></td>
+				<td id="stats"><h5><%= @twitter_int_sent %></h5></td>
+				<td id="stats"><h5><%= @twitter_avg_sent %></h5></td>
+			</tr>
+			<tr>
+				<td><h5>Tweets Favorited</h5></td>
+				<td id="stats"><h5><%= @twitter_int_favorites %></h5></td>
+				<td id="stats"><h5><%= @twitter_avg_fav %></h5></td>
+			</tr>
+			<tr>
+				<td><h5>Twitter Lists</h5></td>
+				<td id="stats"><h5><%= @twitter_int_lists %></h5></td>
+				<td id="stats"><h5><%= @twitter_avg_lists %></h5></td>
+			</tr>
+		</table>
+	<% else %>
+		<%= link_to "Link your Twitter!", "/auth/twitter?user_authorize=true", class: "btn btn-large btn-primary" %>
+	<% end %>

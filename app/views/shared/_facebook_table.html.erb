@@ -1,0 +1,48 @@
+<h4 style="border-top: 1px solid #e8e8e8">Facebook:</h4>
+	<% if facebook? %>
+		<%= content_tag :div, "", id: "facebook-graph", data: {facebook: facebook_user_data } %>
+		<table class="my_table table table-hover">
+			<tr>
+				<td><h5></h5></td>
+				<td id="stats"><h5>User Name</h5></td>
+				<td id="stats"><h5>iVolve Index</h5></td>
+			</tr>
+			<tr>
+				<td><h5>Friends</h5></td> 
+				<td id="stats"><h5><%= @facebook_int_friends %></h5></td> 
+				<td id="stats"><h5><%= @facebook_avg_friends %></h5></td>
+			</tr>
+			<tr>
+				<td><h5>Likes</h5></td>
+				<td id="stats"><h5><%= @facebook_int_likes %></h5></td>
+				<td id="stats"><h5><%= @facebook_avg_likes %></h5></td>
+			</tr>
+			<tr>
+				<td><h5>Posts</h5></td>
+				<td id="stats"><h5><%= @facebook_int_posts %></h5></td>
+				<td id="stats"><h5><%= @facebook_avg_posts %></h5></td>
+			</tr>
+			<tr>
+				<td><h5>Statuses</h5></td>
+				<td id="stats"><h5><%= @facebook_int_statuses %></h5></td>
+				<td id="stats"><h5><%= @facebook_avg_statuses %></h5></td>
+			</tr>
+			<tr>
+				<td><h5>Achievements</h5></td>
+				<td id="stats"><h5><%= @facebook_int_achievements %></h5></td>
+				<td id="stats"><h5><%= @facebook_avg_achievements %></h5></td>
+			</tr>
+			<tr>
+				<td><h5>Subscribers</h5></td>
+				<td id="stats"><h5><%= @facebook_int_subscribers %></h5></td>
+				<td id="stats"><h5><%= @facebook_avg_subscribers %></h5></td>
+			</tr>
+			<tr>
+				<td><h5>Subscribed to you</h5></td>
+				<td id="stats"><h5><%= @facebook_int_subscribed_to %></h5></td>
+				<td id="stats"><h5><%= @facebook_avg_subscribed_to %></h5></td>
+			</tr>
+		</table>
+	<% else %>
+		<%= link_to "Link your Facebook!", "/auth/facebook", class: "btn btn-large btn-primary" %>
+	<% end %>

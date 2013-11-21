@@ -1,0 +1,20 @@
+<div class="span4" style="border-top: 1px solid #e8e8e8">
+	<h3 style="text-align: center">Your Social Connections</h3>
+	<h5 style="text-align: center">Total: <%= @twitter_int_followers + @twitter_int_lists + @facebook_int_friends + @facebook_int_subscribed_to + @instagram_int_followers + @foursquare_friends_count %>
+	</h5>
+	<%= content_tag :div, "", id: "social-connections", 
+	data: {twitter: @twitter_int_followers + @twitter_int_lists,
+		facebook: @facebook_int_friends + @facebook_int_subscribed_to,
+		instagram: @instagram_int_followers,
+		foursquare: @foursquare_friends_count} %>
+</div>
+<div class="span4" style="border-top: 1px solid #e8e8e8">
+	<h3 style="text-align: center">iVolve Index</h3>
+	<h5 style="text-align: center">Total: <%= @twitter_avg_followers + @twitter_avg_lists + @facebook_avg_friends + @facebook_avg_subscribed_to + @instagram_avg_followers + @foursquare_avg_friends %>
+	</h5>
+	<%= content_tag :div, "", id: "ivolve-connections", 
+	data: {twitter: @twitter_avg_followers + @twitter_avg_lists,
+		facebook: @facebook_avg_friends + @facebook_avg_subscribed_to,
+		instagram: @instagram_avg_followers,
+		foursquare: @foursquare_avg_friends} %>	
+</div>
