@@ -23,3 +23,21 @@ jQuery ->
     xkey: 'created_at'   # y is really the value on the X-Axis
     ykeys: ['foursquare_friends', 'foursquare_following', 'foursquare_checkins', 'foursquare_badges', 'foursquare_mayor', 'foursquare_tips', 'foursquare_photos']  # a is really the value on the Y-Axis
     labels: ['Friends', 'Following', 'Checkins', 'Badges', 'Mayorships', 'Tips Given', 'Photos']
+  Morris.Donut
+    element: 'social-connections'
+    data: [
+        {label: "Twitter", value: $('#social-connections').data('twitter')}
+        {label: "Facebook", value: $('#social-connections').data('facebook')}
+        {label: "Instagram", value: $('#social-connections').data('instagram')}
+        {label: "Foursquare", value: $('#social-connections').data('foursquare')}
+    ]
+  Morris.Donut
+    element: 'ivolve-connections'
+    data: [
+        {label: "Twitter", value: $('#ivolve-connections').data('twitter')}
+        {label: "Facebook", value: $('#ivolve-connections').data('facebook')}
+        {label: "Instagram", value: $('#ivolve-connections').data('instagram')}
+        {label: "Foursquare", value: $('#ivolve-connections').data('foursquare')}
+    ]
+
+

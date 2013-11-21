@@ -1,3 +1,5 @@
+// This function downcases the user login!
+
 var ready;
 ready = function() {
 	$('#actual-login-form, #actual-signup-form').on('submit', function(){
