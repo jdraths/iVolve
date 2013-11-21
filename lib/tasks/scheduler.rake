@@ -36,3 +36,9 @@ task :index_sched => :environment do
 	IvolveIndex.populate_data
 	puts "done."
 end
+
+task :sample_email => :environment do
+	puts "sending email..."
+	UserMailer.welcome_email(1).deliver
+	puts "done."
+end

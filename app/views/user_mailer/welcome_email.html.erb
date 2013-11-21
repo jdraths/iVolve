@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Welcome to iVolve, <%= @recipient.name %></h1>
+    <p>
+      You have successfully signed up for the iVolve application at <%= @home_url %>.
+      Your username is: <%= @recipient.email %>.<br>
+    </p>
+    <p>
+      To login to the site, just follow this link: <%= @signin_url %>.
+    </p>
+    <p>Thanks for joining, and we hope you enjoy exploring everything iVolve has to offer!</p>
+    <p>iVolve Yourself!</p>
+  </br>
+    <p>Sincerely,</p>
+    <p>Mike, Pat, Roane, and Harry</p>
+  </body>
+</html>
