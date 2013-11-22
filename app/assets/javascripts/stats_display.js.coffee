@@ -55,3 +55,13 @@ jQuery ->
         {label: "Instagram", value: $('#ivolve-engagement').data('instagram')}
         {label: "Foursquare", value: $('#ivolve-engagement').data('foursquare')}
     ]
+  Morris.Bar
+    element: 'wellness-bar'
+    data: [
+        { y: 'Social', a: $('#wellness-bar').data('youso'), b: $('#wellness-bar').data('ivolveso') },
+        { y: 'Creative', a: $('#wellness-bar').data('youcr'), b: $('#wellness-bar').data('ivolvecr') },
+        { y: 'Physical', a: $('#wellness-bar').data('youph'), b: $('#wellness-bar').data('ivolveph') }
+    ]
+    xkey: 'y',
+    ykeys: ['a', 'b'],
+    labels: ['You', 'iVolve']
