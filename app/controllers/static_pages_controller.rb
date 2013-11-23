@@ -4,7 +4,7 @@ class StaticPagesController < ApplicationController
   	if signed_in?
       @ivolveindex = IvolveIndex.first
   		@micropost = current_user.microposts.build
-  		@feed_items = current_user.feed.paginate(page: params[:page])
+  		@feed_items = current_user.feed.paginate(page: params[:page], per_page: 4)
       # Need to fix this method
       if twitter?   # if twitter? definitely works
         # this twitter_users column should be renamed from name to screen_name
