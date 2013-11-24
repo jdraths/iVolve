@@ -121,7 +121,7 @@ class SessionsController < ApplicationController
 
 	def failure
 		flash[:error] = "Authentication failed, please try again."
-		redirect_to root_url
+		redirect_to signin_path
 	end
 
 	protected

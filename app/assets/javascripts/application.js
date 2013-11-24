@@ -17,5 +17,6 @@
 //= require morris
 //= require turbolinks
 //= require bootstrap
+//= require analytics
 //= require_tree .
 

@@ -1,13 +1,13 @@
 <footer class="footer">
 	<small>
-		<a href="http://ivolve.me/">iVolve App</a>
+		<a id="gaLink" href="http://ivolve.me/">iVolve App</a>
 		by the Obvious Ridge Route 
 	</small>
 	<nav>
 		<ul>
 			<li><%= link_to "About Us", about_path %></li>
 			<li><%= link_to "Contact", contact_path %></li>
-			<li><a href="http://ivolve.me/">News</a></li>
+			<li><a id="gaLink" href="http://blog.ivolve.me/">News</a></li>
 		</ul>
 	</nav>
 	
@@ -18,8 +18,39 @@
 	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	  ga('create', 'UA-45439646-1', 'ivolve.herokuapp.com');
+	  ga(function(tracker) {
+  		var linker = new window.gaplugins.Linker(tracker);
+  		var output = linker.decorate('//ivolve.me');
+	  });
+	  ga('create', 'UA-45439646-1', 'auto', {
+	  	'allowLinker': true		// Value is retrieved from method above.
+	  });
+	  ga('require', 'linkid', 'linkid.js');
 	  ga('send', 'pageview');
+
+
+	  /* The following code should track links to other domains.  It looks for the gaLink element id
+	  */
+	    var linker;
+
+		var gaLink = document.getElementById('gaLink');             // Add event listeners to link.
+		addListener(gaLink, 'mousedown', decorateMe);
+		addListener(gaLink, 'keydown', decorateMe);
+
+		function decorateMe(event) {
+		  event = event || window.event;                            // Cross browser hoops.
+		  var target = event.target || event.srcElement;
+
+		  if (target && target.href) {                              // Ensure this is a link.
+		    ga('linker:decorate', target);
+		  }
+		}
+
+		// Cross browser way to listen for events.
+		function addListener(element, type, callback) {
+		 if (element.addEventListener) element.addEventListener(type, callback);
+		 else if (element.attachEvent) element.attachEvent('on' + type, callback);
+		}
 
 	</script>
 </footer>
