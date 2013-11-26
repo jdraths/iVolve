@@ -290,8 +290,8 @@ input {
 }
 
 .field_with_errors {
-	@extend .control-group;
-	@extend .error;
+	@extend .control-group !optional; // error the selector .control-group was not found.  Use "@extend .control-group !optional" if the extend should be able to fail.
+	@extend .error !optional; // error the selector .error was not found.  Use "@extend .error !optional" if the extend should be able to fail.
 }
 
 

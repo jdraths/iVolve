@@ -8,7 +8,7 @@ class StaticPagesController < ApplicationController
   		@micropost = current_user.microposts.build
   		@feed_items = current_user.feed.paginate(page: params[:page], per_page: 4)
       # @who is defined for graph displays in _wellness_bar.html.erb
-      @who = 'iVolve'
+      @who = 'iVolve Index'
     end
   end
 

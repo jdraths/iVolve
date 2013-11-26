@@ -367,7 +367,7 @@ module StatsHelper
 
             @other_fitbit = Authorization.find_by_user_id_and_provider(@user.id, 'fitbit')
             if !@other_fitbit.nil?
-                @fitbit_other_user = FitbitUser.find_by_uid(@other_fitbit.uid)
+                @fitbit_other_user = FitbitUser.find_by_encoded_id(@other_fitbit.uid)
                 if !@fitbit_other_user.nil?
                     @fitbit_avg_height = @fitbit_other_user.height_int
                     @fitbit_avg_weight = @fitbit_other_user.weight_int

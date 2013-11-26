@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     @microposts = @user.microposts.paginate(page: params[:page])
     if my_profile?
       stats_view
-      @who = 'iVolve'
+      @who = 'iVolve Index'
     else
       stats_compare
       @who = @user.name
