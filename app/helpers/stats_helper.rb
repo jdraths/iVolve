@@ -144,22 +144,18 @@ module StatsHelper
                 @fitbit_avg_life_active_score = @ivolveindex.iv_fitbit_life_tot_active_score
                 @fitbit_best_tot_active_score_int = 0
                 @fitbit_avg_best_active_score = @ivolveindex.iv_fitbit_best_tot_active_score
-                @fitbit_best_tot_active_date = 0
                 @fitbit_lifetime_tot_cal_out_int = 0
                 @fitbit_avg_life_cal_out = @ivolveindex.iv_fitbit_life_tot_cal_out
                 @fitbit_best_tot_cal_out_int = 0
                 @fitbit_avg_best_cal_out = @ivolveindex.iv_fitbit_best_tot_cal_out
-                @fitbit_best_tot_cal_out_date = 0
                 @fitbit_lifetime_tot_dist_int = 0
                 @fitbit_avg_life_tot_dist = @ivolveindex.iv_fitbit_life_tot_dist
                 @fitbit_best_tot_dist_int = 0
                 @fitbit_avg_best_dist = @ivolveindex.iv_fitbit_best_tot_dist
-                @fitbit_best_tot_dist_date = 0
                 @fitbit_lifetime_tot_steps_int = 0
                 @fitbit_avg_life_tot_steps = @ivolveindex.iv_fitbit_life_tot_steps
                 @fitbit_best_tot_steps_int = 0
                 @fitbit_avg_best_tot_steps = @ivolveindex.iv_fitbit_best_tot_steps
-                @fitbit_best_tot_steps_date = 0
             end
         end
     end
