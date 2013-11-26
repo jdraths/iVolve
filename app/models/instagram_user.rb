@@ -17,7 +17,7 @@ class InstagramUser < ActiveRecord::Base
 		authorized = Authorization.find_by_user_id_and_provider(user, 'instagram')
 		instagram = Instagram.client(access_token: authorized.oauth_token)
 		user_data = instagram.user
-		liked = instagram.user_liked_media
+		liked = instagram.user_liked_media(count: 9000)
 		create!(
 			full_name: user_data.full_name,
 			username: user_data.username,
