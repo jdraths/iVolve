@@ -1,7 +1,7 @@
 <%= @user.name %>, <%= @user.email %>
 <% provide(:title, @user.name) %>
 <div class="row">
-	<aside class="span4">
+	<aside class="col-xs-12">
 		<section>
 			<h1>
 				<%= gravatar_for(@user, size: 150) %>
@@ -12,7 +12,18 @@
 			<%= render 'shared/stats' %>
 		</section>
 	</aside>
-	<div class="span8">
+
+	<div class="row">
+				<%= render 'shared/wellness_bar.html.erb' %>
+	</div>
+	<div class="row">
+				<%= render 'shared/social_connections.html.erb' %>
+	</div>
+	<div class="row">
+				<%= render 'shared/social_engagement.html.erb' %>
+	</div>
+
+	<div class="col-xs-12">
 		<%= render 'follow_form' if signed_in? %>
 		<% if @user.microposts.any? %>
 			<h3>Peanuts (<%= @user.microposts.count %>)</h3>

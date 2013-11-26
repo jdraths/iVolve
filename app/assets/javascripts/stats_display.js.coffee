@@ -1,4 +1,4 @@
-jQuery ->
+ready ->
   Morris.Line
     element: 'twitter-graph'
     data: $('#twitter-graph').data('twitter')
@@ -64,4 +64,4 @@ jQuery ->
     ]
     xkey: 'y',
     ykeys: ['a', 'b'],
-    labels: ['You', 'iVolve']
+    labels: ['Me', 'iVolve']
