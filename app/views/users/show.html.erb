@@ -1,12 +1,11 @@
-<%= @user.name %>, <%= @user.email %>
+
 <% provide(:title, @user.name) %>
 <div class="row">
-	<aside class="col-xs-12 col-sm-8 col-md-2">
+	<aside class="col-xs-12 col-sm-4">
 		<section>
-			<h1>
 				<%= gravatar_for(@user, size: 150) %>
-				<%= @user.name %>
-			</h1>
+				<h1><%= @user.name %></h1>
+				<span><%= @user.email %></span>
 		</section>
 		<section>
 			<%= render 'shared/stats' %>

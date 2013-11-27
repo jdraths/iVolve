@@ -1,25 +1,23 @@
 <% provide(:title, @title) %>
 <div class="row">
-	<aside class="col-xs-12 col-sm-8 col-md-2">
-		<section>
-			<% if @user == current_user %>
-				<h1>
-					<%= gravatar_for(@user, size: 150) %>
-					Me
-				</h1>
-				<span><%= link_to "view my profile", current_user %></span>
+	<aside class="col-xs-12 col-sm-4">
+		<% if @user == current_user %>
+			<section>
+				<%= gravatar_for(@user, size: 150) %>
+				<h1>Me.</h1>
+				<span><%= link_to "back to my profile", current_user %></span>
 				<span><b>Peanuts:</b> <%= @user.microposts.count %></span>
-			<% else %>
-				<h1>
-					<%= gravatar_for(@user, size: 150) %>
-					<%= @user.name %>
-				</h1>
-				<span><%= link_to "view #{@user.name}'s profile", @user %></span>
+			</section>
+		<% else %>
+			<section>
+				<%= gravatar_for(@user, size: 150) %>
+				<h1><%= @user.name %></h1>
+				<span><%= link_to "back to #{@user.name}'s profile", @user %></span>
 				<span><b>Peanuts:</b> <%= @user.microposts.count %></span>
 				<br>
-				<span><%= link_to "view my profile", current_user %></span>
-			<% end %>
-		</section>
+				<span><%= link_to "back to my profile", current_user %></span>
+			</section>
+		<% end %>
 		<section>
 			<%= render 'shared/stats' %>
 			<% if @users.any? %>
