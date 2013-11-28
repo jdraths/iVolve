@@ -25,6 +25,21 @@ module StatsHelper
                 @twitter_int_lists = 0
                 @twitter_avg_lists = @ivolveindex.iv_twitter_lists
             end
+            if @twitter_int_friends.nil?
+                @twitter_int_friends = 0
+            end
+            if @twitter_int_followers.nil?
+                @twitter_int_followers = 0
+            end
+            if @twitter_int_sent.nil?
+                @twitter_int_sent = 0
+            end
+            if @twitter_int_fav.nil?
+                @twitter_int_fav = 0
+            end
+            if @twitter_int_lists.nil?
+                @twitter_int_lists = 0
+            end
             if facebook? # is current_user an authorized facebook user with data saved?
                 @facebook_int_friends = @facebook_auth_user.int_friends
                 @facebook_int_likes = @facebook_auth_user.int_likes
@@ -56,6 +71,27 @@ module StatsHelper
                 @facebook_int_subscribed_to = 0
                 @facebook_avg_subscribed_to = @ivolveindex.iv_facebook_subscribed_to_you
             end
+            if @facebook_int_friends.nil?
+                @facebook_int_friends = 0
+            end
+            if @facebook_int_likes.nil?
+                @facebook_int_likes = 0
+            end
+            if @facebook_int_posts.nil?
+                @facebook_int_posts = 0
+            end
+            if @facebook_int_statuses.nil?
+                @facebook_int_statuses = 0
+            end
+            if @facebook_int_achievements.nil?
+                @facebook_int_achievements = 0
+            end
+            if @facebook_int_subscribers.nil?
+                @facebook_int_subscribers = 0
+            end
+            if @facebook_int_subscribed_to.nil?
+                @facebook_int_subscribed_to = 0
+            end
             if instagram?
                 @instagram_int_followers = @instagram_auth_user.int_followers
                 @instagram_int_following = @instagram_auth_user.int_following
@@ -74,6 +110,18 @@ module StatsHelper
                 @instagram_avg_media = @ivolveindex.iv_instagram_shared
                 @instagram_int_likes_out = 0
                 @instagram_avg_likes_out = @ivolveindex.iv_instagram_likes_sent
+            end
+            if @instagram_int_followers.nil?
+                @instagram_int_followers = 0
+            end
+            if @instagram_int_following.nil?
+                @instagram_int_following = 0
+            end
+            if @instagram_int_media.nil?
+                @instagram_int_media = 0
+            end
+            if @instagram_int_likes_out.nil?
+                @instagram_int_likes_out = 0
             end
             if foursquare?
                 @foursquare_friends_count = @foursquare_auth_user.friends_count
@@ -105,6 +153,27 @@ module StatsHelper
                 @foursquare_avg_tips = @ivolveindex.iv_foursquare_tips
                 @foursquare_photos_count = 0
                 @foursquare_avg_photos = @ivolveindex.iv_foursquare_photos
+            end
+            if @foursquare_int_friends.nil?
+                @foursquare_int_friends = 0
+            end
+            if @foursquare_int_following.nil?
+                @foursquare_int_following = 0
+            end
+            if @foursquare_int_checkins.nil?
+                @foursquare_int_checkins = 0
+            end
+            if @foursquare_int_badges.nil?
+                @foursquare_int_badges = 0
+            end
+            if @foursquare_int_mayors.nil?
+                @foursquare_int_mayors = 0
+            end
+            if @foursquare_int_tips.nil?
+                @foursquare_int_tips = 0
+            end
+            if @foursquare_int_photos.nil?
+                @foursquare_int_photos = 0
             end
             if fitbit?
                 @fitbit_height_int = @fitbit_auth_user.height_int
@@ -156,6 +225,18 @@ module StatsHelper
                 @fitbit_avg_life_tot_steps = @ivolveindex.iv_fitbit_life_tot_steps
                 @fitbit_best_tot_steps_int = 0
                 @fitbit_avg_best_tot_steps = @ivolveindex.iv_fitbit_best_tot_steps
+            end
+            if @fitbit_int_height.nil?
+                @fitbit_int_height = 0
+            end
+            if @fitbit_int_weight.nil?
+                @fitbit_int_weight = 0
+            end
+            if @fitbit_int_length_run.nil?
+                @fitbit_int_length_run = 0
+            end
+            if @fitbit_int_length_walk.nil?
+                @fitbit_int_length_walk = 0
             end
         end
     end
