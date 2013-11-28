@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   before_action :admin_user,      only: :destroy
 
   include StatsHelper
+  include GraphHelper
 
   def index
     @users = User.paginate(page: params[:page])

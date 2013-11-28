@@ -1,46 +1,46 @@
 module GraphHelper
 
-	def wellness_bar_over_time
+	def wellness_bar_over_time(user)
 		# This is missing facebook_subscribers, facebook_subscribed_to
 		# Use @twitter_auth_user from sessions helper
 		# The below data_by_day methods are a hash with the key = date
 		# twitter_data_by_day[Date.today] returns a single entry array
 		# twitter_data_by_day[Date.today].first is accessible via .method = to the methods in TwitterUser.total_grouped_by_date
 		# accessible methods are .social, .creative, .physical
-		@twitter_graph = Authorization.where("user_id = ?", current_user).where("provider = ?", "twitter")
-		if !@twitter_graph.nil?
+		@twitter_graph = Authorization.where("user_id = ?", user).where("provider = ?", "twitter")
+		if !@twitter_graph.first.nil?
 			@twitter_graph_user = TwitterUser.where("uid = ?", @twitter_graph.first['uid'])
 			if !@twitter_graph_user.nil?
 				twitter_data_by_day = @twitter_graph_user.wellness_bar_by_date(2.weeks.ago)
 			end
 		end
 
-		@facebook_graph = Authorization.where("user_id = ?", current_user).where("provider = ?", "facebook")
-		if !@facebook_graph.nil?
+		@facebook_graph = Authorization.where("user_id = ?", user).where("provider = ?", "facebook")
+		if !@facebook_graph.first.nil?
 			@facebook_graph_user = FacebookUser.where("uid = ?", @facebook_graph.first['uid'])
 			if !@facebook_graph_user.nil?
 				facebook_data_by_day = @facebook_graph_user.wellness_bar_by_date(2.weeks.ago)
 			end
 		end
 
-		@instagram_graph = Authorization.where("user_id = ?", current_user).where("provider = ?", "instagram")
-		if !@instagram_graph.nil?
+		@instagram_graph = Authorization.where("user_id = ?", user).where("provider = ?", "instagram")
+		if !@instagram_graph.first.nil?
 			@instagram_graph_user = InstagramUser.where("uid = ?", @instagram_graph.first['uid'])
 			if !@instagram_graph_user.nil?
 				instagram_data_by_day = @instagram_graph_user.wellness_bar_by_date(2.weeks.ago)
 			end
 		end
 
-		@foursquare_graph = Authorization.where("user_id = ?", current_user).where("provider = ?", "foursquare")
-		if !@foursquare_graph.nil?
+		@foursquare_graph = Authorization.where("user_id = ?", user).where("provider = ?", "foursquare")
+		if !@foursquare_graph.first.nil?
 			@foursquare_graph_user = FoursquareUser.where("uid = ?", @foursquare_graph.first['uid'])
 			if !@foursquare_graph_user.nil?
 				foursquare_data_by_day = @foursquare_graph_user.wellness_bar_by_date(2.weeks.ago)
 			end
 		end
 
-		@fitbit_graph = Authorization.where("user_id = ?", current_user).where("provider = ?", "fitbit")
-		if !@fitbit_graph.nil?
+		@fitbit_graph = Authorization.where("user_id = ?", user).where("provider = ?", "fitbit")
+		if !@fitbit_graph.first.nil?
 			@fitbit_graph_user = FitbitUser.where("encoded_id = ?", @fitbit_graph.first['uid'])
 			if !@fitbit_graph_user.nil?
 				fitbit_data_by_day = @fitbit_graph_user.wellness_bar_by_date(2.weeks.ago)
@@ -90,6 +90,34 @@ module GraphHelper
 				else
 					fitbit_physical = 0
 				end
+			end
+
+			if twitter_social.nil?
+				twitter_social = 0
+			end
+			if twitter_creative.nil?
+				twitter_creative = 0
+			end
+			if facebook_social.nil?
+				facebook_social = 0
+			end
+			if facebook_creative.nil?
+				facebook_creative = 0
+			end
+			if instagram_social.nil?
+				instagram_social = 0
+			end
+			if instagram_creative.nil?
+				instagram_creative = 0
+			end
+			if foursquare_social.nil?
+				foursquare_social = 0
+			end
+			if foursquare_creative.nil?
+				foursquare_creative = 0
+			end
+			if fitbit_physical.nil?
+				fitbit_physical = 0
 			end
 
 			{
