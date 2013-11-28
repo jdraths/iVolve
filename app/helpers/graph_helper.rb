@@ -94,8 +94,8 @@ module GraphHelper
 
 			{
 				created_at: date,
-				social: twitter_social + facebook_social + foursquare_social,
-				creative: twitter_creative + facebook_creative + foursquare_creative,
+				social: twitter_social + facebook_social + instagram_social + foursquare_social,
+				creative: twitter_creative + facebook_creative + instagram_creative + foursquare_creative,
 				physical: fitbit_physical,
 			}
 		end
