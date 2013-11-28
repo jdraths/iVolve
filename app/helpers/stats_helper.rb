@@ -34,7 +34,7 @@ module StatsHelper
             if @twitter_int_sent.nil?
                 @twitter_int_sent = 0
             end
-            if @twitter_int_fav.nil?
+            if @twitter_int_favorites.nil?
                 @twitter_int_fav = 0
             end
             if @twitter_int_lists.nil?
@@ -154,26 +154,26 @@ module StatsHelper
                 @foursquare_photos_count = 0
                 @foursquare_avg_photos = @ivolveindex.iv_foursquare_photos
             end
-            if @foursquare_int_friends.nil?
-                @foursquare_int_friends = 0
+            if @foursquare_friends_count.nil?
+                @foursquare_friends_count = 0
             end
-            if @foursquare_int_following.nil?
-                @foursquare_int_following = 0
+            if @foursquare_following_count.nil?
+                @foursquare_following_count = 0
             end
-            if @foursquare_int_checkins.nil?
-                @foursquare_int_checkins = 0
+            if @foursquare_checkins_count.nil?
+                @foursquare_checkins_count = 0
             end
-            if @foursquare_int_badges.nil?
-                @foursquare_int_badges = 0
+            if @foursquare_badges_count.nil?
+                @foursquare_badges_count = 0
             end
-            if @foursquare_int_mayors.nil?
-                @foursquare_int_mayors = 0
+            if @foursquare_mayor_count.nil?
+                @foursquare_mayor_count = 0
             end
-            if @foursquare_int_tips.nil?
-                @foursquare_int_tips = 0
+            if @foursquare_tips_count.nil?
+                @foursquare_tips_count = 0
             end
-            if @foursquare_int_photos.nil?
-                @foursquare_int_photos = 0
+            if @foursquare_photos_count.nil?
+                @foursquare_photos_count = 0
             end
             if fitbit?
                 @fitbit_height_int = @fitbit_auth_user.height_int
@@ -226,17 +226,17 @@ module StatsHelper
                 @fitbit_best_tot_steps_int = 0
                 @fitbit_avg_best_tot_steps = @ivolveindex.iv_fitbit_best_tot_steps
             end
-            if @fitbit_int_height.nil?
-                @fitbit_int_height = 0
+            if @fitbit_height_int.nil?
+                @fitbit_height_int = 0
             end
-            if @fitbit_int_weight.nil?
-                @fitbit_int_weight = 0
+            if @fitbit_weight_int.nil?
+                @fitbit_weight_int = 0
             end
-            if @fitbit_int_length_run.nil?
-                @fitbit_int_length_run = 0
+            if @fitbit_stride_length_run_int.nil?
+                @fitbit_stride_length_run_int = 0
             end
-            if @fitbit_int_length_walk.nil?
-                @fitbit_int_length_walk = 0
+            if @fitbit_stride_length_walk_int.nil?
+                @fitbit_stride_length_walk_int = 0
             end
         end
     end
