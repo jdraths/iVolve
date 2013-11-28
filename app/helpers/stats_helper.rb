@@ -199,6 +199,22 @@ module StatsHelper
                 @twitter_avg_fav = 0
                 @twitter_avg_lists = 0
             end
+
+            if @twitter_avg_friends.nil?
+                @twitter_avg_friends = 0
+            end
+            if @twitter_avg_followers.nil?
+                @twitter_avg_followers = 0
+            end
+            if @twitter_avg_sent.nil?
+                @twitter_avg_sent = 0
+            end
+            if @twitter_avg_fav.nil?
+                @twitter_avg_fav = 0
+            end
+            if @twitter_avg_lists.nil?
+                @twitter_avg_lists = 0
+            end
     
             if facebook? # is current_user an authorized facebook user with data saved?
                 @facebook_int_friends = @facebook_auth_user.int_friends
@@ -247,6 +263,28 @@ module StatsHelper
                 @facebook_avg_subscribers = 0
                 @facebook_avg_subscribed_to = 0
             end
+
+            if @facebook_avg_friends.nil?
+                @facebook_avg_friends = 0
+            end
+            if @facebook_avg_likes.nil?
+                @facebook_avg_likes = 0
+            end
+            if @facebook_avg_posts.nil?
+                @facebook_avg_posts = 0
+            end
+            if @facebook_avg_statuses.nil?
+                @facebook_avg_statuses = 0
+            end
+            if @facebook_avg_achievements.nil?
+                @facebook_avg_achievements = 0
+            end
+            if @facebook_avg_subscribers.nil?
+                @facebook_avg_subscribers = 0
+            end
+            if @facebook_avg_subscribed_to.nil?
+                @facebook_avg_subscribed_to = 0
+            end
             
             if instagram?
                 @instagram_int_followers = @instagram_auth_user.int_followers
@@ -278,6 +316,19 @@ module StatsHelper
                 @instagram_avg_followers = 0
                 @instagram_avg_following = 0
                 @instagram_avg_media = 0
+                @instagram_avg_likes_out = 0
+            end
+
+            if @instagram_avg_followers.nil?
+                @instagram_avg_followers = 0
+            end
+            if @instagram_avg_following.nil?
+                @instagram_avg_following = 0
+            end
+            if @instagram_avg_media.nil?
+                @instagram_avg_media = 0
+            end
+            if @instagram_avg_likes_out.nil?
                 @instagram_avg_likes_out = 0
             end
 
@@ -326,6 +377,28 @@ module StatsHelper
                 @foursquare_avg_badges = 0
                 @foursquare_avg_mayors = 0
                 @foursquare_avg_tips = 0
+                @foursquare_avg_photos = 0
+            end
+
+            if @foursquare_avg_friends.nil?
+                @foursquare_avg_friends = 0
+            end
+            if @foursquare_avg_following.nil?
+                @foursquare_avg_following = 0
+            end
+            if @foursquare_avg_checkins.nil?
+                @foursquare_avg_checkins = 0
+            end
+            if @foursquare_avg_badges.nil?
+                @foursquare_avg_badges = 0
+            end
+            if @foursquare_avg_mayors.nil?
+                @foursquare_avg_mayors = 0
+            end
+            if @foursquare_avg_tips.nil?
+                @foursquare_avg_tips = 0
+            end
+            if @foursquare_avg_photos.nil?
                 @foursquare_avg_photos = 0
             end
             
@@ -404,7 +477,20 @@ module StatsHelper
                 @fitbit_avg_best_dist = 0
                 @fitbit_avg_life_tot_steps = 0
                 @fitbit_avg_best_tot_steps = 0
-            end            
+            end
+
+            if @fitbit_avg_height.nil?
+                @fitbit_avg_height = 0
+            end
+            if @fitbit_avg_weight.nil?
+                @fitbit_avg_weight = 0
+            end
+            if @fitbit_avg_length_run.nil?
+                @fitbit_avg_length_run = 0
+            end
+            if @fitbit_avg_length_walk.nil?
+                @fitbit_avg_length_walk = 0
+            end
         end
     end
 end
