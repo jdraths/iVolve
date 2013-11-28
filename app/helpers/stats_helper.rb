@@ -200,6 +200,21 @@ module StatsHelper
                 @twitter_avg_lists = 0
             end
 
+            if @twitter_int_friends.nil?
+                @twitter_int_friends = 0
+            end
+            if @twitter_int_followers.nil?
+                @twitter_int_followers = 0
+            end
+            if @twitter_int_sent.nil?
+                @twitter_int_sent = 0
+            end
+            if @twitter_int_fav.nil?
+                @twitter_int_fav = 0
+            end
+            if @twitter_int_lists.nil?
+                @twitter_int_lists = 0
+            end
             if @twitter_avg_friends.nil?
                 @twitter_avg_friends = 0
             end
@@ -264,6 +279,27 @@ module StatsHelper
                 @facebook_avg_subscribed_to = 0
             end
 
+            if @facebook_int_friends.nil?
+                @facebook_int_friends = 0
+            end
+            if @facebook_int_likes.nil?
+                @facebook_int_likes = 0
+            end
+            if @facebook_int_posts.nil?
+                @facebook_int_posts = 0
+            end
+            if @facebook_int_statuses.nil?
+                @facebook_int_statuses = 0
+            end
+            if @facebook_int_achievements.nil?
+                @facebook_int_achievements = 0
+            end
+            if @facebook_int_subscribers.nil?
+                @facebook_int_subscribers = 0
+            end
+            if @facebook_int_subscribed_to.nil?
+                @facebook_int_subscribed_to = 0
+            end
             if @facebook_avg_friends.nil?
                 @facebook_avg_friends = 0
             end
@@ -319,6 +355,18 @@ module StatsHelper
                 @instagram_avg_likes_out = 0
             end
 
+            if @instagram_int_followers.nil?
+                @instagram_int_followers = 0
+            end
+            if @instagram_int_following.nil?
+                @instagram_int_following = 0
+            end
+            if @instagram_int_media.nil?
+                @instagram_int_media = 0
+            end
+            if @instagram_int_likes_out.nil?
+                @instagram_int_likes_out = 0
+            end
             if @instagram_avg_followers.nil?
                 @instagram_avg_followers = 0
             end
@@ -380,6 +428,27 @@ module StatsHelper
                 @foursquare_avg_photos = 0
             end
 
+            if @foursquare_int_friends.nil?
+                @foursquare_int_friends = 0
+            end
+            if @foursquare_int_following.nil?
+                @foursquare_int_following = 0
+            end
+            if @foursquare_int_checkins.nil?
+                @foursquare_int_checkins = 0
+            end
+            if @foursquare_int_badges.nil?
+                @foursquare_int_badges = 0
+            end
+            if @foursquare_int_mayors.nil?
+                @foursquare_int_mayors = 0
+            end
+            if @foursquare_int_tips.nil?
+                @foursquare_int_tips = 0
+            end
+            if @foursquare_int_photos.nil?
+                @foursquare_int_photos = 0
+            end
             if @foursquare_avg_friends.nil?
                 @foursquare_avg_friends = 0
             end
@@ -479,6 +548,18 @@ module StatsHelper
                 @fitbit_avg_best_tot_steps = 0
             end
 
+            if @fitbit_int_height.nil?
+                @fitbit_int_height = 0
+            end
+            if @fitbit_int_weight.nil?
+                @fitbit_int_weight = 0
+            end
+            if @fitbit_int_length_run.nil?
+                @fitbit_int_length_run = 0
+            end
+            if @fitbit_int_length_walk.nil?
+                @fitbit_int_length_walk = 0
+            end
             if @fitbit_avg_height.nil?
                 @fitbit_avg_height = 0
             end
