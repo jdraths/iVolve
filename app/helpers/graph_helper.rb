@@ -1,4 +1,106 @@
 module GraphHelper
+
+	def wellness_bar_over_time
+		# This is missing facebook_subscribers, facebook_subscribed_to
+		# Use @twitter_auth_user from sessions helper
+		# The below data_by_day methods are a hash with the key = date
+		# twitter_data_by_day[Date.today] returns a single entry array
+		# twitter_data_by_day[Date.today].first is accessible via .method = to the methods in TwitterUser.total_grouped_by_date
+		# accessible methods are .social, .creative, .physical
+		@twitter_graph = Authorization.where("user_id = ?", current_user).where("provider = ?", "twitter")
+		if !@twitter_graph.nil?
+			@twitter_graph_user = TwitterUser.where("uid = ?", @twitter_graph.first['uid'])
+			if !@twitter_graph_user.nil?
+				twitter_data_by_day = @twitter_graph_user.wellness_bar_by_date(2.weeks.ago)
+			end
+		end
+
+		@facebook_graph = Authorization.where("user_id = ?", current_user).where("provider = ?", "facebook")
+		if !@facebook_graph.nil?
+			@facebook_graph_user = FacebookUser.where("uid = ?", @facebook_graph.first['uid'])
+			if !@facebook_graph_user.nil?
+				facebook_data_by_day = @facebook_graph_user.wellness_bar_by_date(2.weeks.ago)
+			end
+		end
+
+		@instagram_graph = Authorization.where("user_id = ?", current_user).where("provider = ?", "instagram")
+		if !@instagram_graph.nil?
+			@instagram_graph_user = InstagramUser.where("uid = ?", @instagram_graph.first['uid'])
+			if !@instagram_graph_user.nil?
+				instagram_data_by_day = @instagram_graph_user.wellness_bar_by_date(2.weeks.ago)
+			end
+		end
+
+		@foursquare_graph = Authorization.where("user_id = ?", current_user).where("provider = ?", "foursquare")
+		if !@foursquare_graph.nil?
+			@foursquare_graph_user = FoursquareUser.where("uid = ?", @foursquare_graph.first['uid'])
+			if !@foursquare_graph_user.nil?
+				foursquare_data_by_day = @foursquare_graph_user.wellness_bar_by_date(2.weeks.ago)
+			end
+		end
+
+		@fitbit_graph = Authorization.where("user_id = ?", current_user).where("provider = ?", "fitbit")
+		if !@fitbit_graph.nil?
+			@fitbit_graph_user = FitbitUser.where("encoded_id = ?", @fitbit_graph.first['uid'])
+			if !@fitbit_graph_user.nil?
+				fitbit_data_by_day = @fitbit_graph_user.wellness_bar_by_date(2.weeks.ago)
+			end
+		end
+		(2.weeks.ago.to_date..Date.today).map do |date|
+			created_at = date
+			if !twitter_data_by_day.nil?
+				if !twitter_data_by_day[date].nil?
+					twitter_social = twitter_data_by_day[date].first.try(:social)
+					twitter_creative = twitter_data_by_day[date].first.try(:creative)
+				else
+					twitter_social = 0
+					twitter_creative = 0
+				end
+			end
+			if !facebook_data_by_day.nil?
+				if !facebook_data_by_day[date].nil?
+					facebook_social = facebook_data_by_day[date].first.try(:social)
+					facebook_creative = facebook_data_by_day[date].first.try(:creative)
+				else
+					facebook_social = 0
+					facebook_creative = 0
+				end
+			end
+			if !instagram_data_by_day.nil?
+				if !instagram_data_by_day[date].nil?
+					instagram_social = instagram_data_by_day[date].first.try(:social)
+					instagram_creative = instagram_data_by_day[date].first.try(:creative)
+				else
+					instagram_social = 0
+					instagram_creative = 0
+				end
+			end
+			if !foursquare_data_by_day.nil?
+				if !foursquare_data_by_day[date].nil?
+					foursquare_social = foursquare_data_by_day[date].first.try(:social)
+					foursquare_creative = foursquare_data_by_day[date].first.try(:creative)
+				else
+					foursquare_social = 0
+					foursquare_creative = 0
+				end
+			end
+			if !fitbit_data_by_day.nil?
+				if !fitbit_data_by_day[date].nil?
+					fitbit_physical = fitbit_data_by_day[date].first.try(:physical)
+				else
+					fitbit_physical = 0
+				end
+			end
+
+			{
+				created_at: date,
+				social: twitter_social + facebook_social + foursquare_social,
+				creative: twitter_creative + facebook_creative + foursquare_creative,
+				physical: fitbit_physical,
+			}
+		end
+	end
+
 	def twitter_user_data
 		# IT WOULD BE NICE TO RE-FACTOR THIS SO IT IS THE SAME current_user as for other stats display...
 		@twitter_graph = Authorization.where("user_id = ?", current_user).where("provider = ?", "twitter")

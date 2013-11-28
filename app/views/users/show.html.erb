@@ -16,6 +16,32 @@
 	</aside>
 </div>
 
+	<% unless twitter? %>
+		<div class="row">
+			<%= link_to "Link your Twitter!", "/auth/twitter?user_authorize=true", class: "btn btn-large btn-primary" %>
+		</div>
+	<% end %>
+	<% unless facebook? %>
+		<div class="row">
+			<%= link_to "Link your Facebook!", "/auth/facebook", class: "btn btn-large btn-primary" %>
+		</div>
+	<% end %>
+	<% unless instagram? %>
+		<div class="row">
+			<%= link_to "Link your Instagram!", "/auth/instagram", class: "btn btn-large btn-primary" %>
+		</div>
+	<% end %>
+	<% unless foursquare? %>
+		<div class="row">
+			<%= link_to "Link your Foursquare!", "/auth/foursquare", class: "btn btn-large btn-primary" %>
+		</div>
+	<% end %>
+	<% unless fitbit? %>
+		<div class="row">
+			<%= link_to "Link your Fitbit!", "/auth/fitbit", class: "btn btn-large btn-primary" %>
+		</div>
+	<% end %>
+
 	<div class="row">
 				<%= render 'shared/wellness_bar.html.erb' %>
 	</div>

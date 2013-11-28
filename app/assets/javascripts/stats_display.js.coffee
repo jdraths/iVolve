@@ -23,6 +23,12 @@ ready ->
     xkey: 'created_at'   # y is really the value on the X-Axis
     ykeys: ['foursquare_friends', 'foursquare_following', 'foursquare_checkins', 'foursquare_badges', 'foursquare_mayor', 'foursquare_tips', 'foursquare_photos']  # a is really the value on the Y-Axis
     labels: ['Friends', 'Following', 'Checkins', 'Badges', 'Mayorships', 'Tips Given', 'Photos']
+  Morris.Line
+    element: 'wellness-line'
+    data: $('#wellness-line').data('wellness')
+    xkey: 'created_at'   # y is really the value on the X-Axis
+    ykeys: ['social', 'creative', 'physical']  # a is really the value on the Y-Axis
+    labels: ['Social', 'Creative', 'Physical']
   Morris.Donut
     element: 'social-connections'
     data: [

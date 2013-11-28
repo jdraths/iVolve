@@ -4,6 +4,15 @@ class FitbitUser < ActiveRecord::Base
 	default_scope -> { order('created_at DESC') }
 	after_validation :report_validation_errors_to_rollbar
 
+	def self.wellness_bar_by_date(start)
+		t = Time.zone.now
+		time_now = t + t.utc_offset
+		data = where(created_at: start.beginning_of_day..time_now.end_of_day)
+		data = data.group("date(created_at)")
+		data = data.select("date(created_at) as created_at, sum(height_int + weight_int + stride_length_run_int + stride_length_walk_int) as physical")
+		data.group_by { |d| d.created_at.to_date }
+	end
+
 	def self.pull_user_data(user)
 		fitbit_auth = Authorization.find_by_user_id_and_provider(user, 'fitbit')
 		my_key = "cfe66ba8f21941c292ff4a21b075cac3"

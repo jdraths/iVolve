@@ -5,6 +5,16 @@ class TwitterUser < ActiveRecord::Base
 	default_scope -> { order('created_at DESC') }
 	after_validation :report_validation_errors_to_rollbar
 
+	def self.wellness_bar_by_date(start)
+		t = Time.zone.now
+		time_now = t + t.utc_offset
+		data = where(created_at: start.beginning_of_day..time_now.end_of_day)
+		data = data.group("date(created_at)")
+		data = data.select("date(created_at) as created_at, sum(favorite_int_count + friends_int_count + followers_int_count) as social,
+			 sum(listed_int_count + tweet_int_count) as creative")
+		data.group_by { |d| d.created_at.to_date }
+	end
+
 	def self.total_grouped_by_date(start)
 		t = Time.zone.now
 		time_now = t + t.utc_offset
@@ -15,16 +25,16 @@ class TwitterUser < ActiveRecord::Base
 	end
 
 	def self.pull_user_data(user)
-		@twitter_auth = Authorization.find_by_user_id_and_provider(user, 'twitter')
-		twitter_client = Twitter::Client.new(:oauth_token => @twitter_auth.oauth_token, :oauth_token_secret => @twitter_auth.oauth_secret)
-		twitter_user = twitter_client.user(@twitter_auth.screen_name)
-		@user_id = user
+		twitter_auth = Authorization.find_by_user_id_and_provider(user, 'twitter')
+		twitter_client = Twitter::Client.new(:oauth_token => twitter_auth.oauth_token, :oauth_token_secret => twitter_auth.oauth_secret)
+		twitter_user = twitter_client.user(twitter_auth.screen_name)
+		user_id = user
 			#unless exists?(uid: t_user.id)
 			# could use unless exists? create! and then when exists? save!,
 			# but that would not allow ivolve to track user changes over time.
 				create!(
 					name: twitter_user.screen_name,
-					user_id: @user_id,
+					user_id: user_id,
 					connections: twitter_user.connections,
 					contributors_enabled: twitter_user.contributors_enabled,
 					default_profile: twitter_user.default_profile,

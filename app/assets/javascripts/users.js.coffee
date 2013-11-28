@@ -44,3 +44,9 @@ jQuery ->
     xkey: 'y',
     ykeys: ['a', 'b'],
     labels: ['Me', $('#wellness-bar').data('who')]
+  Morris.Line
+    element: 'wellness-line'
+    data: $('#wellness-line').data('wellness')
+    xkey: 'created_at'   # y is really the value on the X-Axis
+    ykeys: ['social', 'creative', 'physical']  # a is really the value on the Y-Axis
+    labels: ['Social', 'Creative', 'Physical']
