@@ -35,7 +35,7 @@ module StatsHelper
                 @twitter_int_sent = 0
             end
             if @twitter_int_favorites.nil?
-                @twitter_int_fav = 0
+                @twitter_int_favorites = 0
             end
             if @twitter_int_lists.nil?
                 @twitter_int_lists = 0
