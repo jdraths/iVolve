@@ -27,7 +27,15 @@ class InstagramUser < ActiveRecord::Base
 		authorized = Authorization.find_by_user_id_and_provider(user, 'instagram')
 		instagram = Instagram.client(access_token: authorized.oauth_token)
 		user_data = instagram.user
-		liked = instagram.user_liked_media(count: 9000)
+		total_likes_array = []
+			liked1 = instagram.user_liked_media
+			total_likes_array.push(liked1.size)
+			liked_next_max_id = liked1.pagination.next_max_like_id
+				while !liked_next_max_id.nil?
+					liked_next = instagram.user_liked_media(max_like_id: liked_next_max_id)
+					total_likes_array.push(liked_next.size)
+					liked_next_max_id = liked_next.pagination.next_max_like_id
+				end
 		create!(
 			full_name: user_data.full_name,
 			username: user_data.username,
@@ -41,8 +49,8 @@ class InstagramUser < ActiveRecord::Base
 			int_following: user_data.counts.follows,
 			num_media: user_data.counts.media,
 			int_media: user_data.counts.media,
-			num_likes_out: liked.size,
-			int_likes_out: liked.size,
+			num_likes_out: total_likes_array.sum,
+			int_likes_out: total_likes_array.sum,
 			)
 	end
 
