@@ -17,6 +17,7 @@
 </div>
 <% unless linkedin? %>
 	<%= link_to "Link your LinkedIn!", "/auth/linkedin", class: "btn btn-large btn-primary" %>
+	<span class="label label-success">New</span>
 <% end %>
 <% unless twitter? %>
 	<%= link_to "Link your Twitter!", "/auth/twitter?user_authorize=true", class: "btn btn-large btn-primary" %>
