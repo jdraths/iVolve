@@ -127,6 +127,10 @@ GEM
       multi_json
     launchy (2.4.0)
       addressable (~> 2.3)
+    linkedin-oauth2 (0.1.1)
+      hashie (>= 1.2, < 2.1)
+      multi_json (~> 1.0)
+      oauth2 (~> 0.8)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -161,8 +165,9 @@ GEM
     omniauth-instagram (1.0.1)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.0)
-    omniauth-linkedin (0.1.0)
-      omniauth-oauth (~> 1.0)
+    omniauth-linkedin-oauth2 (0.1.4)
+      omniauth (~> 1.0)
+      omniauth-oauth2
     omniauth-oauth (1.0.1)
       oauth
       omniauth (~> 1.0)
@@ -295,6 +300,7 @@ DEPENDENCIES
   jquery-rails (= 2.2.1)
   jquery-turbolinks
   koala (~> 1.7.0rc1)
+  linkedin-oauth2 (~> 0.1.0)
   newrelic_rpm
   omniauth-facebook (~> 1.4.0)
   omniauth-fitbit (~> 1.0.2)
@@ -302,7 +308,7 @@ DEPENDENCIES
   omniauth-google-oauth2 (~> 0.2.0)
   omniauth-identity!
   omniauth-instagram (~> 1.0.0)
-  omniauth-linkedin
+  omniauth-linkedin-oauth2 (~> 0.1.0)
   omniauth-twitter (~> 1.0.0)
   omniauth-youtube (~> 1.0.0)
   pg (= 0.17.0)

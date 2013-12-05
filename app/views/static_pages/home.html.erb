@@ -10,37 +10,33 @@
 			<section>
 				<%= render 'shared/micropost_form' %>
 			</section>
+			<section>
+				<% unless linkedin? %>
+					<%= link_to "Link your LinkedIn!", "/auth/linkedin", class: "btn btn-large btn-primary" %>
+				<% end %>
+				<% unless twitter? %>
+					<%= link_to "Link your Twitter!", "/auth/twitter?user_authorize=true", class: "btn btn-large btn-primary" %>
+				<% end %>
+				<% unless facebook? %>
+					<%= link_to "Link your Facebook!", "/auth/facebook", class: "btn btn-large btn-primary" %>
+				<% end %>
+				<% unless instagram? %>
+					<%= link_to "Link your Instagram!", "/auth/instagram", class: "btn btn-large btn-primary" %>
+				<% end %>
+				<% unless foursquare? %>
+					<%= link_to "Link your Foursquare!", "/auth/foursquare", class: "btn btn-large btn-primary" %>
+				<% end %>
+				<% unless fitbit? %>
+					<%= link_to "Link your Fitbit!", "/auth/fitbit", class: "btn btn-large btn-primary" %>
+				<% end %>
+			</section>
 		</aside>
 		<div class="col-xs-12 col-sm-8">	
 				<h3>Peanut Gallery</h3>
 				<%= render 'shared/feed' %>
 		</div>
 	</div>
-	<% unless twitter? %>
-		<div class="row">
-			<%= link_to "Link your Twitter!", "/auth/twitter?user_authorize=true", class: "btn btn-large btn-primary" %>
-		</div>
-	<% end %>
-	<% unless facebook? %>
-		<div class="row">
-			<%= link_to "Link your Facebook!", "/auth/facebook", class: "btn btn-large btn-primary" %>
-		</div>
-	<% end %>
-	<% unless instagram? %>
-		<div class="row">
-			<%= link_to "Link your Instagram!", "/auth/instagram", class: "btn btn-large btn-primary" %>
-		</div>
-	<% end %>
-	<% unless foursquare? %>
-		<div class="row">
-			<%= link_to "Link your Foursquare!", "/auth/foursquare", class: "btn btn-large btn-primary" %>
-		</div>
-	<% end %>
-	<% unless fitbit? %>
-		<div class="row">
-			<%= link_to "Link your Fitbit!", "/auth/fitbit", class: "btn btn-large btn-primary" %>
-		</div>
-	<% end %>
+
 	<div class="row">	
 			<!-- Below are pie graphs -->
 				<%= render 'shared/wellness_bar.html.erb' %>

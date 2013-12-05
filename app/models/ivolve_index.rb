@@ -3,6 +3,9 @@ class IvolveIndex < ActiveRecord::Base
 
 	def self.avg_stats(db, column)
 		case db
+			when 'linkedin_db'
+				database = @linkedin_users
+				db_size = @linkedin_num_users
 			when 'twitter_db'
 				database = @twitter_users 
 				db_size = @twitter_num_users
@@ -24,6 +27,7 @@ class IvolveIndex < ActiveRecord::Base
 	
 	def self.populate_data
 		# The following 4 variables pull TODAY's database entires ONLY, which would equate to one entry per user!!
+		@linkedin_users = LinkedinUser.where('created_at >= ?', LinkedinUser.first.created_at.beginning_of_day)
 		@twitter_users = TwitterUser.where('created_at >= ?', TwitterUser.first.created_at.beginning_of_day)
 		@facebook_users = FacebookUser.where('created_at >= ?', FacebookUser.first.created_at.beginning_of_day)
 		@instagram_users = InstagramUser.where('created_at >= ?', InstagramUser.first.created_at.beginning_of_day)
@@ -33,11 +37,18 @@ class IvolveIndex < ActiveRecord::Base
 
 # MOVE THESE SIZE METHODS INTO avg_stats if they aren't directly used in self.populate_data
 		# The following 4 variables calculate the size Today's DBs, aka the Number of Users in each service
+		@linkedin_num_users = @linkedin_users.size
 		@twitter_num_users = @twitter_users.size
 		@facebook_num_users = @facebook_users.size
 		@instagram_num_users = @instagram_users.size
 		@fitbit_num_users = @fitbit_users.size
 		@foursquare_num_users = @foursquare_users.size
+		# LINKEDIN Stats
+		@iv_linkedin_connections = avg_stats('linkedin_db', 'connections_size')
+		@iv_linkedin_group_memberships = avg_stats('linkedin_db', 'group_memberships_size')
+		@iv_linkedin_job_suggestions = avg_stats('linkedin_db', 'job_suggestions_size')
+		@iv_linkedin_job_bookmarks = avg_stats('linkedin_db', 'job_bookmarks_size')
+		@iv_linkedin_shares = avg_stats('linkedin_db', 'shares_size')
 		# TWITTER STATS BELOW	
 		@iv_twitter_friends = avg_stats('twitter_db', 'friends_int_count')	
 		@iv_twitter_follwers = avg_stats('twitter_db', 'followers_int_count')
@@ -101,10 +112,16 @@ class IvolveIndex < ActiveRecord::Base
 			female_spiritual: nil,
 			female_creative: nil,
 			female_emotional: nil,
+			linkedin_users_total: @linkedin_num_users,
 			twitter_users_total: @twitter_num_users,
 			facebook_users_total: @facebook_num_users,
 			instagram_users_total: @instagram_num_users,
 			fitbit_users_total: @fitbit_num_users,
+			iv_linkedin_connections: @iv_linkedin_connections,
+			iv_linkedin_group_memberships: @iv_linkedin_group_memberships,
+			iv_linkedin_job_suggestions: @iv_linkedin_job_suggestions,
+			iv_linkedin_job_bookmarks: @iv_linkedin_job_bookmarks,
+			iv_linkedin_shares: @iv_linkedin_shares,
 			iv_twitter_friends: @iv_twitter_friends,
 			iv_twitter_follwers: @iv_twitter_follwers,
 			iv_twitter_tweets_sent: @iv_twitter_tweets_sent,
@@ -140,7 +157,6 @@ class IvolveIndex < ActiveRecord::Base
 			iv_foursquare_mayor: @iv_foursquare_mayor,
 			iv_foursquare_tips: @iv_foursquare_tips,
 			iv_foursquare_photos: @iv_foursquare_photos,
-
 		)
 	end
 end

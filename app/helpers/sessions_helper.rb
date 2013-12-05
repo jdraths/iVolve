@@ -11,6 +11,18 @@ module SessionsHelper
 		!current_user.nil?
 	end
 
+	def linkedin_authorized?
+		@linkedin = Authorization.find_by_user_id_and_provider(current_user, 'linkedin')
+		!@linkedin.nil?
+	end
+
+	def linkedin?
+		if linkedin_authorized?
+			@linkedin_auth_user = LinkedinUser.find_by_uid(@linkedin.uid)
+			!@linkedin_auth_user.nil?
+		end
+	end
+
 	def twitter_authorized?
 		@twitter = Authorization.find_by_user_id_and_provider(current_user, 'twitter')
 		!@twitter.nil?

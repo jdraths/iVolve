@@ -10,6 +10,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   	auth_type: 'reauthenticate'
   provider :instagram, 'eb1bb5ca723f45f1a45b16612c5a059b', '4eb71442bb5a4850b7ed05b4845bf7cb'
   provider :foursquare, 'MYEXMUEOG2T53YWKGVRGHURRCDHXGQUL3GNGWV54RR0CRMXM', 'QTEOI5MOL0VS5GHIKXSNVQFI4WWNVPPEA4HREABLUYMKRA3H'
+  provider :linkedin, '7599bbb14sksaj', 'BdOY63uK55WnQSOS',
+    scope: 'r_network rw_groups r_fullprofile r_contactinfo w_messages r_emailaddress rw_nus rw_company_admin'
 
 # Note: access_type can be 'online' (for just authenticating) or 'offline' (for using services)
   # approval_prompt should be a blank string or else it defaults to 'force', which requires re-authenticating on each login/usage

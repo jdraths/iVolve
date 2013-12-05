@@ -19,12 +19,13 @@ gem 'instagram', '~>0.10.0'
 gem 'foursquare2', '~>1.9.0'
 gem 'youtube_it', '~>2.1.0' # having problems with this.
 gem 'google-api-client', '~>0.6.0'
+gem 'linkedin-oauth2', '~>0.1.0'
 gem 'omniauth-twitter', '~>1.0.0'
 gem 'omniauth-facebook', '~>1.4.0'
 gem 'omniauth-fitbit', '~> 1.0.2' 
 gem 'omniauth-google-oauth2', '~>0.2.0' # this works.
 gem 'omniauth-instagram', '~>1.0.0'
-gem 'omniauth-linkedin'
+gem 'omniauth-linkedin-oauth2', '~>0.1.0'
 gem 'omniauth-foursquare', '~>0.0.0'
 gem 'omniauth-youtube', '~> 1.0.0' # having problems with this.
 gem 'omniauth-identity', git: 'https://github.com/intridea/omniauth-identity.git'

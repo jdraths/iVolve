@@ -2,6 +2,55 @@ module StatsHelper
     def stats_view
         if signed_in?
                 @ivolveindex = IvolveIndex.first
+            if linkedin?
+                @linkedin_int_connections = @linkedin_auth_user.connections_size
+                @linkedin_int_group_memberships = @linkedin_auth_user.group_memberships_size
+                @linkedin_int_job_suggestions = @linkedin_auth_user.job_suggestions_size
+                @linkedin_int_job_bookmarks = @linkedin_auth_user.job_bookmarks_size
+                @linkedin_int_shares = @linkedin_auth_user.shares_size
+            else
+                @linkedin_int_connections = 0
+                @linkedin_avg_connections = @ivolveindex.iv_linkedin_connections
+                @linkedin_int_group_memberships = 0
+                @linkedin_avg_group_memberships = @ivolveindex.iv_linkedin_group_memberships
+                @linkedin_int_job_suggestions = 0
+                @linkedin_avg_job_suggestions = @ivolveindex.iv_linkedin_job_suggestions
+                @linkedin_int_job_bookmarks = 0
+                @linkedin_avg_job_bookmarks = @ivolveindex.iv_linkedin_job_bookmarks
+                @linkedin_int_shares = 0
+                @linkedin_avg_shares = @ivolveindex.iv_linkedin_shares
+            end
+            if @linkedin_int_connections.nil?
+                @linkedin_int_connections = 0
+            end
+            if @linkedin_int_group_memberships.nil?
+                @linkedin_int_group_memberships = 0
+            end
+            if @linkedin_int_job_suggestions.nil?
+                @linkedin_int_job_suggestions = 0
+            end
+            if @linkedin_int_job_bookmarks.nil?
+                @linkedin_int_job_bookmarks = 0
+            end
+            if @linkedin_int_shares.nil?
+                @linkedin_int_shares = 0
+            end
+            if @linkedin_avg_connections.nil?
+                @linkedin_avg_connections = 0
+            end
+            if @linkedin_avg_group_memberships.nil?
+                @linkedin_avg_group_memberships = 0
+            end
+            if @linkedin_avg_job_suggestions.nil?
+                @linkedin_avg_job_suggestions = 0
+            end
+            if @linkedin_avg_job_bookmarks.nil?
+                @linkedin_avg_job_bookmarks = 0
+            end
+            if @linkedin_avg_shares.nil?
+                @linkedin_avg_shares = 0
+            end
+
             if twitter?   # is current_user an authorized twitter user with data saved?
                 @twitter_int_friends = @twitter_auth_user.friends_int_count
                 @twitter_int_followers = @twitter_auth_user.followers_int_count
@@ -40,6 +89,22 @@ module StatsHelper
             if @twitter_int_lists.nil?
                 @twitter_int_lists = 0
             end
+            if @twitter_avg_friends.nil?
+                @twitter_avg_friends = 0
+            end
+            if @twitter_avg_followers.nil?
+                @twitter_avg_followers = 0
+            end
+            if @twitter_avg_sent.nil?
+                @twitter_avg_sent = 0
+            end
+            if @twitter_avg_fav.nil?
+                @twitter_avg_fav = 0
+            end
+            if @twitter_avg_lists.nil?
+                @twitter_avg_lists = 0
+            end
+
             if facebook? # is current_user an authorized facebook user with data saved?
                 @facebook_int_friends = @facebook_auth_user.int_friends
                 @facebook_int_likes = @facebook_auth_user.int_likes
@@ -92,6 +157,28 @@ module StatsHelper
             if @facebook_int_subscribed_to.nil?
                 @facebook_int_subscribed_to = 0
             end
+            if @facebook_avg_friends.nil?
+                @facebook_avg_friends = 0
+            end
+            if @facebook_avg_likes.nil?
+                @facebook_avg_likes = 0
+            end
+            if @facebook_avg_posts.nil?
+                @facebook_avg_posts = 0
+            end
+            if @facebook_avg_statuses.nil?
+                @facebook_avg_statuses = 0
+            end
+            if @facebook_avg_achievements.nil?
+                @facebook_avg_achievements = 0
+            end
+            if @facebook_avg_subscribers.nil?
+                @facebook_avg_subscribers = 0
+            end
+            if @facebook_avg_subscribed_to.nil?
+                @facebook_avg_subscribed_to = 0
+            end
+
             if instagram?
                 @instagram_int_followers = @instagram_auth_user.int_followers
                 @instagram_int_following = @instagram_auth_user.int_following
@@ -123,6 +210,19 @@ module StatsHelper
             if @instagram_int_likes_out.nil?
                 @instagram_int_likes_out = 0
             end
+            if @instagram_avg_followers.nil?
+                @instagram_avg_followers = 0
+            end
+            if @instagram_avg_following.nil?
+                @instagram_avg_following = 0
+            end
+            if @instagram_avg_media.nil?
+                @instagram_avg_media = 0
+            end
+            if @instagram_avg_likes_out.nil?
+                @instagram_avg_likes_out = 0
+            end
+
             if foursquare?
                 @foursquare_friends_count = @foursquare_auth_user.friends_count
                 @foursquare_following_count = @foursquare_auth_user.following_count
@@ -175,6 +275,28 @@ module StatsHelper
             if @foursquare_photos_count.nil?
                 @foursquare_photos_count = 0
             end
+            if @foursquare_avg_friends.nil?
+                @foursquare_avg_friends = 0
+            end
+            if @foursquare_avg_following.nil?
+                @foursquare_avg_following = 0
+            end
+            if @foursquare_avg_checkins.nil?
+                @foursquare_avg_checkins = 0
+            end
+            if @foursquare_avg_badges.nil?
+                @foursquare_avg_badges = 0
+            end
+            if @foursquare_avg_mayors.nil?
+                @foursquare_avg_mayors = 0
+            end
+            if @foursquare_avg_tips.nil?
+                @foursquare_avg_tips = 0
+            end
+            if @foursquare_avg_photos.nil?
+                @foursquare_avg_photos = 0
+            end
+
             if fitbit?
                 @fitbit_height_int = @fitbit_auth_user.height_int
                 @fitbit_weight_int = @fitbit_auth_user.weight_int
@@ -238,11 +360,91 @@ module StatsHelper
             if @fitbit_stride_length_walk_int.nil?
                 @fitbit_stride_length_walk_int = 0
             end
+            if @fitbit_avg_height.nil?
+                @fitbit_avg_height = 0
+            end
+            if @fitbit_avg_weight.nil?
+                @fitbit_avg_weight = 0
+            end
+            if @fitbit_avg_length_run.nil?
+                @fitbit_avg_length_run = 0
+            end
+            if @fitbit_avg_length_walk.nil?
+                @fitbit_avg_length_walk = 0
+            end
         end
     end
 
     def stats_compare
         if signed_in?
+            if linkedin?
+                @linkedin_int_connections = @linkedin_auth_user.connections_size
+                @linkedin_int_group_memberships = @linkedin_auth_user.group_memberships_size
+                @linkedin_int_job_suggestions = @linkedin_auth_user.job_suggestions_size
+                @linkedin_int_job_bookmarks = @linkedin_auth_user.job_bookmarks_size
+                @linkedin_int_shares = @linkedin_auth_user.shares_size
+            else
+                @linkedin_int_connections = 0
+                @linkedin_int_group_memberships = 0
+                @linkedin_int_job_suggestions = 0
+                @linkedin_int_job_bookmarks = 0
+                @linkedin_int_shares = 0
+            end
+            @other_linkedin = Authorization.find_by_user_id_and_provider(@user.id, 'linkedin')
+            if !@other_linkedin.nil?
+                @linkedin_other_user = LinkedinUser.find_by_uid(@other_linkedin.uid)
+                if !@linkedin_other_user.nil?
+                    @linkedin_avg_connections = @linkedin_other_user.connections_size
+                    @linkedin_avg_group_memberships = @linkedin_other_user.group_memberships_size
+                    @linkedin_avg_job_suggestions = @linkedin_other_user.job_suggestions_size
+                    @linkedin_avg_job_bookmarks = @linkedin_other_user.job_bookmarks_size
+                    @linkedin_avg_shares = @linkedin_other_user.shares_size
+                else
+                    @linkedin_avg_connections = 0
+                    @linkedin_avg_group_memberships = 0
+                    @linkedin_avg_job_suggestions = 0
+                    @linkedin_avg_job_bookmarks = 0
+                    @linkedin_avg_shares = 0
+                end
+            else
+                @linkedin_avg_connections = 0
+                @linkedin_avg_group_memberships = 0
+                @linkedin_avg_job_suggestions = 0
+                @linkedin_avg_job_bookmarks = 0
+                @linkedin_avg_shares = 0
+            end
+
+            if @linkedin_int_connections.nil?
+                @linkedin_int_connections = 0
+            end
+            if @linkedin_int_group_memberships.nil?
+                @linkedin_int_group_memberships = 0
+            end
+            if @linkedin_int_job_suggestions.nil?
+                @linkedin_int_job_suggestions = 0
+            end
+            if @linkedin_int_job_bookmarks.nil?
+                @linkedin_int_job_bookmarks = 0
+            end
+            if @linkedin_int_shares.nil?
+                @linkedin_int_shares = 0
+            end
+            if @linkedin_avg_connections.nil?
+                @linkedin_avg_connections = 0
+            end
+            if @linkedin_avg_group_memberships.nil?
+                @linkedin_avg_group_memberships = 0
+            end
+            if @linkedin_avg_job_suggestions.nil?
+                @linkedin_avg_job_suggestions = 0
+            end
+            if @linkedin_avg_job_bookmarks.nil?
+                @linkedin_avg_job_bookmarks = 0
+            end
+            if @linkedin_avg_shares.nil?
+                @linkedin_avg_shares = 0
+            end
+
             if twitter?   # is current_user an authorized twitter user with data saved?
                 @twitter_int_friends = @twitter_auth_user.friends_int_count
                 @twitter_int_followers = @twitter_auth_user.followers_int_count
@@ -256,7 +458,6 @@ module StatsHelper
                 @twitter_int_favorites = 0
                 @twitter_int_lists = 0
             end
-            
             @other_twitter = Authorization.find_by_user_id_and_provider(@user.id, 'twitter')
             if !@other_twitter.nil?
                 @twitter_other_user = TwitterUser.find_by_uid(@other_twitter.uid)
@@ -329,7 +530,6 @@ module StatsHelper
                 @facebook_int_subscribers = 0
                 @facebook_int_subscribed_to = 0
             end
-
             @other_facebook = Authorization.find_by_user_id_and_provider(@user.id, 'facebook')
             if !@other_facebook.nil?
                 @facebook_other_user = FacebookUser.find_by_uid(@other_facebook.uid)
@@ -414,7 +614,6 @@ module StatsHelper
                 @instagram_int_media = 0
                 @instagram_int_likes_out = 0
             end
-
             @other_instagram = Authorization.find_by_user_id_and_provider(@user.id, 'instagram')
             if !@other_instagram.nil?
                 @instagram_other_user = InstagramUser.find_by_uid(@other_instagram.uid)
@@ -478,7 +677,6 @@ module StatsHelper
                 @foursquare_tips_count = 0
                 @foursquare_photos_count = 0
             end
-
             @other_foursquare = Authorization.find_by_user_id_and_provider(@user.id, 'foursquare')
             if !@other_foursquare.nil?
                 @foursquare_other_user = FoursquareUser.find_by_uid(@other_foursquare.uid)
@@ -583,7 +781,6 @@ module StatsHelper
                 @fitbit_best_tot_steps_int = 0
                 @fitbit_best_tot_steps_date = 0
             end
-
             @other_fitbit = Authorization.find_by_user_id_and_provider(@user.id, 'fitbit')
             if !@other_fitbit.nil?
                 @fitbit_other_user = FitbitUser.find_by_encoded_id(@other_fitbit.uid)

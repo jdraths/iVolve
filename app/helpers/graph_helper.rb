@@ -7,6 +7,14 @@ module GraphHelper
 		# twitter_data_by_day[Date.today] returns a single entry array
 		# twitter_data_by_day[Date.today].first is accessible via .method = to the methods in TwitterUser.total_grouped_by_date
 		# accessible methods are .social, .creative, .physical
+		@linkedin_graph = Authorization.where("user_id = ?", user).where("provider = ?", "linkedin")
+		if !@linkedin_graph.first.nil?
+			@linkedin_graph_user = LinkedinUser.where("uid = ?", @linkedin_graph.first['uid'])
+			if !@linkedin_graph_user.nil?
+				linkedin_data_by_day = @linkedin_graph_user.wellness_bar_by_date(2.weeks.ago)
+			end
+		end
+
 		@twitter_graph = Authorization.where("user_id = ?", user).where("provider = ?", "twitter")
 		if !@twitter_graph.first.nil?
 			@twitter_graph_user = TwitterUser.where("uid = ?", @twitter_graph.first['uid'])
@@ -48,6 +56,15 @@ module GraphHelper
 		end
 		(2.weeks.ago.to_date..Date.today).map do |date|
 			created_at = date
+			if !linkedin_data_by_day.nil?
+				if !linkedin_data_by_day[date].nil?
+					linkedin_social = linkedin_data_by_day[date].first.try(:social)
+					linkedin_creative = linkedin_data_by_day[date].first.try(:creative)
+				else
+					linkedin_social = 0
+					linkedin_creative = 0
+				end
+			end
 			if !twitter_data_by_day.nil?
 				if !twitter_data_by_day[date].nil?
 					twitter_social = twitter_data_by_day[date].first.try(:social)
@@ -92,6 +109,12 @@ module GraphHelper
 				end
 			end
 
+			if linkedin_social.nil?
+				linkedin_social = 0
+			end
+			if linkedin_creative.nil?
+				linkedin_creative = 0
+			end
 			if twitter_social.nil?
 				twitter_social = 0
 			end
@@ -122,12 +145,15 @@ module GraphHelper
 
 			{
 				created_at: date,
-				social: twitter_social + facebook_social + instagram_social + foursquare_social,
-				creative: twitter_creative + facebook_creative + instagram_creative + foursquare_creative,
+				social: twitter_social + facebook_social + instagram_social + foursquare_social + linkedin_social,
+				creative: twitter_creative + facebook_creative + instagram_creative + foursquare_creative + linkedin_creative,
 				physical: fitbit_physical,
 			}
 		end
 	end
+
+
+	### BELOW IS NO LONGER USED AS OF 11/28/13
 
 	def twitter_user_data
 		# IT WOULD BE NICE TO RE-FACTOR THIS SO IT IS THE SAME current_user as for other stats display...

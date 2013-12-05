@@ -7,7 +7,7 @@ SampleApp::Application.routes.draw do
   resources :sessions,   only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
-  resources :authorizations
+  resources :authorizations # is this causing the no route matches get... errors?
   # resources :identities
   root 'static_pages#home'
   match '/signup',  to: 'users#new',            via: 'get'

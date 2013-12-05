@@ -36,6 +36,7 @@ ready ->
         {label: "Facebook", value: $('#social-connections').data('facebook')}
         {label: "Instagram", value: $('#social-connections').data('instagram')}
         {label: "Foursquare", value: $('#social-connections').data('foursquare')}
+        {label: "LinkedIn", value: $('#social-connections').data('linkedin')}
     ]
   Morris.Donut
     element: 'ivolve-connections'
@@ -44,6 +45,7 @@ ready ->
         {label: "Facebook", value: $('#ivolve-connections').data('facebook')}
         {label: "Instagram", value: $('#ivolve-connections').data('instagram')}
         {label: "Foursquare", value: $('#ivolve-connections').data('foursquare')}
+        {label: "LinkedIn", value: $('#ivolve-connections').data('linkedin')}
     ]
   Morris.Donut
     element: 'social-engagement'
@@ -52,6 +54,7 @@ ready ->
         {label: "Facebook", value: $('#social-engagement').data('facebook')}
         {label: "Instagram", value: $('#social-engagement').data('instagram')}
         {label: "Foursquare", value: $('#social-engagement').data('foursquare')}
+        {label: "LinkedIn", value: $('#social-engagement').data('linkedin')}
     ]
   Morris.Donut
     element: 'ivolve-engagement'
@@ -60,6 +63,7 @@ ready ->
         {label: "Facebook", value: $('#ivolve-engagement').data('facebook')}
         {label: "Instagram", value: $('#ivolve-engagement').data('instagram')}
         {label: "Foursquare", value: $('#ivolve-engagement').data('foursquare')}
+        {label: "LinkedIn", value: $('#ivolve-engagement').data('linkedin')}
     ]
   Morris.Bar
     element: 'wellness-bar'
