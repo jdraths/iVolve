@@ -14,26 +14,39 @@
 				<%= render 'follow_form' if signed_in? %>
 		</section>
 	</aside>
-</div>
+
+
 <% unless linkedin? %>
-	<%= link_to "Link your LinkedIn!", "/auth/linkedin", class: "btn btn-large btn-primary" %>
-	<span class="label label-success">New</span>
+	<div class="col-xs-6 col-sm-4" style="margin-top: 3px; margin-bottom: 3px">
+		<%= link_to "Link your LinkedIn!", "/auth/linkedin", class: "btn btn-large btn-primary" %><span class="label label-success">New</span>
+	</div>
 <% end %>
 <% unless twitter? %>
-	<%= link_to "Link your Twitter!", "/auth/twitter?user_authorize=true", class: "btn btn-large btn-primary" %>
+	<div class="col-xs-6 col-sm-4" style="margin-top: 3px; margin-bottom: 3px">
+		<%= link_to "Link your Twitter!", "/auth/twitter?user_authorize=true", class: "btn btn-large btn-primary" %>
+	</div>
 <% end %>
-<% unless facebook? %>
-	<%= link_to "Link your Facebook!", "/auth/facebook", class: "btn btn-large btn-primary" %>
+<% if !facebook? || facebook_expired? %>
+	<div class="col-xs-6 col-sm-4" style="margin-top: 3px; margin-bottom: 3px">
+		<%= link_to "Link your Facebook!", "/auth/facebook", class: "btn btn-large btn-primary" %>
+	</div>
 <% end %>
 <% unless instagram? %>
-	<%= link_to "Link your Instagram!", "/auth/instagram", class: "btn btn-large btn-primary" %>
+	<div class="col-xs-6 col-sm-4" style="margin-top: 3px; margin-bottom: 3px">
+		<%= link_to "Link your Instagram!", "/auth/instagram", class: "btn btn-large btn-primary" %>
+	</div>
 <% end %>
 <% unless foursquare? %>
-	<%= link_to "Link your Foursquare!", "/auth/foursquare", class: "btn btn-large btn-primary" %>
+	<div class="col-xs-6 col-sm-4" style="margin-top: 3px; margin-bottom: 3px">
+		<%= link_to "Link your Foursquare!", "/auth/foursquare", class: "btn btn-large btn-primary" %>
+	</div>
 <% end %>
 <% unless fitbit? %>
-	<%= link_to "Link your Fitbit!", "/auth/fitbit", class: "btn btn-large btn-primary" %>
+	<div class="col-xs-6 col-sm-4" style="margin-top: 3px; margin-bottom: 3px">
+		<%= link_to "Link your Fitbit!", "/auth/fitbit", class: "btn btn-large btn-primary" %>
+	</div>
 <% end %>
+</div>
 
 	<div class="row">
 				<%= render 'shared/wellness_bar.html.erb' %>
