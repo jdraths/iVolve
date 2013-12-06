@@ -26,6 +26,5 @@ module SampleApp
     # config.i18n.default_locale = :de
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
     config.autoload_paths += %W(#{config.root}/lib)
-    config.exceptions_app = self.routes
   end
 end
