@@ -12,36 +12,38 @@
 			</section>
 		</aside>
 				
-				<% unless linkedin? %>
-					<div class="col-xs-6 col-sm-4" style="margin-top: 3px; margin-bottom: 3px">
-						<%= link_to "Link your LinkedIn!", "/auth/linkedin", class: "btn btn-large btn-primary" %><span class="label label-success">New</span>
+				
+					<div class="col-xs-6 col-sm-4" style="padding-top: 3px; padding-bottom: 3px">
+						<% unless linkedin? %>
+							<%= link_to "Link your LinkedIn!", "/auth/linkedin", class: "btn btn-large btn-primary" %><span class="label label-success">New</span>
+						<% end %>
 					</div>
-				<% end %>
-				<% unless twitter? %>
-					<div class="col-xs-6 col-sm-4" style="margin-top: 3px; margin-bottom: 3px">
-						<%= link_to "Link your Twitter!", "/auth/twitter?user_authorize=true", class: "btn btn-large btn-primary" %>
+					<div class="col-xs-6 col-sm-4" style="padding-top: 3px; padding-bottom: 3px">
+						<% unless twitter? %>
+							<%= link_to "Link your Twitter!", "/auth/twitter?user_authorize=true", class: "btn btn-large btn-primary" %>
+						<% end %>
 					</div>
-				<% end %>
-				<% if !facebook? || facebook_expired? %>
-					<div class="col-xs-6 col-sm-4" style="margin-top: 3px; margin-bottom: 3px">
-						<%= link_to "Link your Facebook!", "/auth/facebook", class: "btn btn-large btn-primary" %>
+					<div class="col-xs-6 col-sm-4" style="padding-top: 3px; padding-bottom: 3px">
+						<% if !facebook? || facebook_expired? %>
+							<%= link_to "Link your Facebook!", "/auth/facebook", class: "btn btn-large btn-primary" %>
+						<% end %>
 					</div>
-				<% end %>
-				<% unless instagram? %>
-					<div class="col-xs-6 col-sm-4" style="margin-top: 3px; margin-bottom: 3px">
-						<%= link_to "Link your Instagram!", "/auth/instagram", class: "btn btn-large btn-primary" %>
+					<div class="col-xs-6 col-sm-4" style="padding-top: 3px; padding-bottom: 3px">
+						<% unless instagram? %>
+							<%= link_to "Link your Instagram!", "/auth/instagram", class: "btn btn-large btn-primary" %>
+						<% end %>
 					</div>
-				<% end %>
-				<% unless foursquare? %>
-					<div class="col-xs-6 col-sm-4" style="margin-top: 3px; margin-bottom: 3px">
-						<%= link_to "Link your Foursquare!", "/auth/foursquare", class: "btn btn-large btn-primary" %>
+					<div class="col-xs-6 col-sm-4" style="padding-top: 3px; padding-bottom: 3px">
+						<% unless foursquare? %>
+							<%= link_to "Link your Foursquare!", "/auth/foursquare", class: "btn btn-large btn-primary" %>
+						<% end %>
 					</div>
-				<% end %>
-				<% unless fitbit? %>
-					<div class="col-xs-6 col-sm-4" style="margin-top: 3px; margin-bottom: 3px">
-						<%= link_to "Link your Fitbit!", "/auth/fitbit", class: "btn btn-large btn-primary" %>
+					<div class="col-xs-6 col-sm-4" style="padding-top: 3px; padding-bottom: 3px">
+						<% unless fitbit? %>
+							<%= link_to "Link your Fitbit!", "/auth/fitbit", class: "btn btn-large btn-primary" %>
+						<% end %>
 					</div>
-				<% end %>
+				
 		<div class="col-xs-12 col-sm-8">	
 				<h3>Peanut Gallery</h3>
 				<%= render 'shared/feed' %>
