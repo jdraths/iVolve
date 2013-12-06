@@ -112,7 +112,21 @@ class FacebookUser < ActiveRecord::Base
 		facebook_sched = Authorization.where(provider: 'facebook') 
 		# is there a better way to run the following method once we have 1000s of facebook auths??
 		facebook_sched.each do |facebook_sched|
-			FacebookUser.pull_user_data(facebook_sched.user)
+			begin
+				FacebookUser.pull_user_data(facebook_sched.user)
+			rescue Koala::Facebook::BadFacebookResponse
+				logger.error "Koala::Facebook::BadFacebookResponse"
+			rescue Koala::Facebook::ServerError
+				logger.error "Koala::Facebook::ServerError"
+			rescue Koala::Facebook::AuthenticationError
+				logger.error "Koala::Facebook::AuthenticationError"
+				logger.info "saving expired_token = true"
+				facebook_sched.expired_token = true
+				facebook_sched.save!
+				logger.info "moving to next user..."
+				# Could add a method here to save "NEEDS RE-AUTH" on user, so that user is forced to re-auth on next sign-in"
+				next
+			end
 		end
 	end
 end

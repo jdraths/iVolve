@@ -3,8 +3,6 @@ class Authorization < ActiveRecord::Base
 	validates :uid, presence: true, uniqueness: {scope: :provider}
 	validates :provider, presence: true
 	after_validation :report_validation_errors_to_rollbar
-	scope :authorized_user, 			-> { where("user_id = ?", current_user) }
-	scope :authorized_user_and_twitter,	-> { authorized_user.where("provider = ?", "twitter") }
 
 	def self.find_from_omniauth(auth)
 		find_by_provider_and_uid(auth['provider'], auth['uid']) #|| create_from_omniauth(auth)
@@ -59,5 +57,4 @@ class Authorization < ActiveRecord::Base
 			authorized.save!
 		end
 	end
-	
 end

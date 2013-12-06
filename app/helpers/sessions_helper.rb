@@ -47,6 +47,16 @@ module SessionsHelper
 		end
 	end
 
+	def facebook_expired?
+		if facebook?
+			if @facebook.expired_token == true
+				true
+			else
+				false
+			end
+		end
+	end
+	
 	def instagram_authorized?
 		@instagram = Authorization.find_by_user_id_and_provider(current_user, 'instagram')
 		!@instagram.nil?

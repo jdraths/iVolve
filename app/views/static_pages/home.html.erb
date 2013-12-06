@@ -18,7 +18,7 @@
 				<% unless twitter? %>
 					<%= link_to "Link your Twitter!", "/auth/twitter?user_authorize=true", class: "btn btn-large btn-primary" %>
 				<% end %>
-				<% unless facebook? %>
+				<% if !facebook? || facebook_expired? %>
 					<%= link_to "Link your Facebook!", "/auth/facebook", class: "btn btn-large btn-primary" %>
 				<% end %>
 				<% unless instagram? %>

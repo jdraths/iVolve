@@ -17,7 +17,13 @@ class SessionsController < ApplicationController
 	 #    end
 
 		if signed_in?
-			if @authorization.user == current_user
+			if @authorization.user == current_user && facebook_expired?
+				@authorization.expired_token = false
+				@authorization.save
+				flash[:success] = "Your account has been updated."
+				redirect_to root_path
+			elsif @authorization.user == current_user
+				
 				# User is signed in so they are trying to link an authorization with their
 		        # account. But we found the authorization and the user associated with it 
 		        # is the current user. So the authorization is already associated with 
