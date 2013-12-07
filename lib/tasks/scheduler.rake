@@ -1,4 +1,10 @@
 desc "This task is called by the heroku scheduler"
+task :linkedin_sched => :environment do
+	puts "LinkedIn API..."
+	LinkedinUser.sched_user_data
+	puts "done."
+end
+
 task :twitter_sched => :environment do 
 	puts "Twitter API..."
 	TwitterUser.sched_user_data
