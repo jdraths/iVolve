@@ -15,6 +15,16 @@ class TwitterUser < ActiveRecord::Base
 		data.group_by { |d| d.created_at.to_date }
 	end
 
+	def self.connections_line_by_date(start)
+		t = Time.zone.now
+		time_now = t + t.utc_offset
+		data = where(created_at: start.beginning_of_day..time_now.end_of_day)
+		data = data.group("date(created_at)")
+		data = data.select("date(created_at) as created_at, sum(followers_int_count + listed_int_count + friends_int_count) as connections,
+			 sum(tweet_int_count + favorite_int_count) as engagement")
+		data.group_by { |d| d.created_at.to_date }
+	end
+
 	def self.total_grouped_by_date(start)
 		t = Time.zone.now
 		time_now = t + t.utc_offset

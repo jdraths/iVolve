@@ -152,6 +152,144 @@ module GraphHelper
 		end
 	end
 
+	def connections_over_time(user)
+		# This is missing facebook_subscribers, facebook_subscribed_to
+		# Use @twitter_auth_user from sessions helper
+		# The below data_by_day methods are a hash with the key = date
+		# twitter_data_by_day[Date.today] returns a single entry array
+		# twitter_data_by_day[Date.today].first is accessible via .method = to the methods in TwitterUser.total_grouped_by_date
+		# accessible methods are .social, .creative, .physical
+		@linkedin_graph = Authorization.where("user_id = ?", user).where("provider = ?", "linkedin")
+		if !@linkedin_graph.first.nil?
+			@linkedin_graph_user = LinkedinUser.where("uid = ?", @linkedin_graph.first['uid'])
+			if !@linkedin_graph_user.nil?
+				linkedin_data_by_day = @linkedin_graph_user.connections_line_by_date(2.weeks.ago)
+			end
+		end
+		@twitter_graph = Authorization.where("user_id = ?", user).where("provider = ?", "twitter")
+		if !@twitter_graph.first.nil?
+			@twitter_graph_user = TwitterUser.where("uid = ?", @twitter_graph.first['uid'])
+			if !@twitter_graph_user.nil?
+				twitter_data_by_day = @twitter_graph_user.connections_line_by_date(2.weeks.ago)
+			end
+		end
+		@facebook_graph = Authorization.where("user_id = ?", user).where("provider = ?", "facebook")
+		if !@facebook_graph.first.nil?
+			@facebook_graph_user = FacebookUser.where("uid = ?", @facebook_graph.first['uid'])
+			if !@facebook_graph_user.nil?
+				facebook_data_by_day = @facebook_graph_user.connections_line_by_date(2.weeks.ago)
+			end
+		end
+		@instagram_graph = Authorization.where("user_id = ?", user).where("provider = ?", "instagram")
+		if !@instagram_graph.first.nil?
+			@instagram_graph_user = InstagramUser.where("uid = ?", @instagram_graph.first['uid'])
+			if !@instagram_graph_user.nil?
+				instagram_data_by_day = @instagram_graph_user.connections_line_by_date(2.weeks.ago)
+			end
+		end
+
+		@foursquare_graph = Authorization.where("user_id = ?", user).where("provider = ?", "foursquare")
+		if !@foursquare_graph.first.nil?
+			@foursquare_graph_user = FoursquareUser.where("uid = ?", @foursquare_graph.first['uid'])
+			if !@foursquare_graph_user.nil?
+				foursquare_data_by_day = @foursquare_graph_user.connections_line_by_date(2.weeks.ago)
+			end
+		end
+
+		(2.weeks.ago.to_date..Date.today).map do |date|
+			created_at = date
+			if !linkedin_data_by_day.nil?
+				if !linkedin_data_by_day[date].nil?
+					linkedin_connections = linkedin_data_by_day[date].first.try(:connections)
+					linkedin_engagement = linkedin_data_by_day[date].first.try(:engagement)
+				else
+					linkedin_connections = 0
+					linkedin_engagement = 0
+				end
+			end
+			if !twitter_data_by_day.nil?
+				if !twitter_data_by_day[date].nil?
+					twitter_connections = twitter_data_by_day[date].first.try(:connections)
+					twitter_engagement = twitter_data_by_day[date].first.try(:engagement)
+				else
+					twitter_connections = 0
+					twitter_engagement = 0
+				end
+			end
+			if !facebook_data_by_day.nil?
+				if !facebook_data_by_day[date].nil?
+					facebook_connections = facebook_data_by_day[date].first.try(:connections)
+					facebook_engagement = facebook_data_by_day[date].first.try(:engagement)
+				else
+					facebook_connections = 0
+					facebook_engagement = 0
+				end
+			end
+			if !instagram_data_by_day.nil?
+				if !instagram_data_by_day[date].nil?
+					instagram_connections = instagram_data_by_day[date].first.try(:connections)
+					instagram_engagement = instagram_data_by_day[date].first.try(:engagement)
+				else
+					instagram_connections = 0
+					instagram_engagement = 0
+				end
+			end
+			if !foursquare_data_by_day.nil?
+				if !foursquare_data_by_day[date].nil?
+					foursquare_connections = foursquare_data_by_day[date].first.try(:connections)
+					foursquare_engagement = foursquare_data_by_day[date].first.try(:engagement)
+				else
+					foursquare_connections = 0
+					foursquare_engagement = 0
+				end
+			end
+
+			if linkedin_connections.nil?
+				linkedin_connections = 0
+			end
+			if linkedin_engagement.nil?
+				linkedin_engagement = 0
+			end
+			if twitter_connections.nil?
+				twitter_connections = 0
+			end
+			if twitter_engagement.nil?
+				twitter_engagement = 0
+			end
+			if facebook_connections.nil?
+				facebook_connections = 0
+			end
+			if facebook_engagement.nil?
+				facebook_engagement = 0
+			end
+			if instagram_connections.nil?
+				instagram_connections = 0
+			end
+			if instagram_engagement.nil?
+				instagram_engagement = 0
+			end
+			if foursquare_connections.nil?
+				foursquare_connections = 0
+			end
+			if foursquare_engagement.nil?
+				foursquare_engagement = 0
+			end
+
+			{
+				created_at: date,
+				linkedin_connections: linkedin_connections,
+				linkedin_engagement: linkedin_engagement,
+				twitter_connections: twitter_connections,
+				twitter_engagement: twitter_engagement,
+				facebook_connections: facebook_connections,
+				facebook_engagement: facebook_engagement,
+				instagram_connections: instagram_connections,
+				instagram_engagement: instagram_engagement,
+				foursquare_connections: foursquare_connections,
+				foursquare_engagement: foursquare_engagement,
+			}
+		end
+	end
 
 	### BELOW IS NO LONGER USED AS OF 11/28/13
 

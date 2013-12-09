@@ -51,6 +51,18 @@ jQuery ->
   Morris.Line
     element: 'wellness-line'
     data: $('#wellness-line').data('wellness')
-    xkey: 'created_at'   # y is really the value on the X-Axis
-    ykeys: ['social', 'creative', 'physical']  # a is really the value on the Y-Axis
+    xkey: 'created_at'   
+    ykeys: ['social', 'creative', 'physical']
     labels: ['Social', 'Creative', 'Physical']
+  Morris.Line
+    element: 'connections-line'
+    data: $('#connections-line').data('connections')
+    xkey: 'created_at'   
+    ykeys: ['linkedin_connections', 'twitter_connections', 'facebook_connections', 'instagram_connections', 'foursquare_connections']  
+    labels: ['LinkedIn', 'Twitter', 'Facebook', 'Instagram', 'Foursquare']
+  Morris.Line
+    element: 'engagement-line'
+    data: $('#engagement-line').data('engagement')
+    xkey: 'created_at'   
+    ykeys: ['linkedin_engagement', 'twitter_engagement', 'facebook_engagement', 'instagram_engagement', 'foursquare_engagement']  
+    labels: ['LinkedIn', 'Twitter', 'Facebook', 'Instagram', 'Foursquare']

@@ -1,22 +1,25 @@
+<!-- the instance variables below are defined in stats_helper.rb -->
+
 <div class="col-xs-6" style="border-top: 1px solid #e8e8e8">
 	<h3 style="text-align: center">My Social Connections</h3>
-	<h5 style="text-align: center">Total: <%= @twitter_int_followers + @twitter_int_lists + @facebook_int_friends + @facebook_int_subscribed_to + @instagram_int_followers + @foursquare_friends_count + @linkedin_int_connections + @linkedin_int_group_memberships %>
+	<h5 style="text-align: center">Total: <%= @twitter_int_followers + @twitter_int_lists + @twitter_int_friends + @facebook_int_friends + @facebook_int_subscribed_to + @facebook_int_subscribers + @instagram_int_followers + @instagram_int_following + @foursquare_friends_count + @foursquare_following_count + @linkedin_int_connections + @linkedin_int_group_memberships %>
 	</h5>
 	<%= content_tag :div, "", id: "social-connections", 
-	data: {twitter: @twitter_int_followers + @twitter_int_lists,
-		facebook: @facebook_int_friends + @facebook_int_subscribed_to,
-		instagram: @instagram_int_followers,
-		foursquare: @foursquare_friends_count,
+	data: {twitter: @twitter_int_followers + @twitter_int_lists + @twitter_int_friends,
+		facebook: @facebook_int_friends + @facebook_int_subscribed_to + @facebook_int_subscribers,
+		instagram: @instagram_int_followers + @instagram_int_following,
+		foursquare: @foursquare_friends_count + @foursquare_following_count,
 		linkedin: @linkedin_int_connections + @linkedin_int_group_memberships} %>
 </div>
 <div class="col-xs-6" style="border-top: 1px solid #e8e8e8">
 	<h3 style="text-align: center"><%= @who %></h3>
-	<h5 style="text-align: center">Total: <%= @twitter_avg_followers + @twitter_avg_lists + @facebook_avg_friends + @facebook_avg_subscribed_to + @instagram_avg_followers + @foursquare_avg_friends + @linkedin_avg_connections + @linkedin_avg_group_memberships %>
+	<h5 style="text-align: center">Total: <%= @twitter_avg_followers + @twitter_avg_lists + @twitter_avg_friends + @facebook_avg_friends + @facebook_avg_subscribed_to + @facebook_avg_subscribers + @instagram_avg_followers + @instagram_avg_following+ @foursquare_avg_friends + @foursquare_avg_following + @linkedin_avg_connections + @linkedin_avg_group_memberships %>
 	</h5>
 	<%= content_tag :div, "", id: "ivolve-connections", 
-	data: {twitter: @twitter_avg_followers + @twitter_avg_lists,
-		facebook: @facebook_avg_friends + @facebook_avg_subscribed_to,
-		instagram: @instagram_avg_followers,
-		foursquare: @foursquare_avg_friends,
+	data: {twitter: @twitter_avg_followers + @twitter_avg_lists + @twitter_avg_friends,
+		facebook: @facebook_avg_friends + @facebook_avg_subscribed_to + @facebook_avg_subscribers,
+		instagram: @instagram_avg_followers + @instagram_avg_following,
+		foursquare: @foursquare_avg_friends + @foursquare_avg_following,
 		linkedin: @linkedin_avg_connections + @linkedin_avg_group_memberships} %>	
 </div>
+
