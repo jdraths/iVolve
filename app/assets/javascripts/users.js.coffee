@@ -48,6 +48,7 @@ jQuery ->
     xkey: 'y',
     ykeys: ['a', 'b'],
     labels: ['Me', $('#wellness-bar').data('who')]
+    barColors: ['#1240AB', '#4312AE', '#00CC00']
   Morris.Line
     element: 'wellness-line'
     data: $('#wellness-line').data('wellness')
