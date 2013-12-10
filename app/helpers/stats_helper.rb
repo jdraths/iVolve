@@ -8,22 +8,22 @@ module StatsHelper
                 @linkedin_int_job_suggestions = @linkedin_auth_user.job_suggestions_size
                 @linkedin_int_job_bookmarks = @linkedin_auth_user.job_bookmarks_size
                 @linkedin_int_shares = @linkedin_auth_user.shares_size
-                @linkedin_avg_connections = @ivolveindex.iv_linkedin_connections
-                @linkedin_avg_group_memberships = @ivolveindex.iv_linkedin_group_memberships
-                @linkedin_avg_job_suggestions = @ivolveindex.iv_linkedin_job_suggestions
-                @linkedin_avg_job_bookmarks = @ivolveindex.iv_linkedin_job_bookmarks
-                @linkedin_avg_shares = @ivolveindex.iv_linkedin_shares
+                @linkedin_avg_connections = @ivolveindex.iv_linkedin_connections_int
+                @linkedin_avg_group_memberships = @ivolveindex.iv_linkedin_group_memberships_int
+                @linkedin_avg_job_suggestions = @ivolveindex.iv_linkedin_job_suggestions_int
+                @linkedin_avg_job_bookmarks = @ivolveindex.iv_linkedin_job_bookmarks_int
+                @linkedin_avg_shares = @ivolveindex.iv_linkedin_shares_int
             else
                 @linkedin_int_connections = 0
-                @linkedin_avg_connections = @ivolveindex.iv_linkedin_connections
+                @linkedin_avg_connections = @ivolveindex.iv_linkedin_connections_int
                 @linkedin_int_group_memberships = 0
-                @linkedin_avg_group_memberships = @ivolveindex.iv_linkedin_group_memberships
+                @linkedin_avg_group_memberships = @ivolveindex.iv_linkedin_group_memberships_int
                 @linkedin_int_job_suggestions = 0
-                @linkedin_avg_job_suggestions = @ivolveindex.iv_linkedin_job_suggestions
+                @linkedin_avg_job_suggestions = @ivolveindex.iv_linkedin_job_suggestions_int
                 @linkedin_int_job_bookmarks = 0
-                @linkedin_avg_job_bookmarks = @ivolveindex.iv_linkedin_job_bookmarks
+                @linkedin_avg_job_bookmarks = @ivolveindex.iv_linkedin_job_bookmarks_int
                 @linkedin_int_shares = 0
-                @linkedin_avg_shares = @ivolveindex.iv_linkedin_shares
+                @linkedin_avg_shares = @ivolveindex.iv_linkedin_shares_int
             end
             if @linkedin_int_connections.nil?
                 @linkedin_int_connections = 0
