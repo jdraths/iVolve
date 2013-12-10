@@ -8,6 +8,11 @@ module StatsHelper
                 @linkedin_int_job_suggestions = @linkedin_auth_user.job_suggestions_size
                 @linkedin_int_job_bookmarks = @linkedin_auth_user.job_bookmarks_size
                 @linkedin_int_shares = @linkedin_auth_user.shares_size
+                @linkedin_avg_connections = @ivolveindex.iv_linkedin_connections
+                @linkedin_avg_group_memberships = @ivolveindex.iv_linkedin_group_memberships
+                @linkedin_avg_job_suggestions = @ivolveindex.iv_linkedin_job_suggestions
+                @linkedin_avg_job_bookmarks = @ivolveindex.iv_linkedin_job_bookmarks
+                @linkedin_avg_shares = @ivolveindex.iv_linkedin_shares
             else
                 @linkedin_int_connections = 0
                 @linkedin_avg_connections = @ivolveindex.iv_linkedin_connections
