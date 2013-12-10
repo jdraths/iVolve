@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131210132658) do
+ActiveRecord::Schema.define(version: 20131210135633) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -356,12 +356,17 @@ ActiveRecord::Schema.define(version: 20131210132658) do
     t.integer  "iv_foursquare_mayor"
     t.integer  "iv_foursquare_tips"
     t.integer  "iv_foursquare_photos"
-    t.integer  "iv_linkedin_connections"
-    t.integer  "iv_linkedin_group_memberships"
-    t.integer  "iv_linkedin_job_suggestions"
-    t.integer  "iv_linkedin_job_bookmarks"
-    t.integer  "iv_linkedin_shares"
+    t.string   "iv_linkedin_connections"
+    t.string   "iv_linkedin_group_memberships"
+    t.string   "iv_linkedin_job_suggestions"
+    t.string   "iv_linkedin_job_bookmarks"
+    t.string   "iv_linkedin_shares"
     t.integer  "linkedin_users_total"
+    t.integer  "iv_linkedin_connections_int"
+    t.integer  "iv_linkedin_group_memberships_int"
+    t.integer  "iv_linkedin_job_suggestions_int"
+    t.integer  "iv_linkedin_job_bookmarks_int"
+    t.integer  "iv_linkedin_shares_int"
   end
 
   create_table "linkedin_users", force: true do |t|
