@@ -38,6 +38,18 @@ jQuery ->
         {label: "Foursquare", value: $('#ivolve-engagement').data('foursquare')}
         {label: "LinkedIn", value: $('#ivolve-engagement').data('linkedin')}
     ]
+  Morris.Donut
+    element: 'twitterfollowersfollowing'
+    data: [
+        {label: "Followers", value: $('#twitterfollowersfollowing').data('myfollowers')}
+        {label: "Following", value: $('#twitterfollowersfollowing').data('myfollowing')}
+    ]
+  Morris.Donut
+    element: 'twitterfollowersfollowingindex'
+    data: [
+        {label: "Followers", value: $('#twitterfollowersfollowingindex').data('indexfollowers')}
+        {label: "Following", value: $('#twitterfollowersfollowingindex').data('indexfollowing')}
+    ]
   Morris.Bar
     element: 'wellness-bar'
     data: [

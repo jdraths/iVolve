@@ -29,9 +29,13 @@ class FetchTweet < ActiveRecord::Base
 				#end
 			#end
 			if !tweet.hashtags.nil?
-				tweet.hashtags.each do |entity|
-					@hashtags = entity['text'].to_s
+				hashtags_array = []
+				tweet.hashtags.each do |x|
+					each_hashtag = x[:text]
+					hashtags_array.push(each_hashtag)
 				end
+				#hashtags is a string of comma-joined hashtags
+				@hashtags = hashtags_array.join(',')
 			end
 			if !tweet.media.nil?
 				tweet.media.each do |entity|

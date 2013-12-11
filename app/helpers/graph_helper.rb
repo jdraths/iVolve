@@ -60,52 +60,103 @@ module GraphHelper
 				if !linkedin_data_by_day[date].nil?
 					linkedin_social = linkedin_data_by_day[date].first.try(:social)
 					linkedin_creative = linkedin_data_by_day[date].first.try(:creative)
+					if !linkedin_data_by_day[date.yesterday].nil?
+						linkedin_social_yesterday = linkedin_data_by_day[date.yesterday].first.try(:social)
+						linkedin_creative_yesterday = linkedin_data_by_day[date.yesterday].first.try(:creative)
+					else
+						linkedin_social_yesterday = 0
+						linkedin_creative_yesterday = 0
+					end
 				else
 					linkedin_social = 0
 					linkedin_creative = 0
+					linkedin_social_yesterday = 0
+					linkedin_creative_yesterday = 0
 				end
 			end
 			if !twitter_data_by_day.nil?
 				if !twitter_data_by_day[date].nil?
 					twitter_social = twitter_data_by_day[date].first.try(:social)
 					twitter_creative = twitter_data_by_day[date].first.try(:creative)
+					if !twitter_data_by_day[date.yesterday].nil?
+						twitter_social_yesterday = twitter_data_by_day[date.yesterday].first.try(:social)
+						twitter_creative_yesterday = twitter_data_by_day[date.yesterday].first.try(:creative)
+					else
+						twitter_social_yesterday = 0
+						twitter_creative_yesterday = 0
+					end
 				else
 					twitter_social = 0
+					twitter_social_yesterday = 0
 					twitter_creative = 0
+					twitter_creative_yesterday = 0
 				end
 			end
 			if !facebook_data_by_day.nil?
 				if !facebook_data_by_day[date].nil?
 					facebook_social = facebook_data_by_day[date].first.try(:social)
 					facebook_creative = facebook_data_by_day[date].first.try(:creative)
+					if !facebook_data_by_day[date.yesterday].nil?
+						facebook_social_yesterday = facebook_data_by_day[date.yesterday].first.try(:social)
+						facebook_creative_yesterday = facebook_data_by_day[date.yesterday].first.try(:creative)
+					else
+						facebook_social_yesterday = 0
+						facebook_creative_yesterday = 0
+					end
 				else
 					facebook_social = 0
+					facebook_social_yesterday = 0
 					facebook_creative = 0
+					facebook_creative_yesterday = 0
 				end
 			end
 			if !instagram_data_by_day.nil?
 				if !instagram_data_by_day[date].nil?
 					instagram_social = instagram_data_by_day[date].first.try(:social)
 					instagram_creative = instagram_data_by_day[date].first.try(:creative)
+					if !instagram_data_by_day[date.yesterday].nil?
+						instagram_social_yesterday = instagram_data_by_day[date.yesterday].first.try(:social)
+						instagram_creative_yesterday = instagram_data_by_day[date.yesterday].first.try(:creative)
+					else
+						instagram_social_yesterday = 0
+						instagram_creative_yesterday = 0
+					end
 				else
 					instagram_social = 0
+					instagram_social_yesterday = 0
 					instagram_creative = 0
+					instagram_creative_yesterday = 0
 				end
 			end
 			if !foursquare_data_by_day.nil?
 				if !foursquare_data_by_day[date].nil?
 					foursquare_social = foursquare_data_by_day[date].first.try(:social)
 					foursquare_creative = foursquare_data_by_day[date].first.try(:creative)
+					if !foursquare_data_by_day[date.yesterday].nil?
+						foursquare_social_yesterday = foursquare_data_by_day[date.yesterday].first.try(:social)
+						foursquare_creative_yesterday = foursquare_data_by_day[date.yesterday].first.try(:creative)
+					else
+						foursquare_social_yesterday = 0
+						foursquare_creative_yesterday = 0
+					end
 				else
 					foursquare_social = 0
+					foursquare_social_yesterday = 0
 					foursquare_creative = 0
+					foursquare_creative_yesterday = 0
 				end
 			end
 			if !fitbit_data_by_day.nil?
 				if !fitbit_data_by_day[date].nil?
 					fitbit_physical = fitbit_data_by_day[date].first.try(:physical)
+					if !fitbit_data_by_day[date.yesterday].nil?
+						fitbit_physical_yesterday = fitbit_data_by_day[date.yesterday].first.try(:physical)
+					else
+						fitbit_physical_yesterday = 0
+					end
 				else
 					fitbit_physical = 0
+					fitbit_physical_yesterday = 0
 				end
 			end
 
@@ -142,12 +193,45 @@ module GraphHelper
 			if fitbit_physical.nil?
 				fitbit_physical = 0
 			end
+			if linkedin_social_yesterday.nil?
+				linkedin_social_yesterday = 0
+			end
+			if linkedin_creative_yesterday.nil?
+				linkedin_creative_yesterday = 0
+			end
+			if twitter_social_yesterday.nil?
+				twitter_social_yesterday = 0
+			end
+			if twitter_creative_yesterday.nil?
+				twitter_creative_yesterday = 0
+			end
+			if facebook_social_yesterday.nil?
+				facebook_social_yesterday = 0
+			end
+			if facebook_creative_yesterday.nil?
+				facebook_creative_yesterday = 0
+			end
+			if instagram_social_yesterday.nil?
+				instagram_social_yesterday = 0
+			end
+			if instagram_creative_yesterday.nil?
+				instagram_creative_yesterday = 0
+			end
+			if foursquare_social_yesterday.nil?
+				foursquare_social_yesterday = 0
+			end
+			if foursquare_creative_yesterday.nil?
+				foursquare_creative_yesterday = 0
+			end
+			if fitbit_physical_yesterday.nil?
+				fitbit_physical_yesterday = 0
+			end
 
 			{
 				created_at: date,
-				social: twitter_social + facebook_social + instagram_social + foursquare_social + linkedin_social,
-				creative: twitter_creative + facebook_creative + instagram_creative + foursquare_creative + linkedin_creative,
-				physical: fitbit_physical,
+				social: (twitter_social - twitter_social_yesterday) + (facebook_social - facebook_social_yesterday) + (instagram_social - instagram_social_yesterday) + (foursquare_social - foursquare_social_yesterday) + (linkedin_social - linkedin_social_yesterday),
+				creative: (twitter_creative - twitter_creative_yesterday) + (facebook_creative - facebook_creative_yesterday) + (instagram_creative - instagram_creative_yesterday) + (foursquare_creative - foursquare_creative_yesterday) + (linkedin_creative - linkedin_creative_yesterday),
+				physical: (fitbit_physical - fitbit_physical_yesterday),
 			}
 		end
 	end
