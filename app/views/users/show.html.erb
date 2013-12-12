@@ -76,7 +76,7 @@
 			<%= content_tag :div, "", id: "twitterfollowersfollowing", data: {myfollowers: @twitter_int_followers, myfollowing: @twitter_int_friends } %>
 		</div>
 		<div class="col-xs-6" style="border-top: 1px solid #e8e8e8">
-			<h3 style="text-align: center">iVolve Index Followers vs. Following</h3>
+			<h3 style="text-align: center"><%= @who %> Followers vs. Following</h3>
 			<%= content_tag :div, "", id: "twitterfollowersfollowingindex", data: {indexfollowers: @twitter_avg_followers, indexfollowing: @twitter_avg_friends } %>
 		</div>
 	</div>
