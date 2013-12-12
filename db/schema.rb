@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131210135633) do
+ActiveRecord::Schema.define(version: 20131212135744) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -119,6 +119,8 @@ ActiveRecord::Schema.define(version: 20131210135633) do
     t.integer  "int_subscribed_to"
     t.integer  "int_subscribers"
     t.integer  "int_achievements"
+    t.boolean  "failed_request",      default: false
+    t.boolean  "deauthed_facebook",   default: false
   end
 
   create_table "fetch_tweets", force: true do |t|
