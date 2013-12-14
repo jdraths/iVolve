@@ -1,7 +1,7 @@
 <!-- the instance variables below are defined in stats_helper.rb -->
 
 <div class="col-xs-6" style="border-top: 1px solid #e8e8e8">
-	<h3 style="text-align: center">My Social Engagement</h3>
+	<h3 style="text-align: center">My Social Output</h3>
 	<h5 style="text-align: center">Total: <%= @twitter_int_sent + @twitter_int_favorites + @facebook_int_likes + @facebook_int_posts + @facebook_int_statuses + @facebook_int_achievements + @instagram_int_media + @instagram_int_likes_out + @foursquare_checkins_count + @foursquare_photos_count + @foursquare_tips_count + @foursquare_badges_count + @foursquare_mayor_count + @linkedin_int_job_suggestions + @linkedin_int_job_bookmarks + @linkedin_int_shares %>
 	</h5>
 	<%= content_tag :div, "", id: "social-engagement", 

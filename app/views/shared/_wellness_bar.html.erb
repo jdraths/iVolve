@@ -10,6 +10,7 @@
 		who: @who} %>	
 	
 	<!-- Look in stats_display.js.coffee and graph_helper.rb for this data -->
+	<h3 style="text-align: center">Wellness Over Time</h3>
 	<%= content_tag :div, "", id: "wellness-line", data: {wellness: wellness_bar_over_time(@user.id) } %>
 
 </div>
