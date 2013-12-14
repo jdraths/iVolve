@@ -192,6 +192,10 @@ class FacebookUser < ActiveRecord::Base
 		facebook_sched.each do |facebook_sched|
 			begin
 				FacebookUser.pull_user_data(facebook_sched.user)
+			rescue Faraday::Error::ConnectionFailed => e
+				Rollbar.report_exception(e, rollbar_request_data, rollbar_person_data)
+				logger.error "Faraday::Error::ConnectionFailed"
+				FacebookUser.repopulate_data
 			rescue Koala::Facebook::BadFacebookResponse => e
 				Rollbar.report_exception(e, rollbar_request_data, rollbar_person_data)
 				logger.error "Koala::Facebook::BadFacebookResponse"
