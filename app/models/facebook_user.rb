@@ -196,6 +196,10 @@ class FacebookUser < ActiveRecord::Base
 				Rollbar.report_message("Faraday::Error::ConnectionFailed", "error")
 				Rollbar.report_exception(e)
 				FacebookUser.repopulate_data
+			rescue Faraday::Error::TimeoutError => e
+				Rollbar.report_message("Faraday::Error::TimeoutError", "error")
+				Rollbar.report_exception(e)
+				FacebookUser.repopulate_data
 			rescue Koala::Facebook::BadFacebookResponse => e
 				Rollbar.report_message("Koala::Facebook::BadFacebookResponse", "error")
 				Rollbar.report_exception(e)
