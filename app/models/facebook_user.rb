@@ -3,11 +3,12 @@ class FacebookUser < ActiveRecord::Base
 	# the default scope below will always find the newest record first
 	default_scope -> { order('created_at DESC') }
 	after_validation :report_validation_errors_to_rollbar
+
+	t = Time.zone.now
+	@time_now = t + t.utc_offset #t + t.utc_offset forces Midnight Central Time (app time) to equal Midnight UTC (server time)
 	
 	def self.wellness_bar_by_date(start)
-		t = Time.zone.now
-		time_now = t + t.utc_offset
-		data = where(created_at: start.beginning_of_day..time_now.end_of_day)
+		data = where(created_at: start.beginning_of_day..@time_now.end_of_day)
 		data = data.group("date(created_at)")
 		data = data.select("date(created_at) as created_at, sum(int_friends + int_likes + int_statuses + int_subscribers + int_subscribed_to) as social,
 			 sum(int_achievements + int_posts) as creative")
@@ -15,9 +16,7 @@ class FacebookUser < ActiveRecord::Base
 	end
 
 	def self.connections_line_by_date(start)
-		t = Time.zone.now
-		time_now = t + t.utc_offset
-		data = where(created_at: start.beginning_of_day..time_now.end_of_day)
+		data = where(created_at: start.beginning_of_day..@time_now.end_of_day)
 		data = data.group("date(created_at)")
 		data = data.select("date(created_at) as created_at, sum(int_friends + int_subscribers + int_subscribed_to) as connections,
 			 sum(int_achievements + int_posts + int_likes) as engagement")
@@ -25,17 +24,15 @@ class FacebookUser < ActiveRecord::Base
 	end
 
 	def self.total_grouped_by_date(start)
-		t = Time.zone.now
-		time_now = t + t.utc_offset
 		# the next line checks for all users created between the start of today and end of today in CST.
-		data = where(created_at: start.beginning_of_day..time_now.end_of_day)
+		data = where(created_at: start.beginning_of_day..@time_now.end_of_day)
 		data = data.group("date(created_at)")
 		data = data.select("date(created_at) as created_at, sum(int_friends) as int_friends, sum(int_likes) as int_likes, sum(int_posts) as int_posts, sum(int_statuses) as int_statuses")
 		data.group_by { |d| d.created_at.to_date }
 	end
 
 	def facebook_exists_today?
-		today = FacebookUser.where("uid = ? AND created_at >= ?", @authorized.uid, Time.zone.now.beginning_of_day).limit(1)
+		today = FacebookUser.where("uid = ? AND created_at >= ?", @authorized.uid, @time_now.now.beginning_of_day).limit(1)
 		today[0].nil?
 	end
 
@@ -66,7 +63,7 @@ class FacebookUser < ActiveRecord::Base
 		if !facebook.get_object('me').nil?
 			facebook_me = facebook.get_object('me')
 		end
-		today = FacebookUser.where("uid = ? AND created_at >= ?", @authorized.uid, Time.zone.now.beginning_of_day).limit(1)[0]
+		today = FacebookUser.where("uid = ? AND created_at >= ?", @authorized.uid, @time_now.beginning_of_day).limit(1)[0]
 		if !today.nil?
 			logger.debug "facebook exists!"
 			today.update(
