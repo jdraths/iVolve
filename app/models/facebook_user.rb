@@ -193,20 +193,20 @@ class FacebookUser < ActiveRecord::Base
 			begin
 				FacebookUser.pull_user_data(facebook_sched.user)
 			rescue Faraday::Error::ConnectionFailed => e
-				Rollbar.report_exception(e, rollbar_request_data, rollbar_person_data)
-				logger.error "Faraday::Error::ConnectionFailed"
+				Rollbar.report_message("Faraday::Error::ConnectionFailed", "error")
+				Rollbar.report_exception(e)
 				FacebookUser.repopulate_data
 			rescue Koala::Facebook::BadFacebookResponse => e
-				Rollbar.report_exception(e, rollbar_request_data, rollbar_person_data)
-				logger.error "Koala::Facebook::BadFacebookResponse"
+				Rollbar.report_message("Koala::Facebook::BadFacebookResponse", "error")
+				Rollbar.report_exception(e)
 				FacebookUser.repopulate_data
 			rescue Koala::Facebook::ServerError => e
-				Rollbar.report_exception(e, rollbar_request_data, rollbar_person_data)
-				logger.error "Koala::Facebook::ServerError"
+				Rollbar.report_message("Koala::Facebook::ServerError", "error")
+				Rollbar.report_exception(e)
 				FacebookUser.repopulate_data
 			rescue Koala::Facebook::AuthenticationError => e
-				Rollbar.report_exception(e, rollbar_request_data, rollbar_person_data)
-				logger.error "Koala::Facebook::AuthenticationError"
+				Rollbar.report_message("Koala::Facebook::AuthenticationError", "error")
+				Rollbar.report_exception(e)
 				logger.info "saving expired_token = true"
 				facebook_sched.expired_token = true
 				facebook_sched.save!
