@@ -50,22 +50,6 @@ jQuery ->
         {label: "Followers", value: $('#twitterfollowersfollowingindex').data('indexfollowers')}
         {label: "Following", value: $('#twitterfollowersfollowingindex').data('indexfollowing')}
     ]
-  Morris.Bar
-    element: 'wellness-bar'
-    data: [
-        { y: 'Social', a: $('#wellness-bar').data('youso'), b: $('#wellness-bar').data('ivolveso') },
-        { y: 'Creative', a: $('#wellness-bar').data('youcr'), b: $('#wellness-bar').data('ivolvecr') },
-        { y: 'Physical', a: $('#wellness-bar').data('youph'), b: $('#wellness-bar').data('ivolveph') }
-    ]
-    xkey: 'y',
-    ykeys: ['a', 'b'],
-    labels: ['Me', $('#wellness-bar').data('who')]
-  Morris.Line
-    element: 'wellness-line'
-    data: $('#wellness-line').data('wellness')
-    xkey: 'created_at'   
-    ykeys: ['social', 'creative', 'physical']
-    labels: ['Social', 'Creative', 'Physical']
   Morris.Line
     element: 'connections-line'
     data: $('#connections-line').data('connections')

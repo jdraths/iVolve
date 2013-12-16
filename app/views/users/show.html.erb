@@ -50,16 +50,10 @@
 </div>
 
 	<div class="row">
-				<%= render 'shared/wellness_bar.html.erb' %>
-	</div>
-	<div class="row">
 				<%= render 'shared/social_connections.html.erb' %>
 	</div>
 	<div class="row">
-		<div class="col-xs-12" style="border-top: 1px solid #e8e8e8">
-			<h3>My Social Connections over Time</h3>
-			<%= content_tag :div, "", id: "connections-line", data: {connections: connections_over_time(@user.id) } %>
-		</div>
+				<%= render 'shared/social_connections_time.html.erb' %>
 	</div>
 	<div class="row">
 				<%= render 'shared/social_engagement.html.erb' %>

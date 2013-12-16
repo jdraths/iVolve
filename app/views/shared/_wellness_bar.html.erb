@@ -1,5 +1,42 @@
 <div class="col-xs-12" style="border-top: 1px solid #e8e8e8">
-	<h3 style="text-align: center">My Mobile Wellness</h3>
+	<div class="center-block">
+		<h3 style="text-align: center">My Mobile Wellness</h3>
+		<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#wellness-info-modal"><span class="glyphicon glyphicon-info-sign"></span></button>
+	</div>
+	<div class="modal fade" id="wellness-info-modal" tabindex="-1" role="dialog" aria-labelledby="wellnessModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="wellnessModalLabel">Wellness</h4>
+					<span>Calculated from your total number of:</span>
+				</div>
+				<div class="modal-body">
+					<h4>Social</h4>
+					<ul>
+						<li>Twitter Friends, Followers, and Favorites</li>
+						<li>Facebook Friends, Likes, Status Updates</li>
+						<li>Instagram Friends, Followers, and Likes sent</li>
+						<li>Foursquare Friends, Following, Badges Count, and Mayors Count</li>
+						<li>LinkedIn Connections, Group Memberships, Job Suggestions, and Job Bookmarks</li>
+					</ul>
+					<h4>Creative</h4>
+					<ul>
+						<li>Twitter Tweets Sent and Lists</li>
+						<li>Facebook Achievements and Posts</li>
+						<li>Instagram Posts</li>
+						<li>Foursquare Checkins, Tips, and Photos</li>
+						<li>LinkedIn Shares</li>
+					<h4>Physical</h4>
+						<ul>
+							<li>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 	<%= content_tag :div, "", id: "wellness-bar", 
 	data: {youso: @twitter_int_friends + @twitter_int_followers + @twitter_int_favorites + @facebook_int_friends + @facebook_int_likes + @facebook_int_statuses + @facebook_int_subscribers + @facebook_int_subscribed_to + @instagram_int_followers + @instagram_int_following + @instagram_int_likes_out + @foursquare_friends_count + @foursquare_badges_count + @foursquare_following_count + @foursquare_mayor_count + @linkedin_int_connections + @linkedin_int_group_memberships + @linkedin_int_job_suggestions + @linkedin_int_job_bookmarks,
 		ivolveso: @twitter_avg_friends + @twitter_avg_followers + @twitter_avg_fav + @facebook_avg_friends + @facebook_avg_likes + @facebook_avg_statuses + @facebook_avg_subscribers + @facebook_avg_subscribed_to + @instagram_avg_followers + @instagram_avg_following + @instagram_avg_likes_out + @foursquare_avg_friends + @foursquare_avg_badges + @foursquare_avg_following + @foursquare_avg_mayors + @linkedin_avg_connections + @linkedin_avg_group_memberships + @linkedin_avg_job_suggestions + @linkedin_avg_job_bookmarks,
