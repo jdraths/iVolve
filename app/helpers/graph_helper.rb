@@ -54,7 +54,7 @@ module GraphHelper
 				fitbit_data_by_day = @fitbit_graph_user.wellness_bar_by_date(2.weeks.ago)
 			end
 		end
-		(2.weeks.ago.to_date..Date.today).map do |date|
+		(2.weeks.ago.to_date..Time.zone.today).map do |date|
 			created_at = date
 			if !linkedin_data_by_day.nil?
 				if !linkedin_data_by_day[date].nil?
