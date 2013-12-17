@@ -1,7 +1,35 @@
 <!-- the instance variables below are defined in stats_helper.rb -->
 
 <div class="col-xs-6" style="border-top: 1px solid #e8e8e8">
-	<h3 style="text-align: center">My Social Output</h3>
+	<div class="center-block" style="text-align:center">
+		<p class="h3">My Social Output</p>
+		<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#output-info-modal"><span class="glyphicon glyphicon-info-sign"></span>
+		</button>
+	</div>
+	<!-- The following modal is called for both My and Ivolve Index -->
+	<div class="modal fade" id="output-info-modal" tabindex="-1" role="dialog" aria-labelledby="socialOutputModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="socialOutputModalLabel">Social Output</h4>
+					<p>These graphs display my (and <%= @who %>'s) total social output in each app.</p>
+				</div>
+				<div class="modal-body">
+					<ul>
+						<li><strong>Twitter</strong> Tweets sent and Tweets favorited</li>
+						<li><strong>Facebook</strong> Likes sent, Posts, Statuses, and Achievements</li>
+						<li><strong>Instagram</strong> Posts and Likes sent</li>
+						<li><strong>Foursquare</strong> Checkins, Photos, Tips, Badges, and Mayors Count</li>
+						<li><strong>LinkedIn</strong> Shares, Job Suggestions, and Job Bookmarks</li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 	<h5 style="text-align: center">Total: <%= @twitter_int_sent + @twitter_int_favorites + @facebook_int_likes + @facebook_int_posts + @facebook_int_statuses + @facebook_int_achievements + @instagram_int_media + @instagram_int_likes_out + @foursquare_checkins_count + @foursquare_photos_count + @foursquare_tips_count + @foursquare_badges_count + @foursquare_mayor_count + @linkedin_int_job_suggestions + @linkedin_int_job_bookmarks + @linkedin_int_shares %>
 	</h5>
 	<%= content_tag :div, "", id: "social-engagement", 
@@ -12,7 +40,11 @@
 		linkedin: @linkedin_int_job_suggestions + @linkedin_int_job_bookmarks + @linkedin_int_shares} %>
 </div>
 <div class="col-xs-6" style="border-top: 1px solid #e8e8e8">
-	<h3 style="text-align: center"><%= @who %></h3>
+	<div class="center-block" style="text-align:center">
+		<p class="h3"><%= @who %></p>
+		<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#output-info-modal"><span class="glyphicon glyphicon-info-sign"></span>
+		</button>
+	</div>
 	<h5 style="text-align: center">Total: <%= @twitter_avg_sent + @twitter_avg_fav + @facebook_avg_likes + @facebook_avg_posts + @facebook_avg_statuses + @facebook_avg_achievements + @instagram_avg_media + @instagram_avg_likes_out + @foursquare_avg_checkins + @foursquare_avg_photos + @foursquare_avg_tips + @foursquare_avg_badges + @foursquare_avg_mayors + @linkedin_avg_job_suggestions + @linkedin_avg_job_bookmarks + @linkedin_avg_shares %>
 	</h5>
 	<%= content_tag :div, "", id: "ivolve-engagement", 

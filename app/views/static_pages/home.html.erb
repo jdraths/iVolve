@@ -60,20 +60,10 @@
 				<%= render 'shared/social_engagement.html.erb' %>
 	</div>
 	<div class="row">
-		<div class="col-xs-12" style="border-top: 1px solid #e8e8e8">
-			<h3>My Social Output over Time</h3>
-			<%= content_tag :div, "", id: "engagement-line", data: {engagement: connections_over_time(@user.id) } %>
-		</div>
+				<%= render 'shared/social_output_time.html.erb' %>
 	</div>
 	<div class="row">
-		<div class="col-xs-6" style="border-top: 1px solid #e8e8e8">
-			<h3 style="text-align: center">My Twitter Followers vs. Following</h3>
-			<%= content_tag :div, "", id: "twitterfollowersfollowing", data: {myfollowers: @twitter_int_followers, myfollowing: @twitter_int_friends } %>
-		</div>
-		<div class="col-xs-6" style="border-top: 1px solid #e8e8e8">
-			<h3 style="text-align: center">iVolve Index Followers vs. Following</h3>
-			<%= content_tag :div, "", id: "twitterfollowersfollowingindex", data: {indexfollowers: @twitter_avg_followers, indexfollowing: @twitter_avg_friends } %>
-		</div>
+				<%= render 'shared/twitter_followers_following.html.erb' %>
 	</div>
 <% else %>
 
