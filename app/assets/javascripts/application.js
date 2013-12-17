@@ -16,6 +16,6 @@
 //= require raphael
 //= require morris
 //= require turbolinks
-//= require bootstrap.js
+//= require bootstrap
 //= require_tree .
 
