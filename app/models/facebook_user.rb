@@ -65,7 +65,7 @@ class FacebookUser < ActiveRecord::Base
 		if !facebook.get_object('me').nil?
 			facebook_me = facebook.get_object('me')
 		end
-		today = FacebookUser.where("uid = ? AND created_at >= ?", @authorized.uid, @time_now.beginning_of_day).limit(1)[0]
+		today = FacebookUser.where("uid = ? AND created_at >= ?", @authorized.uid, Time.zone.now.beginning_of_day).limit(1)[0]
 		if !today.nil?
 			logger.debug "facebook exists!"
 			today.update(
