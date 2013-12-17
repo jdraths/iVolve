@@ -1,7 +1,7 @@
 <div class="col-xs-6" style="border-top: 1px solid #e8e8e8">
 	<div class="center-block" style="text-align:center">
 		<p class="h3">My Twitter Followers vs. Following</p>
-		<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#twitter-followers-following-modal"><span class="glyphicon glyphicon-info-sign"></span>
+		<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#twitter-followers-following-modal"><i class="fa fa-info"></i>
 		</button>
 	</div>
 	<!-- The following modal is called for both My and Ivolve Index -->
@@ -26,7 +26,7 @@
 <div class="col-xs-6" style="border-top: 1px solid #e8e8e8">
 	<div class="center-block" style="text-align:center">
 		<p class="h3"><%= @who %> Followers vs. Following</p>
-		<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#twitter-followers-following-modal"><span class="glyphicon glyphicon-info-sign"></span>
+		<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#twitter-followers-following-modal"><i class="fa fa-info"></i>
 		</button>
 	</div>
 	<%= content_tag :div, "", id: "twitterfollowersfollowingindex", data: {indexfollowers: @twitter_avg_followers, indexfollowing: @twitter_avg_friends } %>
