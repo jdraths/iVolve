@@ -280,7 +280,7 @@ module GraphHelper
 			end
 		end
 
-		(2.weeks.ago.to_date..Date.today).map do |date|
+		(2.weeks.ago.to_date..Time.zone.today).map do |date|
 			created_at = date
 			if !linkedin_data_by_day.nil?
 				if !linkedin_data_by_day[date].nil?
@@ -383,7 +383,7 @@ module GraphHelper
 		@twitter_graph_user = TwitterUser.where("uid = ?", @twitter_graph.first['uid'])
 		data_by_day = @twitter_graph_user.total_grouped_by_date(2.weeks.ago)
 		#twitter_index_by_day = IvolveIndex.twitter_grouped_by_day(2.weeks.ago)
-		(2.weeks.ago.to_date..Date.today).map do |date|
+		(2.weeks.ago.to_date..Time.zone.today).map do |date|
 			if !data_by_day[date].nil?
 				created_at = date
 				friends_count = data_by_day[date].first.try(:friends_int_count)
@@ -422,7 +422,7 @@ module GraphHelper
 		@facebook_graph_user = FacebookUser.where("uid = ?", @facebook_graph.first['uid'])
 		data_by_day = @facebook_graph_user.total_grouped_by_date(2.weeks.ago)
 		#twitter_index_by_day = IvolveIndex.twitter_grouped_by_day(2.weeks.ago)
-		(2.weeks.ago.to_date..Date.today).map do |date|
+		(2.weeks.ago.to_date..Time.zone.today).map do |date|
 			if !data_by_day[date].nil?
 				created_at = date
 				friends_count = data_by_day[date].first.try(:int_friends)
@@ -453,7 +453,7 @@ module GraphHelper
 		@instagram_graph_user = InstagramUser.where("uid = ?", @instagram_graph.first['uid'])
 		data_by_day = @instagram_graph_user.total_grouped_by_date(2.weeks.ago)
 		#twitter_index_by_day = IvolveIndex.twitter_grouped_by_day(2.weeks.ago)
-		(2.weeks.ago.to_date..Date.today).map do |date|
+		(2.weeks.ago.to_date..Time.zone.today).map do |date|
 			if !data_by_day[date].nil?
 				created_at = date
 				followers_count = data_by_day[date].first.try(:int_followers)
@@ -484,7 +484,7 @@ module GraphHelper
 		@foursquare_graph_user = FoursquareUser.where("uid = ?", @foursquare_graph.first['uid'])
 		data_by_day = @foursquare_graph_user.total_grouped_by_date(2.weeks.ago)
 	
-		(2.weeks.ago.to_date..Date.today).map do |date|
+		(2.weeks.ago.to_date..Time.zone.today).map do |date|
 			if !data_by_day[date].nil?
 				created_at = date
 				friends_count = data_by_day[date].first.try(:friends_count)
