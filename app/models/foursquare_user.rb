@@ -6,9 +6,7 @@ class FoursquareUser < ActiveRecord::Base
 	after_validation :report_validation_errors_to_rollbar
 
 	def self.wellness_bar_by_date(start)
-		t = Time.zone.now
-		time_now = t + t.utc_offset
-		data = where(created_at: start.beginning_of_day..time_now.end_of_day)
+		data = where(created_at: start.beginning_of_day..Time.zone.now)
 		data = data.group("date(created_at)")
 		data = data.select("date(created_at) as created_at, sum(friends_count + badges_count + following_count + mayor_count) as social,
 			 sum(photos_count + checkins_count + tips_count) as creative")
@@ -16,9 +14,7 @@ class FoursquareUser < ActiveRecord::Base
 	end
 
 	def self.connections_line_by_date(start)
-		t = Time.zone.now
-		time_now = t + t.utc_offset
-		data = where(created_at: start.beginning_of_day..time_now.end_of_day)
+		data = where(created_at: start.beginning_of_day..Time.zone.now)
 		data = data.group("date(created_at)")
 		data = data.select("date(created_at) as created_at, sum(friends_count + following_count) as connections,
 			 sum(photos_count + checkins_count + tips_count + badges_count + mayor_count) as engagement")
@@ -26,9 +22,7 @@ class FoursquareUser < ActiveRecord::Base
 	end
 
 	def self.total_grouped_by_date(start)
-		t = Time.zone.now
-		time_now = t + t.utc_offset
-		data = where(created_at: start.beginning_of_day..time_now.end_of_day)
+		data = where(created_at: start.beginning_of_day..Time.zone.now)
 		data = data.group("date(created_at)")
 		data = data.select("date(created_at) as created_at, sum(friends_count) as friends_count, sum(following_count) as following_count, sum(checkins_count) as checkins_count, sum(badges_count) as badges_count, sum(mayor_count) as mayor_count, sum(tips_count) as tips_count, sum(photos_count) as photos_count")
 		data.group_by { |d| d.created_at.to_date }

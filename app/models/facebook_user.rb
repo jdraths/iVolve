@@ -3,9 +3,6 @@ class FacebookUser < ActiveRecord::Base
 	# the default scope below will always find the newest record first
 	default_scope -> { order('created_at DESC') }
 	after_validation :report_validation_errors_to_rollbar
-
-	t = Time.zone.now
-	@time_now = t + t.utc_offset #t + t.utc_offset forces Midnight Central Time (app time) to equal Midnight UTC (server time)
 	
 	def self.wellness_bar_by_date(start)
 		data = where(created_at: start.beginning_of_day..Time.zone.now)

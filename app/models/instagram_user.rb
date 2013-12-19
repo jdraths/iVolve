@@ -5,9 +5,7 @@ class InstagramUser < ActiveRecord::Base
 	after_validation :report_validation_errors_to_rollbar
 
 	def self.wellness_bar_by_date(start)
-		t = Time.zone.now
-		time_now = t + t.utc_offset
-		data = where(created_at: start.beginning_of_day..time_now.end_of_day)
+		data = where(created_at: start.beginning_of_day..Time.zone.now)
 		data = data.group("date(created_at)")
 		data = data.select("date(created_at) as created_at, sum(int_followers + int_following + int_likes_out) as social,
 			 sum(int_media) as creative")
@@ -15,9 +13,7 @@ class InstagramUser < ActiveRecord::Base
 	end
 
 	def self.connections_line_by_date(start)
-		t = Time.zone.now
-		time_now = t + t.utc_offset
-		data = where(created_at: start.beginning_of_day..time_now.end_of_day)
+		data = where(created_at: start.beginning_of_day..Time.zone.now)
 		data = data.group("date(created_at)")
 		data = data.select("date(created_at) as created_at, sum(int_followers + int_following) as connections,
 			 sum(int_media + int_likes_out) as engagement")
@@ -25,9 +21,7 @@ class InstagramUser < ActiveRecord::Base
 	end
 
 	def self.total_grouped_by_date(start)
-		t = Time.zone.now
-		time_now = t + t.utc_offset
-		data = where(created_at: start.beginning_of_day..time_now.end_of_day)
+		data = where(created_at: start.beginning_of_day..Time.zone.now)
 		data = data.group("date(created_at)")
 		data = data.select("date(created_at) as created_at, sum(int_followers) as int_followers, sum(int_following) as int_following, sum(int_media) as int_media, sum(int_likes_out) as int_likes_out")
 		data.group_by { |d| d.created_at.to_date }
