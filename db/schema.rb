@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131212135744) do
+ActiveRecord::Schema.define(version: 20131218145849) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -439,6 +439,12 @@ ActiveRecord::Schema.define(version: 20131212135744) do
     t.integer  "friends_int_count"
     t.integer  "listed_int_count"
     t.integer  "tweet_int_count"
+    t.integer  "max_retweets_of_me"
+    t.integer  "num_retweets_of_me"
+    t.integer  "max_mentions_of_me"
+    t.integer  "num_mentions_of_me"
+    t.integer  "max_retweets_by_me"
+    t.integer  "num_retweets_by_me"
   end
 
   create_table "users", force: true do |t|

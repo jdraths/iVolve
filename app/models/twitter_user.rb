@@ -33,43 +33,161 @@ class TwitterUser < ActiveRecord::Base
 		twitter_client = Twitter::Client.new(:oauth_token => twitter_auth.oauth_token, :oauth_token_secret => twitter_auth.oauth_secret)
 		twitter_user = twitter_client.user(twitter_auth.screen_name)
 		user_id = twitter_auth.user_id
+		current_twitter_user = TwitterUser.find_by_uid(twitter_auth.uid)
+		# current_user_data is a 2 item array of the most recent TwitterUser entries for this uid.
+		current_user_data = TwitterUser.where("uid = ?", twitter_auth.uid).limit(2)
+		# if there were two previous TwitterUsers for this uid, perform the following...
+		if !current_user_data.blank?
+			# initialize an empty hash for retweets_of_me
+			# the retweets_of_me_hash is used in !max_retweets_existing_one.nil? else max_retweets_existing_one.nil?
+			retweets_of_me_hash = Hash.new
+			if !current_user_data.first.nil?
+				# did TwitterUser's last entry include re-tweets?
+				max_retweets_existing_one = current_user_data.first.max_retweets_of_me
+			else
+				# if there is no previous current_user_data, then ther is no max_retweets_existing_two...
+				max_retweets_existing_one = nil
+			end
+			if !current_user_data.last.nil?
+				# did TwitterUser's second-to-last entry include re-tweets?
+				max_retweets_existing_two = current_user_data.last.max_retweets_of_me
+			else
+				# if there is no second-to-last current_user_data, then there is no max_retweets_existing_two...
+				max_retweets_existing_two = nil
+			end
+			# if you had previous re-tweets check to see if the re-tweet count has gone up...
+			if !max_retweets_existing_one.nil? && max_retweets_existing_two.nil?
+				# first check for updated retweet counts for retweets before max_retweets_existing
+				retweets_of_me_before = twitter_client.retweets_of_me(count: 200, max_id: max_retweets_existing_one, trim_user: true, include_entities: false, include_user_entities: false)
+				if !retweets_of_me_before.blank?
+					retweets_of_me_arr = []
+					retweets_of_me_before.each do |x|
+						retweets_of_me_arr.push(x.retweet_count)
+					end
+					if retweets_of_me_arr.sum > current_twitter_user.num_retweets_of_me
+						# update this TwitterUser with new number of retweets
+						current_twitter_user.update(num_retweets_of_me: retweets_of_me_arr.sum)
+					end
+				end
+			elsif !max_retweets_existing_one.nil? && !max_retweets_existing_two.nil?
+				# only check for new retweets between the second-to-last retweet and the current retweet
+				retweets_of_me_before = twitter_client.retweets_of_me(count: 200, since_id: max_retweets_existing_two, max_id: max_retweets_existing_one, trim_user: true, include_entities: false, include_user_entities: false)
+				if !retweets_of_me_before.blank?
+					retweets_of_me_arr = []
+					retweets_of_me_before.each do |x|
+						retweets_of_me_arr.push(x.retweet_count)
+					end
+					if retweets_of_me_arr.sum > current_twitter_user.num_retweets_of_me
+						# update this TwitterUser with new num retweets
+						current_twitter_user.update(num_retweets_of_me: retweets_of_me_arr.sum)
+					end
+				end
+			end
+			# the following should perform if either of the above two IFs were valid...
+			# the following checks for new retweets since the most recent retweet id...
+			if !max_retweets_existing_one.nil?
+				# go straight to checking if you have any new retweets...
+				# check for retweets since the max_retweets_existing id
+				retweets_of_me_since = twitter_client.retweets_of_me(count: 200, since_id: max_retweets_existing_one, trim_user: true, include_entities: false, include_user_entities: false)
+				# since_id parameter excludes since_id in the api request
+				if !retweets_of_me_since.blank?
+					retweets_of_me_since.each do |x|
+						retweets_of_me_hash[x.id] = x.retweet_count
+					end
+					# what is the maximum retweet_id returned in that request
+					max_retweets_id = retweets_of_me_hash.keys.first
+					# now perform new request to see if there are any more retweets since that max_retweets_id
+					# in other words were there greater than 200 additional retweets since the last request?
+					recent_retweets_of_me = twitter_client.retweets_of_me(count: 200, since_id: max_retweets_id, trim_user: true, include_entities: false, include_user_entities: false)
+					if !recent_retweets_of_me.blank?
+						# if the most recent retweet returned in the API request is greater than the previous... perform while...
+						while recent_retweets_of_me.first.id != max_retweets_id
+							recent_retweets_of_me.each do |x|
+								retweets_of_me_hash[x.id] = x.retweet_count
+							end
+							max_retweets_id = retweets_of_me_hash.keys.first
+							recent_retweets_of_me = twitter_client.retweets_of_me(count: 200, since_id: max_retweets_id, trim_user: true, include_entities: false, include_user_entities: false)
+						end
+					end
+					# if there have been retweets since, save the new retweets plus the old num retweets.
+					num_retweets_of_me = retweets_of_me_hash.values.sum + current_user_data.first.num_retweets_of_me
+					max_retweets_of_me_id = max_retweets_id
+				else
+					# if there have been no new retweets of me since, re-save the previous retweet id and num retweets.
+					num_retweets_of_me = current_user_data.first.num_retweets_of_me
+					max_retweets_of_me_id = max_retweets_existing_one
+				end
+			# if there was no max_retweets_id in the most recent twitter user...
+			else #if max_retweets_existing_one.nil? AKA if there were no retweets saved in the DB before
+				# are there retweets of me before this request?
+				retweets_of_me_before = twitter_client.retweets_of_me(count: 200, trim_user: true, include_entities: false, include_user_entities: false)
+				if !retweets_of_me_before.blank?
+					retweets_of_me_before.each do |x|
+						# this builds the hash from most recent = first to oldest = last
+						retweets_of_me_hash[x.id] = x.retweet_count
+					end
+					min_retweets_of_me = retweets_of_me_hash.keys.last
+					# now run API request for retweets of me before the min id from the retweets_of_me_before request
+					# in other words were there greater than 200 retweets before this retweet request?
+					more_retweets_of_me = twitter_client.retweets_of_me(count: 200, max_id: min_retweets_of_me, trim_user: true, include_entities: false, include_user_entities: false)
+					# max_id includes max_id in the API request
+					if !more_retweets_of_me.blank?
+						while more_retweets_of_me.last.id != min_retweets_of_me
+							more_retweets_of_me.each do |x|
+								retweets_of_me_hash[x.id] = x.retweet_count
+							end
+							min_retweets_of_me = retweets_of_me_hash.keys.last
+							more_retweets_of_me = twitter_client.retweets_of_me(count: 200, max_id: min_retweets_of_me, trim_user: true, include_entities: false, include_user_entities: false)
+						end
+					end
+					num_retweets_of_me = retweets_of_me_hash.values.sum
+					# max retweets id should equal the highest retweet id saved in the has.
+					max_retweets_of_me_id = retweets_of_me_hash.keys.first
+				end
+			end
+		end
 			#unless exists?(uid: t_user.id)
 			# could use unless exists? create! and then when exists? save!,
 			# but that would not allow ivolve to track user changes over time.
-				create!(
-					name: twitter_user.screen_name,
-					user_id: user_id,
-					connections: twitter_user.connections,
-					contributors_enabled: twitter_user.contributors_enabled,
-					default_profile: twitter_user.default_profile,
-					default_profile_image: twitter_user.default_profile_image,
-					description: twitter_user.description,
-					favorite_count: twitter_user.favorite_count,
-					favorite_int_count: twitter_user.favorite_count,
-					follow_request_sent: twitter_user.follow_request_sent,
-					followers_count: twitter_user.followers_count,
-					followers_int_count: twitter_user.followers_count,
-					friends_count: twitter_user.friends_count,
-					friends_int_count: twitter_user.friends_count,
-					geo_enabled: twitter_user.geo_enabled,
-					is_translator: twitter_user.is_translator,
-					lang: twitter_user.lang,
-					listed_count: twitter_user.listed_count,
-					listed_int_count: twitter_user.listed_count,
-					location: twitter_user.location,
-					notifications: twitter_user.notifications,
-					protected_user: twitter_user.protected,
-					uid: twitter_user.id,
-					tweet_count: twitter_user.statuses_count,
-					tweet_int_count: twitter_user.statuses_count,
-					time_zone: twitter_user.time_zone,
-					url: twitter_user.url,
-					utc_offset: twitter_user.utc_offset,
-					verified: twitter_user.verified,
-					description_urls: twitter_user.description_urls.to_s,
-					status: twitter_user.status.to_s,
-					)
-			#end
+		create!(
+			name: twitter_user.screen_name,
+			user_id: user_id,
+			connections: twitter_user.connections,
+			contributors_enabled: twitter_user.contributors_enabled,
+			default_profile: twitter_user.default_profile,
+			default_profile_image: twitter_user.default_profile_image,
+			description: twitter_user.description,
+			favorite_count: twitter_user.favorite_count,
+			favorite_int_count: twitter_user.favorite_count,
+			follow_request_sent: twitter_user.follow_request_sent,
+			followers_count: twitter_user.followers_count,
+			followers_int_count: twitter_user.followers_count,
+			friends_count: twitter_user.friends_count,
+			friends_int_count: twitter_user.friends_count,
+			geo_enabled: twitter_user.geo_enabled,
+			is_translator: twitter_user.is_translator,
+			lang: twitter_user.lang,
+			listed_count: twitter_user.listed_count,
+			listed_int_count: twitter_user.listed_count,
+			location: twitter_user.location,
+			notifications: twitter_user.notifications,
+			protected_user: twitter_user.protected,
+			uid: twitter_user.id,
+			tweet_count: twitter_user.statuses_count,
+			tweet_int_count: twitter_user.statuses_count,
+			time_zone: twitter_user.time_zone,
+			url: twitter_user.url,
+			utc_offset: twitter_user.utc_offset,
+			verified: twitter_user.verified,
+			description_urls: twitter_user.description_urls.to_s,
+			status: twitter_user.status.to_s,
+			max_retweets_of_me: max_retweets_of_me_id,
+			num_retweets_of_me: num_retweets_of_me,
+			#max_mentions_of_me: max_mentions_of_me_id,
+			#num_mentions_of_me: num_mentions_of_me,
+			#max_retweets_by_me: max_retweets_by_me_id,
+			#num_retweets_by_me: num_retweets_by_me,
+			)
 	end
 
 	def self.sched_user_data
