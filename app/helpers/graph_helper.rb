@@ -237,12 +237,6 @@ module GraphHelper
 	end
 
 	def connections_over_time(user)
-		# This is missing facebook_subscribers, facebook_subscribed_to
-		# Use @twitter_auth_user from sessions helper
-		# The below data_by_day methods are a hash with the key = date
-		# twitter_data_by_day[Date.today] returns a single entry array
-		# twitter_data_by_day[Date.today].first is accessible via .method = to the methods in TwitterUser.total_grouped_by_date
-		# accessible methods are .social, .creative, .physical
 		@linkedin_graph = Authorization.where("user_id = ?", user).where("provider = ?", "linkedin")
 		if !@linkedin_graph.first.nil?
 			@linkedin_graph_user = LinkedinUser.where("uid = ?", @linkedin_graph.first['uid'])
@@ -446,6 +440,16 @@ module GraphHelper
 				instagram_engagement: instagram_engagement - instagram_engagement_yest,
 				foursquare_connections: foursquare_connections - foursquare_connections_yest,
 				foursquare_engagement: foursquare_engagement - foursquare_engagement_yest,
+				linkedin_connections_total: linkedin_connections,
+				linkedin_engagement_total: linkedin_engagement,
+				twitter_connections_total: twitter_connections,
+				twitter_engagement_total: twitter_engagement,
+				facebook_connections_total: facebook_connections,
+				facebook_engagement_total: facebook_engagement,
+				instagram_connections_total: instagram_connections,
+				instagram_engagement_total: instagram_engagement,
+				foursquare_connections_total: foursquare_connections,
+				foursquare_engagement_total: foursquare_engagement,
 			}
 		end
 	end

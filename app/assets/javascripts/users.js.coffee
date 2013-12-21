@@ -51,8 +51,8 @@ jQuery ->
         {label: "Following", value: $('#twitterfollowersfollowingindex').data('indexfollowing')}
     ]
   Morris.Line
-    element: 'connections-line'
-    data: $('#connections-line').data('connections')
+    element: 'connections-daily'
+    data: $('#connections-daily').data('connections')
     xkey: 'created_at'   
     ykeys: ['linkedin_connections', 'twitter_connections', 'facebook_connections', 'instagram_connections', 'foursquare_connections']  
     labels: ['LinkedIn', 'Twitter', 'Facebook', 'Instagram', 'Foursquare']
@@ -61,11 +61,33 @@ jQuery ->
         dayArray = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."]
         day = dayArray[daynum]
         day
+  Morris.Area
+    element: 'connections-line'
+    data: $('#connections-line').data('connections')
+    xkey: 'created_at'   
+    ykeys: ['linkedin_connections_total', 'twitter_connections_total', 'facebook_connections_total', 'instagram_connections_total', 'foursquare_connections_total']  
+    labels: ['LinkedIn', 'Twitter', 'Facebook', 'Instagram', 'Foursquare']
+    xLabelFormat: (date) ->
+        daynum = date.getDay()
+        dayArray = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."]
+        day = dayArray[daynum]
+        day
   Morris.Line
+    element: 'engagement-daily'
+    data: $('#engagement-daily').data('engagement')
+    xkey: 'created_at'   
+    ykeys: ['linkedin_engagement', 'twitter_engagement', 'facebook_engagement', 'instagram_engagement', 'foursquare_engagement']  
+    labels: ['LinkedIn', 'Twitter', 'Facebook', 'Instagram', 'Foursquare']
+    xLabelFormat: (date) ->
+        daynum = date.getDay()
+        dayArray = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."]
+        day = dayArray[daynum]
+        day
+  Morris.Area
     element: 'engagement-line'
     data: $('#engagement-line').data('engagement')
     xkey: 'created_at'   
-    ykeys: ['linkedin_engagement', 'twitter_engagement', 'facebook_engagement', 'instagram_engagement', 'foursquare_engagement']  
+    ykeys: ['linkedin_engagement_total', 'twitter_engagement_total', 'facebook_engagement_total', 'instagram_engagement_total', 'foursquare_engagement_total']  
     labels: ['LinkedIn', 'Twitter', 'Facebook', 'Instagram', 'Foursquare']
     xLabelFormat: (date) ->
         daynum = date.getDay()
