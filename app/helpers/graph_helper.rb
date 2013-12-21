@@ -286,45 +286,90 @@ module GraphHelper
 				if !linkedin_data_by_day[date].nil?
 					linkedin_connections = linkedin_data_by_day[date].first.try(:connections)
 					linkedin_engagement = linkedin_data_by_day[date].first.try(:engagement)
+					if !linkedin_data_by_day[date.yesterday].nil?
+						linkedin_connections_yest = linkedin_data_by_day[date.yesterday].first.try(:connections)
+						linkedin_engagement_yest = linkedin_data_by_day[date.yesterday].first.try(:engagement)
+					else
+						linkedin_connections_yest
+						linkedin_engagement_yest
+					end
 				else
 					linkedin_connections = 0
 					linkedin_engagement = 0
+					linkedin_connections_yest = 0
+					linkedin_engagement_yest = 0
 				end
 			end
 			if !twitter_data_by_day.nil?
 				if !twitter_data_by_day[date].nil?
 					twitter_connections = twitter_data_by_day[date].first.try(:connections)
 					twitter_engagement = twitter_data_by_day[date].first.try(:engagement)
+					if !twitter_data_by_day[date.yesterday].nil?
+						twitter_connections_yest = twitter_data_by_day[date.yesterday].first.try(:connections)
+						twitter_engagement_yest = twitter_data_by_day[date.yesterday].first.try(:engagement)
+					else
+						twitter_connections_yest = 0
+						twitter_engagement_yest = 0
+					end
 				else
 					twitter_connections = 0
 					twitter_engagement = 0
+					twitter_connections_yest = 0
+					twitter_engagement_yest = 0
 				end
 			end
 			if !facebook_data_by_day.nil?
 				if !facebook_data_by_day[date].nil?
 					facebook_connections = facebook_data_by_day[date].first.try(:connections)
 					facebook_engagement = facebook_data_by_day[date].first.try(:engagement)
+					if !facebook_data_by_day[date.yesterday].nil?
+						facebook_connections_yest = facebook_data_by_day[date.yesterday].first.try(:connections)
+						facebook_engagement_yest = facebook_data_by_day[date.yesterday].first.try(:engagement)
+					else
+						facebook_connections_yest = 0
+						facebook_engagement_yest = 0
+					end
 				else
 					facebook_connections = 0
 					facebook_engagement = 0
+					facebook_connections_yest = 0
+					facebook_engagement_yest = 0
 				end
 			end
 			if !instagram_data_by_day.nil?
 				if !instagram_data_by_day[date].nil?
 					instagram_connections = instagram_data_by_day[date].first.try(:connections)
 					instagram_engagement = instagram_data_by_day[date].first.try(:engagement)
+					if !instagram_data_by_day[date.yesterday].nil?
+						instagram_connections_yest = instagram_data_by_day[date.yesterday].first.try(:connections)
+						instagram_engagement_yest = instagram_data_by_day[date.yesterday].first.try(:engagement)
+					else
+						instagram_connections_yest = 0
+						instagram_engagement_yest = 0
+					end				
 				else
 					instagram_connections = 0
 					instagram_engagement = 0
+					instagram_connections_yest = 0
+					instagram_engagement_yest = 0
 				end
 			end
 			if !foursquare_data_by_day.nil?
 				if !foursquare_data_by_day[date].nil?
 					foursquare_connections = foursquare_data_by_day[date].first.try(:connections)
 					foursquare_engagement = foursquare_data_by_day[date].first.try(:engagement)
+					if !foursquare_data_by_day[date.yesterday].nil?
+						foursquare_connections_yest = foursquare_data_by_day[date.yesterday].first.try(:connections)
+						foursquare_engagement_yest = foursquare_data_by_day[date.yesterday].first.try(:engagement)
+					else
+						foursquare_connections_yest = 0
+						foursquare_engagement_yest = 0
+					end
 				else
 					foursquare_connections = 0
 					foursquare_engagement = 0
+					foursquare_connections_yest = 0
+					foursquare_engagement_yest = 0
 				end
 			end
 
@@ -334,11 +379,23 @@ module GraphHelper
 			if linkedin_engagement.nil?
 				linkedin_engagement = 0
 			end
+			if linkedin_connections_yest.nil?
+				linkedin_connections_yest = 0
+			end
+			if linkedin_engagement_yest.nil?
+				linkedin_engagement_yest = 0
+			end
 			if twitter_connections.nil?
 				twitter_connections = 0
 			end
 			if twitter_engagement.nil?
 				twitter_engagement = 0
+			end
+			if twitter_connections_yest.nil?
+				twitter_connections_yest = 0
+			end
+			if twitter_engagement_yest.nil?
+				twitter_engagement_yest = 0
 			end
 			if facebook_connections.nil?
 				facebook_connections = 0
@@ -346,11 +403,23 @@ module GraphHelper
 			if facebook_engagement.nil?
 				facebook_engagement = 0
 			end
+			if facebook_connections_yest.nil?
+				facebook_connections_yest = 0
+			end
+			if facebook_engagement_yest.nil?
+				facebook_engagement_yest = 0
+			end
 			if instagram_connections.nil?
 				instagram_connections = 0
 			end
 			if instagram_engagement.nil?
 				instagram_engagement = 0
+			end
+			if instagram_connections_yest.nil?
+				instagram_connections_yest = 0
+			end
+			if instagram_engagement_yest.nil?
+				instagram_engagement_yest = 0
 			end
 			if foursquare_connections.nil?
 				foursquare_connections = 0
@@ -358,19 +427,25 @@ module GraphHelper
 			if foursquare_engagement.nil?
 				foursquare_engagement = 0
 			end
+			if foursquare_connections_yest.nil?
+				foursquare_connections_yest = 0
+			end
+			if foursquare_engagement_yest.nil?
+				foursquare_engagement_yest = 0
+			end
 
 			{
 				created_at: date,
-				linkedin_connections: linkedin_connections,
-				linkedin_engagement: linkedin_engagement,
-				twitter_connections: twitter_connections,
-				twitter_engagement: twitter_engagement,
-				facebook_connections: facebook_connections,
-				facebook_engagement: facebook_engagement,
-				instagram_connections: instagram_connections,
-				instagram_engagement: instagram_engagement,
-				foursquare_connections: foursquare_connections,
-				foursquare_engagement: foursquare_engagement,
+				linkedin_connections: linkedin_connections - linkedin_connections_yest,
+				linkedin_engagement: linkedin_engagement - linkedin_engagement_yest,
+				twitter_connections: twitter_connections - twitter_connections_yest,
+				twitter_engagement: twitter_engagement - twitter_engagement_yest,
+				facebook_connections: facebook_connections - facebook_connections_yest,
+				facebook_engagement: facebook_engagement - facebook_engagement_yest,
+				instagram_connections: instagram_connections - instagram_connections_yest,
+				instagram_engagement: instagram_engagement - instagram_engagement_yest,
+				foursquare_connections: foursquare_connections - foursquare_connections_yest,
+				foursquare_engagement: foursquare_engagement - foursquare_engagement_yest,
 			}
 		end
 	end
