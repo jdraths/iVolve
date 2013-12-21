@@ -247,28 +247,28 @@ module GraphHelper
 		if !@linkedin_graph.first.nil?
 			@linkedin_graph_user = LinkedinUser.where("uid = ?", @linkedin_graph.first['uid'])
 			if !@linkedin_graph_user.nil?
-				linkedin_data_by_day = @linkedin_graph_user.connections_line_by_date(7.days.ago)
+				linkedin_data_by_day = @linkedin_graph_user.connections_line_by_date(6.days.ago)
 			end
 		end
 		@twitter_graph = Authorization.where("user_id = ?", user).where("provider = ?", "twitter")
 		if !@twitter_graph.first.nil?
 			@twitter_graph_user = TwitterUser.where("uid = ?", @twitter_graph.first['uid'])
 			if !@twitter_graph_user.nil?
-				twitter_data_by_day = @twitter_graph_user.connections_line_by_date(7.days.ago)
+				twitter_data_by_day = @twitter_graph_user.connections_line_by_date(6.days.ago)
 			end
 		end
 		@facebook_graph = Authorization.where("user_id = ?", user).where("provider = ?", "facebook")
 		if !@facebook_graph.first.nil?
 			@facebook_graph_user = FacebookUser.where("uid = ?", @facebook_graph.first['uid'])
 			if !@facebook_graph_user.nil?
-				facebook_data_by_day = @facebook_graph_user.connections_line_by_date(7.days.ago)
+				facebook_data_by_day = @facebook_graph_user.connections_line_by_date(6.days.ago)
 			end
 		end
 		@instagram_graph = Authorization.where("user_id = ?", user).where("provider = ?", "instagram")
 		if !@instagram_graph.first.nil?
 			@instagram_graph_user = InstagramUser.where("uid = ?", @instagram_graph.first['uid'])
 			if !@instagram_graph_user.nil?
-				instagram_data_by_day = @instagram_graph_user.connections_line_by_date(7.days.ago)
+				instagram_data_by_day = @instagram_graph_user.connections_line_by_date(6.days.ago)
 			end
 		end
 
@@ -276,7 +276,7 @@ module GraphHelper
 		if !@foursquare_graph.first.nil?
 			@foursquare_graph_user = FoursquareUser.where("uid = ?", @foursquare_graph.first['uid'])
 			if !@foursquare_graph_user.nil?
-				foursquare_data_by_day = @foursquare_graph_user.connections_line_by_date(7.days.ago)
+				foursquare_data_by_day = @foursquare_graph_user.connections_line_by_date(6.days.ago)
 			end
 		end
 
@@ -290,8 +290,8 @@ module GraphHelper
 						linkedin_connections_yest = linkedin_data_by_day[date.yesterday].first.try(:connections)
 						linkedin_engagement_yest = linkedin_data_by_day[date.yesterday].first.try(:engagement)
 					else
-						linkedin_connections_yest
-						linkedin_engagement_yest
+						linkedin_connections_yest = linkedin_connections
+						linkedin_engagement_yest = linkedin_engagement
 					end
 				else
 					linkedin_connections = 0
@@ -308,8 +308,8 @@ module GraphHelper
 						twitter_connections_yest = twitter_data_by_day[date.yesterday].first.try(:connections)
 						twitter_engagement_yest = twitter_data_by_day[date.yesterday].first.try(:engagement)
 					else
-						twitter_connections_yest = 0
-						twitter_engagement_yest = 0
+						twitter_connections_yest = twitter_connections
+						twitter_engagement_yest = twitter_engagement
 					end
 				else
 					twitter_connections = 0
@@ -326,8 +326,8 @@ module GraphHelper
 						facebook_connections_yest = facebook_data_by_day[date.yesterday].first.try(:connections)
 						facebook_engagement_yest = facebook_data_by_day[date.yesterday].first.try(:engagement)
 					else
-						facebook_connections_yest = 0
-						facebook_engagement_yest = 0
+						facebook_connections_yest = facebook_connections
+						facebook_engagement_yest = facebook_engagement
 					end
 				else
 					facebook_connections = 0
@@ -344,8 +344,8 @@ module GraphHelper
 						instagram_connections_yest = instagram_data_by_day[date.yesterday].first.try(:connections)
 						instagram_engagement_yest = instagram_data_by_day[date.yesterday].first.try(:engagement)
 					else
-						instagram_connections_yest = 0
-						instagram_engagement_yest = 0
+						instagram_connections_yest = instagram_connections
+						instagram_engagement_yest = instagram_engagement
 					end				
 				else
 					instagram_connections = 0
@@ -362,8 +362,8 @@ module GraphHelper
 						foursquare_connections_yest = foursquare_data_by_day[date.yesterday].first.try(:connections)
 						foursquare_engagement_yest = foursquare_data_by_day[date.yesterday].first.try(:engagement)
 					else
-						foursquare_connections_yest = 0
-						foursquare_engagement_yest = 0
+						foursquare_connections_yest = foursquare_connections
+						foursquare_engagement_yest = foursquare_engagement
 					end
 				else
 					foursquare_connections = 0
