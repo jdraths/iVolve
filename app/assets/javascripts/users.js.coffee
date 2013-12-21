@@ -56,9 +56,19 @@ jQuery ->
     xkey: 'created_at'   
     ykeys: ['linkedin_connections', 'twitter_connections', 'facebook_connections', 'instagram_connections', 'foursquare_connections']  
     labels: ['LinkedIn', 'Twitter', 'Facebook', 'Instagram', 'Foursquare']
+    xLabelFormat: (date) ->
+        daynum = date.getDay()
+        dayArray = ["Sunday", "Monday", "Tuesday", "Wed.", "Thursday", "Friday", "Saturday"]
+        day = dayArray[daynum]
+        day
   Morris.Line
     element: 'engagement-line'
     data: $('#engagement-line').data('engagement')
     xkey: 'created_at'   
     ykeys: ['linkedin_engagement', 'twitter_engagement', 'facebook_engagement', 'instagram_engagement', 'foursquare_engagement']  
     labels: ['LinkedIn', 'Twitter', 'Facebook', 'Instagram', 'Foursquare']
+    xLabelFormat: (date) ->
+        daynum = date.getDay()
+        dayArray = ["Sunday", "Monday", "Tuesday", "Wed.", "Thursday", "Friday", "Saturday"]
+        day = dayArray[daynum]
+        day
