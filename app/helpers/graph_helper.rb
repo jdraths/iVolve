@@ -11,7 +11,7 @@ module GraphHelper
 		if !@linkedin_graph.first.nil?
 			@linkedin_graph_user = LinkedinUser.where("uid = ?", @linkedin_graph.first['uid'])
 			if !@linkedin_graph_user.nil?
-				linkedin_data_by_day = @linkedin_graph_user.wellness_bar_by_date(2.weeks.ago)
+				linkedin_data_by_day = @linkedin_graph_user.wellness_bar_by_date(6.days.ago)
 			end
 		end
 
@@ -19,7 +19,7 @@ module GraphHelper
 		if !@twitter_graph.first.nil?
 			@twitter_graph_user = TwitterUser.where("uid = ?", @twitter_graph.first['uid'])
 			if !@twitter_graph_user.nil?
-				twitter_data_by_day = @twitter_graph_user.wellness_bar_by_date(2.weeks.ago)
+				twitter_data_by_day = @twitter_graph_user.wellness_bar_by_date(6.days.ago)
 			end
 		end
 
@@ -27,7 +27,7 @@ module GraphHelper
 		if !@facebook_graph.first.nil?
 			@facebook_graph_user = FacebookUser.where("uid = ?", @facebook_graph.first['uid'])
 			if !@facebook_graph_user.nil?
-				facebook_data_by_day = @facebook_graph_user.wellness_bar_by_date(2.weeks.ago)
+				facebook_data_by_day = @facebook_graph_user.wellness_bar_by_date(6.days.ago)
 			end
 		end
 
@@ -35,7 +35,7 @@ module GraphHelper
 		if !@instagram_graph.first.nil?
 			@instagram_graph_user = InstagramUser.where("uid = ?", @instagram_graph.first['uid'])
 			if !@instagram_graph_user.nil?
-				instagram_data_by_day = @instagram_graph_user.wellness_bar_by_date(2.weeks.ago)
+				instagram_data_by_day = @instagram_graph_user.wellness_bar_by_date(6.days.ago)
 			end
 		end
 
@@ -43,7 +43,7 @@ module GraphHelper
 		if !@foursquare_graph.first.nil?
 			@foursquare_graph_user = FoursquareUser.where("uid = ?", @foursquare_graph.first['uid'])
 			if !@foursquare_graph_user.nil?
-				foursquare_data_by_day = @foursquare_graph_user.wellness_bar_by_date(2.weeks.ago)
+				foursquare_data_by_day = @foursquare_graph_user.wellness_bar_by_date(6.days.ago)
 			end
 		end
 
@@ -51,10 +51,10 @@ module GraphHelper
 		if !@fitbit_graph.first.nil?
 			@fitbit_graph_user = FitbitUser.where("encoded_id = ?", @fitbit_graph.first['uid'])
 			if !@fitbit_graph_user.nil?
-				fitbit_data_by_day = @fitbit_graph_user.wellness_bar_by_date(2.weeks.ago)
+				fitbit_data_by_day = @fitbit_graph_user.wellness_bar_by_date(6.days.ago)
 			end
 		end
-		(2.weeks.ago.to_date..Time.zone.today).map do |date|
+		(6.days.ago.to_date..Time.zone.today).map do |date|
 			created_at = date
 			if !linkedin_data_by_day.nil?
 				if !linkedin_data_by_day[date].nil?
@@ -247,28 +247,28 @@ module GraphHelper
 		if !@linkedin_graph.first.nil?
 			@linkedin_graph_user = LinkedinUser.where("uid = ?", @linkedin_graph.first['uid'])
 			if !@linkedin_graph_user.nil?
-				linkedin_data_by_day = @linkedin_graph_user.connections_line_by_date(2.weeks.ago)
+				linkedin_data_by_day = @linkedin_graph_user.connections_line_by_date(6.days.ago)
 			end
 		end
 		@twitter_graph = Authorization.where("user_id = ?", user).where("provider = ?", "twitter")
 		if !@twitter_graph.first.nil?
 			@twitter_graph_user = TwitterUser.where("uid = ?", @twitter_graph.first['uid'])
 			if !@twitter_graph_user.nil?
-				twitter_data_by_day = @twitter_graph_user.connections_line_by_date(2.weeks.ago)
+				twitter_data_by_day = @twitter_graph_user.connections_line_by_date(6.days.ago)
 			end
 		end
 		@facebook_graph = Authorization.where("user_id = ?", user).where("provider = ?", "facebook")
 		if !@facebook_graph.first.nil?
 			@facebook_graph_user = FacebookUser.where("uid = ?", @facebook_graph.first['uid'])
 			if !@facebook_graph_user.nil?
-				facebook_data_by_day = @facebook_graph_user.connections_line_by_date(2.weeks.ago)
+				facebook_data_by_day = @facebook_graph_user.connections_line_by_date(6.days.ago)
 			end
 		end
 		@instagram_graph = Authorization.where("user_id = ?", user).where("provider = ?", "instagram")
 		if !@instagram_graph.first.nil?
 			@instagram_graph_user = InstagramUser.where("uid = ?", @instagram_graph.first['uid'])
 			if !@instagram_graph_user.nil?
-				instagram_data_by_day = @instagram_graph_user.connections_line_by_date(2.weeks.ago)
+				instagram_data_by_day = @instagram_graph_user.connections_line_by_date(6.days.ago)
 			end
 		end
 
@@ -276,11 +276,11 @@ module GraphHelper
 		if !@foursquare_graph.first.nil?
 			@foursquare_graph_user = FoursquareUser.where("uid = ?", @foursquare_graph.first['uid'])
 			if !@foursquare_graph_user.nil?
-				foursquare_data_by_day = @foursquare_graph_user.connections_line_by_date(2.weeks.ago)
+				foursquare_data_by_day = @foursquare_graph_user.connections_line_by_date(6.days.ago)
 			end
 		end
 
-		(2.weeks.ago.to_date..Time.zone.today).map do |date|
+		(6.days.ago.to_date..Time.zone.today).map do |date|
 			created_at = date
 			if !linkedin_data_by_day.nil?
 				if !linkedin_data_by_day[date].nil?
