@@ -58,7 +58,7 @@ jQuery ->
     labels: ['LinkedIn', 'Twitter', 'Facebook', 'Instagram', 'Foursquare']
     xLabelFormat: (date) ->
         daynum = date.getDay()
-        dayArray = ["Sunday", "Monday", "Tuesday", "Wed.", "Thursday", "Friday", "Saturday"]
+        dayArray = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."]
         day = dayArray[daynum]
         day
   Morris.Line
@@ -69,6 +69,6 @@ jQuery ->
     labels: ['LinkedIn', 'Twitter', 'Facebook', 'Instagram', 'Foursquare']
     xLabelFormat: (date) ->
         daynum = date.getDay()
-        dayArray = ["Sunday", "Monday", "Tuesday", "Wed.", "Thursday", "Friday", "Saturday"]
+        dayArray = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."]
         day = dayArray[daynum]
         day
