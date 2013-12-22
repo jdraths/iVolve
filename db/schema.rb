@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131221205723) do
+ActiveRecord::Schema.define(version: 20131222232538) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -369,6 +369,9 @@ ActiveRecord::Schema.define(version: 20131221205723) do
     t.integer  "iv_linkedin_job_suggestions_int"
     t.integer  "iv_linkedin_job_bookmarks_int"
     t.integer  "iv_linkedin_shares_int"
+    t.integer  "iv_twitter_retweets_of_me"
+    t.integer  "iv_twitter_mentions_of_me"
+    t.integer  "iv_twitter_retweets_by_me"
   end
 
   create_table "linkedin_users", force: true do |t|

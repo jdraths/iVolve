@@ -62,11 +62,17 @@ module StatsHelper
                 @twitter_int_sent = @twitter_auth_user.tweet_int_count
                 @twitter_int_favorites = @twitter_auth_user.favorite_int_count
                 @twitter_int_lists = @twitter_auth_user.listed_int_count
+                @twitter_num_retweets_of_me = @twitter_auth_user.num_retweets_of_me
+                @twitter_num_mentions_of_me = @twitter_auth_user.num_mentions_of_me
+                @twitter_num_retweets_by_me = @twitter_auth_user.num_retweets_by_me
                 @twitter_avg_friends = @ivolveindex.iv_twitter_friends
                 @twitter_avg_followers = @ivolveindex.iv_twitter_follwers
                 @twitter_avg_sent = @ivolveindex.iv_twitter_tweets_sent
                 @twitter_avg_fav = @ivolveindex.iv_twitter_tweets_favd
                 @twitter_avg_lists = @ivolveindex.iv_twitter_lists
+                @twitter_avg_retweets_of_me = @ivolveindex.iv_twitter_retweets_of_me
+                @twitter_avg_mentions_of_me = @ivolveindex.iv_twitter_mentions_of_me
+                @twitter_avg_retweets_by_me = @ivolveindex.iv_twitter_retweets_by_me
             else
                 @twitter_int_friends = 0
                 @twitter_avg_friends = @ivolveindex.iv_twitter_friends
@@ -78,6 +84,12 @@ module StatsHelper
                 @twitter_avg_fav = @ivolveindex.iv_twitter_tweets_favd
                 @twitter_int_lists = 0
                 @twitter_avg_lists = @ivolveindex.iv_twitter_lists
+                @twitter_num_retweets_of_me = 0
+                @twitter_avg_retweets_of_me = @ivolveindex.iv_twitter_retweets_of_me
+                @twitter_num_mentions_of_me = 0
+                @twitter_avg_mentions_of_me = @ivolveindex.iv_twitter_mentions_of_me
+                @twitter_num_retweets_by_me = 0
+                @twitter_avg_retweets_by_me = @ivolveindex.iv_twitter_retweets_by_me
             end
             if @twitter_int_friends.nil?
                 @twitter_int_friends = 0
@@ -94,6 +106,15 @@ module StatsHelper
             if @twitter_int_lists.nil?
                 @twitter_int_lists = 0
             end
+            if @twitter_num_retweets_of_me.nil?
+                @twitter_num_retweets_of_me = 0
+            end
+            if @twitter_num_mentions_of_me.nil?
+                @twitter_num_mentions_of_me = 0
+            end
+            if @twitter_num_retweets_by_me.nil?
+                @twitter_num_retweets_by_me = 0
+            end
             if @twitter_avg_friends.nil?
                 @twitter_avg_friends = 0
             end
@@ -108,6 +129,15 @@ module StatsHelper
             end
             if @twitter_avg_lists.nil?
                 @twitter_avg_lists = 0
+            end
+            if @twitter_avg_retweets_of_me.nil?
+                @twitter_avg_retweets_of_me = 0
+            end
+            if @twitter_avg_mentions_of_me.nil?
+                @twitter_avg_mentions_of_me = 0
+            end
+            if @twitter_avg_retweets_by_me.nil?
+                @twitter_avg_retweets_by_me = 0
             end
 
             if facebook? # is current_user an authorized facebook user with data saved?
@@ -456,12 +486,18 @@ module StatsHelper
                 @twitter_int_sent = @twitter_auth_user.tweet_int_count
                 @twitter_int_favorites = @twitter_auth_user.favorite_int_count
                 @twitter_int_lists = @twitter_auth_user.listed_int_count
+                @twitter_num_retweets_of_me = @twitter_auth_user.num_retweets_of_me
+                @twitter_num_mentions_of_me = @twitter_auth_user.num_mentions_of_me
+                @twitter_num_retweets_by_me = @twitter_auth_user.num_retweets_by_me
             else
                 @twitter_int_friends = 0
                 @twitter_int_followers = 0
                 @twitter_int_sent = 0
                 @twitter_int_favorites = 0
                 @twitter_int_lists = 0
+                @twitter_num_retweets_of_me = 0
+                @twitter_num_mentions_of_me = 0
+                @twitter_num_retweets_by_me = 0
             end
             @other_twitter = Authorization.find_by_user_id_and_provider(@user.id, 'twitter')
             if !@other_twitter.nil?
@@ -472,12 +508,18 @@ module StatsHelper
                     @twitter_avg_sent = @twitter_other_user.tweet_int_count
                     @twitter_avg_fav = @twitter_other_user.favorite_int_count
                     @twitter_avg_lists = @twitter_other_user.listed_int_count
+                    @twitter_avg_retweets_of_me = @twitter_other_user.num_retweets_of_me
+                    @twitter_avg_mentions_of_me = @twitter_other_user.num_mentions_of_me
+                    @twitter_avg_retweets_by_me = @twitter_other_user.num_retweets_by_me
                 else
                     @twitter_avg_friends = 0
                     @twitter_avg_followers = 0
                     @twitter_avg_sent = 0
                     @twitter_avg_fav = 0
                     @twitter_avg_lists = 0
+                    @twitter_avg_retweets_of_me = 0
+                    @twitter_avg_mentions_of_me = 0
+                    @twitter_avg_retweets_by_me = 0
                 end
             else
                 @twitter_avg_friends = 0
@@ -485,6 +527,9 @@ module StatsHelper
                 @twitter_avg_sent = 0
                 @twitter_avg_fav = 0
                 @twitter_avg_lists = 0
+                @twitter_avg_retweets_of_me = 0
+                @twitter_avg_mentions_of_me = 0
+                @twitter_avg_retweets_by_me = 0
             end
 
             if @twitter_int_friends.nil?
@@ -502,6 +547,15 @@ module StatsHelper
             if @twitter_int_lists.nil?
                 @twitter_int_lists = 0
             end
+            if @twitter_num_retweets_of_me.nil?
+                @twitter_num_retweets_of_me = 0
+            end
+            if @twitter_num_mentions_of_me.nil?
+                @twitter_num_mentions_of_me = 0
+            end
+            if @twitter_num_retweets_by_me.nil?
+                @twitter_num_retweets_by_me = 0
+            end
             if @twitter_avg_friends.nil?
                 @twitter_avg_friends = 0
             end
@@ -516,6 +570,15 @@ module StatsHelper
             end
             if @twitter_avg_lists.nil?
                 @twitter_avg_lists = 0
+            end
+            if @twitter_avg_retweets_of_me.nil?
+                @twitter_avg_retweets_of_me = 0
+            end
+            if @twitter_avg_mentions_of_me.nil?
+                @twitter_avg_mentions_of_me = 0
+            end
+            if @twitter_avg_retweets_by_me.nil?
+                @twitter_avg_retweets_by_me = 0
             end
     
             if facebook? # is current_user an authorized facebook user with data saved?

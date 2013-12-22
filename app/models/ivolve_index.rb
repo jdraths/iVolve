@@ -44,51 +44,54 @@ class IvolveIndex < ActiveRecord::Base
 		@fitbit_num_users = @fitbit_users.size
 		@foursquare_num_users = @foursquare_users.size
 		# LINKEDIN Stats
-		@iv_linkedin_connections = avg_stats('linkedin_db', 'connections_size')
-		@iv_linkedin_group_memberships = avg_stats('linkedin_db', 'group_memberships_size')
-		@iv_linkedin_job_suggestions = avg_stats('linkedin_db', 'job_suggestions_size')
-		@iv_linkedin_job_bookmarks = avg_stats('linkedin_db', 'job_bookmarks_size')
-		@iv_linkedin_shares = avg_stats('linkedin_db', 'shares_size')
+		iv_linkedin_connections = avg_stats('linkedin_db', 'connections_size')
+		iv_linkedin_group_memberships = avg_stats('linkedin_db', 'group_memberships_size')
+		iv_linkedin_job_suggestions = avg_stats('linkedin_db', 'job_suggestions_size')
+		iv_linkedin_job_bookmarks = avg_stats('linkedin_db', 'job_bookmarks_size')
+		iv_linkedin_shares = avg_stats('linkedin_db', 'shares_size')
 		# TWITTER STATS BELOW	
-		@iv_twitter_friends = avg_stats('twitter_db', 'friends_int_count')	
-		@iv_twitter_follwers = avg_stats('twitter_db', 'followers_int_count')
-		@iv_twitter_tweets_sent = avg_stats('twitter_db', 'tweet_int_count')
-		@iv_twitter_tweets_favd = avg_stats('twitter_db', 'favorite_int_count')
-		@iv_twitter_lists = avg_stats('twitter_db', 'listed_int_count')
+		iv_twitter_friends = avg_stats('twitter_db', 'friends_int_count')	
+		iv_twitter_follwers = avg_stats('twitter_db', 'followers_int_count')
+		iv_twitter_tweets_sent = avg_stats('twitter_db', 'tweet_int_count')
+		iv_twitter_tweets_favd = avg_stats('twitter_db', 'favorite_int_count')
+		iv_twitter_lists = avg_stats('twitter_db', 'listed_int_count')
+		iv_twitter_retweets_of_me = avg_stats('twitter_db', 'num_retweets_of_me')
+		iv_twitter_mentions_of_me = avg_stats('twitter_db', 'num_mentions_of_me')
+		iv_twitter_retweets_by_me = avg_stats('twitter_db', 'num_retweets_by_me')
 		# FACEBOOK STATS BELOW		
-		@iv_facebook_friends = avg_stats('facebook_db', 'int_friends')
-		@iv_facebook_likes_sent = avg_stats('facebook_db', 'int_likes')
-		@iv_facebook_posts = avg_stats('facebook_db', 'int_posts')
-		@iv_facebook_statuses = avg_stats('facebook_db', 'int_statuses')
-		@iv_facebook_achievements = avg_stats('facebook_db', 'int_achievements')
-		@iv_facebook_subscribers  = avg_stats('facebook_db', 'int_subscribers')
-		@iv_facebook_subscribed_to_you  = avg_stats('facebook_db', 'int_subscribed_to')
+		iv_facebook_friends = avg_stats('facebook_db', 'int_friends')
+		iv_facebook_likes_sent = avg_stats('facebook_db', 'int_likes')
+		iv_facebook_posts = avg_stats('facebook_db', 'int_posts')
+		iv_facebook_statuses = avg_stats('facebook_db', 'int_statuses')
+		iv_facebook_achievements = avg_stats('facebook_db', 'int_achievements')
+		iv_facebook_subscribers  = avg_stats('facebook_db', 'int_subscribers')
+		iv_facebook_subscribed_to_you  = avg_stats('facebook_db', 'int_subscribed_to')
 		# INSTAGRAM STATS BELOW
-		@iv_instagram_followers = avg_stats('instagram_db', 'int_followers')
-		@iv_instagram_following = avg_stats('instagram_db', 'int_following')
-		@iv_instagram_shared = avg_stats('instagram_db', 'int_media')
-		@iv_instagram_likes_sent = avg_stats('instagram_db', 'int_likes_out')
+		iv_instagram_followers = avg_stats('instagram_db', 'int_followers')
+		iv_instagram_following = avg_stats('instagram_db', 'int_following')
+		iv_instagram_shared = avg_stats('instagram_db', 'int_media')
+		iv_instagram_likes_sent = avg_stats('instagram_db', 'int_likes_out')
 		# FITBIT STATS BELOW
-		@iv_fitbit_height = avg_stats('fitbit_db', 'height_int')
-		@iv_fitbit_weight = avg_stats('fitbit_db', 'weight_int')
-		@iv_fitbit_stride_length_run = avg_stats('fitbit_db', 'stride_length_run_int')
-		@iv_fitbit_stride_length_walk = avg_stats('fitbit_db', 'stride_length_walk_int')
-		@iv_fitbit_life_tot_active_score = avg_stats('fitbit_db', 'lifetime_tot_active_score_int')
-		@iv_fitbit_best_tot_active_score = avg_stats('fitbit_db', 'best_tot_active_score_int')
-		@iv_fitbit_life_tot_cal_out = avg_stats('fitbit_db', 'lifetime_tot_cal_out_int')
-		@iv_fitbit_best_tot_cal_out = avg_stats('fitbit_db', 'best_tot_cal_out_int')
-		@iv_fitbit_life_tot_dist = avg_stats('fitbit_db', 'lifetime_tot_dist_int')
-		@iv_fitbit_best_tot_dist = avg_stats('fitbit_db', 'best_tot_dist_int')
-		@iv_fitbit_life_tot_steps = avg_stats('fitbit_db', 'lifetime_tot_steps_int')
-		@iv_fitbit_best_tot_steps = avg_stats('fitbit_db', 'best_tot_steps_int')
+		iv_fitbit_height = avg_stats('fitbit_db', 'height_int')
+		iv_fitbit_weight = avg_stats('fitbit_db', 'weight_int')
+		iv_fitbit_stride_length_run = avg_stats('fitbit_db', 'stride_length_run_int')
+		iv_fitbit_stride_length_walk = avg_stats('fitbit_db', 'stride_length_walk_int')
+		iv_fitbit_life_tot_active_score = avg_stats('fitbit_db', 'lifetime_tot_active_score_int')
+		iv_fitbit_best_tot_active_score = avg_stats('fitbit_db', 'best_tot_active_score_int')
+		iv_fitbit_life_tot_cal_out = avg_stats('fitbit_db', 'lifetime_tot_cal_out_int')
+		iv_fitbit_best_tot_cal_out = avg_stats('fitbit_db', 'best_tot_cal_out_int')
+		iv_fitbit_life_tot_dist = avg_stats('fitbit_db', 'lifetime_tot_dist_int')
+		iv_fitbit_best_tot_dist = avg_stats('fitbit_db', 'best_tot_dist_int')
+		iv_fitbit_life_tot_steps = avg_stats('fitbit_db', 'lifetime_tot_steps_int')
+		iv_fitbit_best_tot_steps = avg_stats('fitbit_db', 'best_tot_steps_int')
 		# Foursquare STATS BELOW
-		@iv_foursquare_friends = avg_stats('foursquare_db', 'friends_count')
-		@iv_foursquare_following = avg_stats('foursquare_db', 'following_count')
-		@iv_foursquare_checkins = avg_stats('foursquare_db', 'checkins_count')
-		@iv_foursquare_badges = avg_stats('foursquare_db', 'badges_count')
-		@iv_foursquare_mayor = avg_stats('foursquare_db', 'mayor_count')
-		@iv_foursquare_tips = avg_stats('foursquare_db', 'tips_count')
-		@iv_foursquare_photos = avg_stats('foursquare_db', 'photos_count')		
+		iv_foursquare_friends = avg_stats('foursquare_db', 'friends_count')
+		iv_foursquare_following = avg_stats('foursquare_db', 'following_count')
+		iv_foursquare_checkins = avg_stats('foursquare_db', 'checkins_count')
+		iv_foursquare_badges = avg_stats('foursquare_db', 'badges_count')
+		iv_foursquare_mayor = avg_stats('foursquare_db', 'mayor_count')
+		iv_foursquare_tips = avg_stats('foursquare_db', 'tips_count')
+		iv_foursquare_photos = avg_stats('foursquare_db', 'photos_count')		
 
 		create!(
 			iv_total: nil,
@@ -117,51 +120,54 @@ class IvolveIndex < ActiveRecord::Base
 			facebook_users_total: @facebook_num_users,
 			instagram_users_total: @instagram_num_users,
 			fitbit_users_total: @fitbit_num_users,
-			iv_linkedin_connections: @iv_linkedin_connections,
-			iv_linkedin_group_memberships: @iv_linkedin_group_memberships,
-			iv_linkedin_job_suggestions: @iv_linkedin_job_suggestions,
-			iv_linkedin_job_bookmarks: @iv_linkedin_job_bookmarks,
-			iv_linkedin_shares: @iv_linkedin_shares,
-			iv_linkedin_connections_int: @iv_linkedin_connections,
-			iv_linkedin_group_memberships_int: @iv_linkedin_group_memberships,
-			iv_linkedin_job_suggestions_int: @iv_linkedin_job_suggestions,
-			iv_linkedin_job_bookmarks_int: @iv_linkedin_job_bookmarks,
-			iv_linkedin_shares_int: @iv_linkedin_shares,
-			iv_twitter_friends: @iv_twitter_friends,
-			iv_twitter_follwers: @iv_twitter_follwers,
-			iv_twitter_tweets_sent: @iv_twitter_tweets_sent,
-			iv_twitter_tweets_favd: @iv_twitter_tweets_favd,
-			iv_twitter_lists: @iv_twitter_lists,
-			iv_facebook_friends: @iv_facebook_friends,
-			iv_facebook_likes_sent: @iv_facebook_likes_sent,
-			iv_facebook_posts: @iv_facebook_posts,
-			iv_facebook_statuses: @iv_facebook_statuses,
-			iv_facebook_achievements: @iv_facebook_achievements,
-			iv_facebook_subscribers: @iv_facebook_subscribers,
-			iv_facebook_subscribed_to_you: @iv_facebook_subscribed_to_you,
-			iv_instagram_followers: @iv_instagram_followers,
-			iv_instagram_following: @iv_instagram_following,
-			iv_instagram_shared: @iv_instagram_shared,
-			iv_instagram_likes_sent: @iv_instagram_likes_sent,
-			iv_fitbit_height: @iv_fitbit_height,
-			iv_fitbit_weight: @iv_fitbit_weight,
-			iv_fitbit_stride_length_run: @iv_fitbit_stride_length_run,
-			iv_fitbit_stride_length_walk: @iv_fitbit_stride_length_walk,
-			iv_fitbit_life_tot_active_score: @iv_fitbit_life_tot_active_score,
-			iv_fitbit_best_tot_active_score: @iv_fitbit_best_tot_active_score,
-			iv_fitbit_life_tot_cal_out: @iv_fitbit_life_tot_cal_out,
-			iv_fitbit_best_tot_cal_out: @iv_fitbit_best_tot_cal_out,
-			iv_fitbit_life_tot_dist: @iv_fitbit_life_tot_dist,
-			iv_fitbit_best_tot_dist: @iv_fitbit_best_tot_dist,
-			iv_fitbit_life_tot_steps: @iv_fitbit_life_tot_steps,
-			iv_fitbit_best_tot_steps: @iv_fitbit_best_tot_steps,
-			iv_foursquare_friends: @iv_foursquare_friends,
-			iv_foursquare_following: @iv_foursquare_following,
-			iv_foursquare_checkins: @iv_foursquare_checkins,
-			iv_foursquare_badges: @iv_foursquare_badges,
-			iv_foursquare_mayor: @iv_foursquare_mayor,
-			iv_foursquare_tips: @iv_foursquare_tips,
-			iv_foursquare_photos: @iv_foursquare_photos,
+			iv_linkedin_connections: iv_linkedin_connections,
+			iv_linkedin_group_memberships: iv_linkedin_group_memberships,
+			iv_linkedin_job_suggestions: iv_linkedin_job_suggestions,
+			iv_linkedin_job_bookmarks: iv_linkedin_job_bookmarks,
+			iv_linkedin_shares: iv_linkedin_shares,
+			iv_linkedin_connections_int: iv_linkedin_connections,
+			iv_linkedin_group_memberships_int: iv_linkedin_group_memberships,
+			iv_linkedin_job_suggestions_int: iv_linkedin_job_suggestions,
+			iv_linkedin_job_bookmarks_int: iv_linkedin_job_bookmarks,
+			iv_linkedin_shares_int: iv_linkedin_shares,
+			iv_twitter_friends: iv_twitter_friends,
+			iv_twitter_follwers: iv_twitter_follwers,
+			iv_twitter_tweets_sent: iv_twitter_tweets_sent,
+			iv_twitter_tweets_favd: iv_twitter_tweets_favd,
+			iv_twitter_lists: iv_twitter_lists,
+			iv_twitter_retweets_of_me: iv_twitter_retweets_of_me,
+			iv_twitter_mentions_of_me: iv_twitter_mentions_of_me,
+			iv_twitter_retweets_by_me: iv_twitter_retweets_by_me,
+			iv_facebook_friends: iv_facebook_friends,
+			iv_facebook_likes_sent: iv_facebook_likes_sent,
+			iv_facebook_posts: iv_facebook_posts,
+			iv_facebook_statuses: iv_facebook_statuses,
+			iv_facebook_achievements: iv_facebook_achievements,
+			iv_facebook_subscribers: iv_facebook_subscribers,
+			iv_facebook_subscribed_to_you: iv_facebook_subscribed_to_you,
+			iv_instagram_followers: iv_instagram_followers,
+			iv_instagram_following: iv_instagram_following,
+			iv_instagram_shared: iv_instagram_shared,
+			iv_instagram_likes_sent: iv_instagram_likes_sent,
+			iv_fitbit_height: iv_fitbit_height,
+			iv_fitbit_weight: iv_fitbit_weight,
+			iv_fitbit_stride_length_run: iv_fitbit_stride_length_run,
+			iv_fitbit_stride_length_walk: iv_fitbit_stride_length_walk,
+			iv_fitbit_life_tot_active_score: iv_fitbit_life_tot_active_score,
+			iv_fitbit_best_tot_active_score: iv_fitbit_best_tot_active_score,
+			iv_fitbit_life_tot_cal_out: iv_fitbit_life_tot_cal_out,
+			iv_fitbit_best_tot_cal_out: iv_fitbit_best_tot_cal_out,
+			iv_fitbit_life_tot_dist: iv_fitbit_life_tot_dist,
+			iv_fitbit_best_tot_dist: iv_fitbit_best_tot_dist,
+			iv_fitbit_life_tot_steps: iv_fitbit_life_tot_steps,
+			iv_fitbit_best_tot_steps: iv_fitbit_best_tot_steps,
+			iv_foursquare_friends: iv_foursquare_friends,
+			iv_foursquare_following: iv_foursquare_following,
+			iv_foursquare_checkins: iv_foursquare_checkins,
+			iv_foursquare_badges: iv_foursquare_badges,
+			iv_foursquare_mayor: iv_foursquare_mayor,
+			iv_foursquare_tips: iv_foursquare_tips,
+			iv_foursquare_photos: iv_foursquare_photos,
 		)
 	end
 end
