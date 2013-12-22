@@ -33,9 +33,10 @@ class TwitterUser < ActiveRecord::Base
 		twitter_client = Twitter::Client.new(:oauth_token => twitter_auth.oauth_token, :oauth_token_secret => twitter_auth.oauth_secret)
 		twitter_user = twitter_client.user(twitter_auth.screen_name)
 		user_id = twitter_auth.user_id
-		current_twitter_user = TwitterUser.find_by_uid(twitter_auth.uid)
+		today = TwitterUser.where("uid = ? AND created_at >= ?", twitter_auth.uid, Time.zone.now.beginning_of_day).limit(1)[0]
+		current_twitter_user = TwitterUser.where("uid = ? AND created_at < ?", twitter_auth.uid, Time.zone.now.beginning_of_day).limit(1)[0]
 		# current_user_data is a 2 item array of the most recent TwitterUser entries for this uid.
-		current_user_data = TwitterUser.where("uid = ?", twitter_auth.uid).limit(2)
+		current_user_data = TwitterUser.where("uid = ? AND created_at < ?", twitter_auth.uid, Time.zone.now.beginning_of_day).limit(2)
 		# if there were two previous TwitterUsers for this uid, perform the following...
 		if !current_user_data.blank?
 			# initialize an empty hash for retweets_of_me
@@ -288,48 +289,92 @@ class TwitterUser < ActiveRecord::Base
 				end
 			end
 		end
-			#unless exists?(uid: t_user.id)
-			# could use unless exists? create! and then when exists? save!,
-			# but that would not allow ivolve to track user changes over time.
-		create!(
-			name: twitter_user.screen_name,
-			user_id: user_id,
-			connections: twitter_user.connections,
-			contributors_enabled: twitter_user.contributors_enabled,
-			default_profile: twitter_user.default_profile,
-			default_profile_image: twitter_user.default_profile_image,
-			description: twitter_user.description,
-			favorite_count: twitter_user.favorite_count,
-			favorite_int_count: twitter_user.favorite_count,
-			follow_request_sent: twitter_user.follow_request_sent,
-			followers_count: twitter_user.followers_count,
-			followers_int_count: twitter_user.followers_count,
-			friends_count: twitter_user.friends_count,
-			friends_int_count: twitter_user.friends_count,
-			geo_enabled: twitter_user.geo_enabled,
-			is_translator: twitter_user.is_translator,
-			lang: twitter_user.lang,
-			listed_count: twitter_user.listed_count,
-			listed_int_count: twitter_user.listed_count,
-			location: twitter_user.location,
-			notifications: twitter_user.notifications,
-			protected_user: twitter_user.protected,
-			uid: twitter_user.id,
-			tweet_count: twitter_user.statuses_count,
-			tweet_int_count: twitter_user.statuses_count,
-			time_zone: twitter_user.time_zone,
-			url: twitter_user.url,
-			utc_offset: twitter_user.utc_offset,
-			verified: twitter_user.verified,
-			description_urls: twitter_user.description_urls.to_s,
-			status: twitter_user.status.to_s,
-			max_retweets_of_me: max_retweets_of_me_id,
-			num_retweets_of_me: num_retweets_of_me,
-			max_mentions_of_me: max_mentions_of_me_id,
-			num_mentions_of_me: num_mentions_of_me,
-			max_retweets_by_me: max_retweets_by_me_id,
-			num_retweets_by_me: num_retweets_by_me,
+		if !twitter_user.status.nil?
+			last_status = twitter_user.status.text
+		end
+		
+		if !today.nil?
+			logger.debug "Twitter Exists"
+			today.update(
+				name: twitter_user.screen_name,
+				user_id: user_id,
+				connections: twitter_user.connections,
+				contributors_enabled: twitter_user.contributors_enabled,
+				default_profile: twitter_user.default_profile,
+				default_profile_image: twitter_user.default_profile_image,
+				description: twitter_user.description,
+				favorite_count: twitter_user.favorite_count,
+				favorite_int_count: twitter_user.favorite_count,
+				follow_request_sent: twitter_user.follow_request_sent,
+				followers_count: twitter_user.followers_count,
+				followers_int_count: twitter_user.followers_count,
+				friends_count: twitter_user.friends_count,
+				friends_int_count: twitter_user.friends_count,
+				geo_enabled: twitter_user.geo_enabled,
+				is_translator: twitter_user.is_translator,
+				lang: twitter_user.lang,
+				listed_count: twitter_user.listed_count,
+				listed_int_count: twitter_user.listed_count,
+				location: twitter_user.location,
+				notifications: twitter_user.notifications,
+				protected_user: twitter_user.protected,
+				uid: twitter_user.id,
+				tweet_count: twitter_user.statuses_count,
+				tweet_int_count: twitter_user.statuses_count,
+				time_zone: twitter_user.time_zone,
+				url: twitter_user.url,
+				utc_offset: twitter_user.utc_offset,
+				verified: twitter_user.verified,
+				description_urls: twitter_user.description_urls.to_s,
+				status: last_status,
+				max_retweets_of_me: max_retweets_of_me_id,
+				num_retweets_of_me: num_retweets_of_me,
+				max_mentions_of_me: max_mentions_of_me_id,
+				num_mentions_of_me: num_mentions_of_me,
+				max_retweets_by_me: max_retweets_by_me_id,
+				num_retweets_by_me: num_retweets_by_me,
 			)
+		else
+			create!(
+				name: twitter_user.screen_name,
+				user_id: user_id,
+				connections: twitter_user.connections,
+				contributors_enabled: twitter_user.contributors_enabled,
+				default_profile: twitter_user.default_profile,
+				default_profile_image: twitter_user.default_profile_image,
+				description: twitter_user.description,
+				favorite_count: twitter_user.favorite_count,
+				favorite_int_count: twitter_user.favorite_count,
+				follow_request_sent: twitter_user.follow_request_sent,
+				followers_count: twitter_user.followers_count,
+				followers_int_count: twitter_user.followers_count,
+				friends_count: twitter_user.friends_count,
+				friends_int_count: twitter_user.friends_count,
+				geo_enabled: twitter_user.geo_enabled,
+				is_translator: twitter_user.is_translator,
+				lang: twitter_user.lang,
+				listed_count: twitter_user.listed_count,
+				listed_int_count: twitter_user.listed_count,
+				location: twitter_user.location,
+				notifications: twitter_user.notifications,
+				protected_user: twitter_user.protected,
+				uid: twitter_user.id,
+				tweet_count: twitter_user.statuses_count,
+				tweet_int_count: twitter_user.statuses_count,
+				time_zone: twitter_user.time_zone,
+				url: twitter_user.url,
+				utc_offset: twitter_user.utc_offset,
+				verified: twitter_user.verified,
+				description_urls: twitter_user.description_urls.to_s,
+				status: last_status,
+				max_retweets_of_me: max_retweets_of_me_id,
+				num_retweets_of_me: num_retweets_of_me,
+				max_mentions_of_me: max_mentions_of_me_id,
+				num_mentions_of_me: num_mentions_of_me,
+				max_retweets_by_me: max_retweets_by_me_id,
+				num_retweets_by_me: num_retweets_by_me,
+			)
+		end
 	end
 
 	def self.sched_user_data

@@ -220,6 +220,7 @@ class FacebookUser < ActiveRecord::Base
 		end
 	end
 
+### repopulate_data is used in ERROR RESCUES... ###
 	def self.repopulate_data
 		facebook_user = FacebookUser.find_by_uid(@authorized.uid)
 		# the below code would be if we need to return the two most recent users...
