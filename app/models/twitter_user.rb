@@ -60,7 +60,7 @@ class TwitterUser < ActiveRecord::Base
 				# first check for updated retweet counts for retweets before max_retweets_existing
 				retweets_of_me_before = twitter_client.retweets_of_me(count: 200, max_id: max_retweets_existing_one, trim_user: true, include_entities: false, include_user_entities: false)
 				if !retweets_of_me_before.blank?
-					retweets_of_me_arr = []
+					retweets_of_me_arr = Array.new
 					retweets_of_me_before.each do |x|
 						retweets_of_me_arr.push(x.retweet_count)
 					end
@@ -73,7 +73,7 @@ class TwitterUser < ActiveRecord::Base
 				# only check for new retweets between the second-to-last retweet and the current retweet
 				retweets_of_me_before = twitter_client.retweets_of_me(count: 200, since_id: max_retweets_existing_two, max_id: max_retweets_existing_one, trim_user: true, include_entities: false, include_user_entities: false)
 				if !retweets_of_me_before.blank?
-					retweets_of_me_arr = []
+					retweets_of_me_arr = Array.new
 					retweets_of_me_before.each do |x|
 						retweets_of_me_arr.push(x.retweet_count)
 					end
@@ -145,6 +145,148 @@ class TwitterUser < ActiveRecord::Base
 					max_retweets_of_me_id = retweets_of_me_hash.keys.first
 				end
 			end
+
+			# initialize an empty array for retweets_by_me
+			retweets_by_me_id_arr = Array.new
+			if !current_twitter_user.nil?
+				# did TwitterUser's last entry include retweets_by_me?
+				max_retweets_by_me_existing = current_twitter_user.max_retweets_by_me
+			else
+				# if there is no previous current_user_data, then there is no max_retweets_by_me_existing...
+				max_retweets_by_me_existing = nil
+			end
+			# the following checks for new retweets_by_me since the most recent mention id...
+			if !max_retweets_by_me_existing.nil?
+				# go straight to checking if you have any new retweets_by_me...
+				# check for retweets_by_me since the max_retweets_by_me_existing id
+				retweets_by_me_since = twitter_client.retweeted_by_me(count: 3200, since_id: max_retweets_by_me_existing, trim_user: true)
+				# since_id parameter excludes since_id in the api request
+				if !retweets_by_me_since.blank?
+					retweets_by_me_since.each do |x|
+						retweets_by_me_id_arr.push(x.id)
+					end
+					# what is the maximum retweets_by_me_id_id returned in that request
+					max_retweets_by_me_id = retweets_by_me_id_arr.first
+					# now perform new request to see if there are any more retweets_by_me since that max_retweets_by_me_id
+					# in other words were there greater than 3200 additional retweets_by_me since the last request?
+					recent_retweets_by_me = twitter_client.retweeted_by_me(count: 3200, since_id: max_retweets_by_me_id, trim_user: true)
+					if !recent_retweets_by_me.blank?
+						# if the most recent retweets_by_me_id returned in the API request is greater than the previous... perform while...
+						while recent_retweets_by_me.first.id != max_retweets_by_me_id
+							recent_retweets_by_me.each do |x|
+								retweets_by_me_id_arr.push(x.id)
+							end
+							max_retweets_by_me_id = retweets_by_me_id_arr.first
+							recent_retweets_by_me = twitter_client.retweeted_by_me(count: 3200, since_id: max_retweets_by_me_id, trim_user: true)
+						end
+					end
+					# if there have been retweets_by_me since, save the new retweets_by_me plus the old num retweets_by_me.
+					num_retweets_by_me = retweets_by_me_id_arr.size + current_twitter_user.num_retweets_by_me
+					max_retweets_by_me_id = max_retweets_by_me_id
+				else
+					# if there have been no new retweets_by_me of me since, re-save the previous retweets_by_me_id id and num retweets_by_me.
+					num_retweets_by_me = current_twitter_user.num_retweets_by_me
+					max_retweets_by_me_id = max_retweets_by_me_existing
+				end
+			# if there was no max_retweets_by_me_id in the most recent twitter user...
+			else #if max_retweets_by_me_existing.nil? AKA if there were no retweets_by_me saved in the DB before
+				# are there retweets_by_me of me before this request?
+				retweets_by_me_before = twitter_client.retweeted_by_me(count: 3200, trim_user: true)
+				if !retweets_by_me_before.blank?
+					retweets_by_me_before.each do |x|
+						# this builds the hash from most recent = first to oldest = last
+						retweets_by_me_id_arr.push(x.id)
+					end
+					min_retweets_by_me = retweets_by_me_id_arr.last
+					# now run API request for retweets_by_me of me before the min id from the retweets_by_me_before request
+					# in other words were there greater than 3200 retweets_by_me before this retweets_by_me_id request?
+					more_retweets_by_me = twitter_client.retweeted_by_me(count: 3200, max_id: min_retweets_by_me, trim_user: true)
+					# max_id includes max_id in the API request
+					if !more_retweets_by_me.blank?
+						while more_retweets_by_me.last.id != min_retweets_by_me
+							more_retweets_by_me.each do |x|
+								retweets_by_me_id_arr.push(x.id)
+							end
+							min_retweets_by_me = retweets_by_me_id_arr.last
+							more_retweets_by_me = twitter_client.retweeted_by_me(count: 3200, max_id: min_retweets_by_me, trim_user: true)
+						end
+					end
+					num_retweets_by_me = retweets_by_me_id_arr.size
+					# max retweets_by_me id should equal the highest mention id saved in the has.
+					max_retweets_by_me_id = retweets_by_me_id_arr.first
+				end
+			end			
+
+			# initialize an empty array for mentions_of_me
+			mentions_of_me_id_arr = Array.new
+			if !current_twitter_user.nil?
+				# did TwitterUser's last entry include mentions?
+				max_mentions_existing = current_twitter_user.max_mentions_of_me
+			else
+				# if there is no previous current_twitter_user, then there is no max_mentions_existing...
+				max_mentions_existing = nil
+			end
+			# the following checks for new mentions since the most recent mention id...
+			if !max_mentions_existing.nil?
+				# go straight to checking if you have any new mentions...
+				# check for mentions since the max_mentions_existing id
+				mentions_of_me_since = twitter_client.mentions_timeline(count: 800, since_id: max_mentions_existing, trim_user: true)
+				# since_id parameter excludes since_id in the api request
+				if !mentions_of_me_since.blank?
+					mentions_of_me_since.each do |x|
+						mentions_of_me_id_arr.push(x.id)
+					end
+					# what is the maximum mention_id returned in that request
+					max_mentions_id = mentions_of_me_id_arr.first
+					# now perform new request to see if there are any more mentions since that max_mentions_id
+					# in other words were there greater than 800 additional mentions since the last request?
+					recent_mentions_of_me = twitter_client.mentions_timeline(count: 800, since_id: max_mentions_id, trim_user: true)
+					if !recent_mentions_of_me.blank?
+						# if the most recent mention returned in the API request is greater than the previous... perform while...
+						while recent_mentions_of_me.first.id != max_mentions_id
+							recent_mentions_of_me.each do |x|
+								mentions_of_me_id_arr.push(x.id)
+							end
+							max_mentions_id = mentions_of_me_id_arr.first
+							recent_mentions_of_me = twitter_client.mentions_timeline(count: 800, since_id: max_mentions_id, trim_user: true)
+						end
+					end
+					# if there have been mentions since, save the new mentions plus the old num mentions.
+					num_mentions_of_me = mentions_of_me_id_arr.size + current_twitter_user.num_mentions_of_me
+					max_mentions_of_me_id = max_mentions_id
+				else
+					# if there have been no new mentions of me since, re-save the previous mention id and num mentions.
+					num_mentions_of_me = current_twitter_user.num_mentions_of_me
+					max_mentions_of_me_id = max_mentions_existing
+				end
+			# if there was no max_mentions_id in the most recent twitter user...
+			else #if max_mentions_existing.nil? AKA if there were no mentions saved in the DB before
+				# are there mentions of me before this request?
+				mentions_of_me_before = twitter_client.mentions_timeline(count: 800, trim_user: true)
+				if !mentions_of_me_before.blank?
+					mentions_of_me_before.each do |x|
+						# this builds the hash from most recent = first to oldest = last
+						mentions_of_me_id_arr.push(x.id)
+					end
+					min_mentions_of_me = mentions_of_me_id_arr.last
+					# now run API request for mentions of me before the min id from the mentions_of_me_before request
+					# in other words were there greater than 800 mentions before this mention request?
+					more_mentions_of_me = twitter_client.mentions_timeline(count: 800, max_id: min_mentions_of_me, trim_user: true)
+					# max_id includes max_id in the API request
+					if !more_mentions_of_me.blank?
+						while more_mentions_of_me.last.id != min_mentions_of_me
+							more_mentions_of_me.each do |x|
+								mentions_of_me_id_arr.push(x.id)
+							end
+							min_mentions_of_me = mentions_of_me_id_arr.last
+							more_mentions_of_me = twitter_client.mentions_timeline(count: 800, max_id: min_mentions_of_me, trim_user: true)
+						end
+					end
+					num_mentions_of_me = mentions_of_me_id_arr.size
+					# max mentions id should equal the highest mention id saved in the has.
+					max_mentions_of_me_id = mentions_of_me_id_arr.first
+				end
+			end
 		end
 			#unless exists?(uid: t_user.id)
 			# could use unless exists? create! and then when exists? save!,
@@ -183,10 +325,10 @@ class TwitterUser < ActiveRecord::Base
 			status: twitter_user.status.to_s,
 			max_retweets_of_me: max_retweets_of_me_id,
 			num_retweets_of_me: num_retweets_of_me,
-			#max_mentions_of_me: max_mentions_of_me_id,
-			#num_mentions_of_me: num_mentions_of_me,
-			#max_retweets_by_me: max_retweets_by_me_id,
-			#num_retweets_by_me: num_retweets_by_me,
+			max_mentions_of_me: max_mentions_of_me_id,
+			num_mentions_of_me: num_mentions_of_me,
+			max_retweets_by_me: max_retweets_by_me_id,
+			num_retweets_by_me: num_retweets_by_me,
 			)
 	end
 
