@@ -94,3 +94,15 @@ jQuery ->
         dayArray = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."]
         day = dayArray[daynum]
         day
+  Morris.Donut
+    element: 'twitter-outvin'
+    data: [
+        {label: "Output", value: $('#twitter-outvin').data('output')}
+        {label: "Input", value: $('#twitter-outvin').data('input')}
+    ]
+  Morris.Donut
+    element: 'ivolve-twitter-outvin'
+    data: [
+        {label: "Output", value: $('#ivolve-twitter-outvin').data('output')}
+        {label: "Input", value: $('#ivolve-twitter-outvin').data('input')}
+    ]

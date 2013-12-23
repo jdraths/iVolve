@@ -1,0 +1,45 @@
+<!-- the instance variables below are defined in stats_helper.rb -->
+
+<div class="col-xs-6" style="border-top: 1px solid #e8e8e8">
+	<div class="center-block" style="text-align:center">
+		<p class="h3">My Twitter Output vs. Input</p>
+		<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#twitter-outvin-info-modal"><i class="fa fa-info"></i>
+		</button>
+	</div>
+	<!-- The following modal is called for both My and Ivolve Index -->
+	<div class="modal fade" id="twitter-outvin-info-modal" tabindex="-1" role="dialog" aria-labelledby="twitterOutvInModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="twitterOutvInModalLabel">Twitter Output vs. Input</h4>
+					<p>These graphs display my (and <%= @who %>'s) Twitter Output vs. Input.</p>
+				</div>
+				<div class="modal-body">
+					<ul>
+						<li><strong>Output</strong> Tweets sent and Tweets favorited</li>
+						<li><strong>Input</strong> Retweets and Mentions of me</li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<%= content_tag :div, "", id: "twitter-outvin", 
+	data: {output: @twitter_int_sent + @twitter_int_favorites,
+		input: @twitter_num_retweets_of_me + @twitter_num_mentions_of_me} %>
+</div>
+<div class="col-xs-6" style="border-top: 1px solid #e8e8e8">
+	<div class="center-block" style="text-align:center">
+		<p class="h3"><%= @who %></p>
+		<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#twitter-outvin-info-modal"><i class="fa fa-info"></i>
+		</button>
+	</div>
+	<%= content_tag :div, "", id: "ivolve-twitter-outvin", 
+	data: {output: @twitter_avg_sent + @twitter_avg_fav,
+		input: @twitter_avg_retweets_of_me + @twitter_avg_mentions_of_me} %>
+</div>
+
+
