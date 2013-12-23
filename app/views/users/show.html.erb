@@ -95,5 +95,10 @@
 				<%= render @microposts %>
 			</ol>
 			<%= will_paginate @microposts %>
+		<% else %>
+			<h3>Peanuts (0)</h3>
+			<div class="alert alert-success">
+				<strong>Heads Up!</strong> You haven't dropped any Peanuts yet.  You can do so on the <a href="/" class="alert-link">home page.</a>
+			</div>
 		<% end %>
 	</div>
