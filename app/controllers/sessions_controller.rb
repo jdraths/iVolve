@@ -1,8 +1,10 @@
 class SessionsController < ApplicationController
 
 	def new
-		@new_session_user = current_user
-		Rollbar.report_message("#{@new_session_user} just signed_in.")
+		# @new_session_user = current_user
+		# below is the wrong way to call a variable in a string...?
+		# also it simply reports when a user visits the sign_in page, not when they've actually signed_in.
+		# Rollbar.report_message("#{@new_session_user} just signed_in.")
 	end
 
 	def create
