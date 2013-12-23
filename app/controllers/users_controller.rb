@@ -24,7 +24,8 @@ class UsersController < ApplicationController
 
   def new
   	@user = env['omniauth.identity'] || User.new
-    Rollbar.report_message("new User created via UsersController new action!")
+    #Rollbar.report_message("Someone visited the Sign Up page via UsersController new action!")
+    # this does not necessarilly mean they have signed-up, just that they visited the page.
   end
 
   def following
