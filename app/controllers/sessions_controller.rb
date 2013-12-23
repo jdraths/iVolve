@@ -1,6 +1,8 @@
 class SessionsController < ApplicationController
 
 	def new
+		@new_session_user = current_user
+		Rollbar.report_message("#{@new_session_user} just signed_in.")
 	end
 
 	def create
