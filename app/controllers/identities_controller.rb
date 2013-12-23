@@ -19,6 +19,7 @@ class IdentitiesController < ApplicationController
     @identity = env['omniauth.identity']
     if @identity.save
       UserMailer.welcome_email(@user).deliver
+      Rollbar.report_message("Identity created via IdentitiesController new action!")
     end
   end
 
@@ -31,6 +32,7 @@ class IdentitiesController < ApplicationController
   	else
   		render 'new'
   	end
+    Rollbar.report_message("Identity created via IdentitiesController create action!")
   end
 
   def destroy

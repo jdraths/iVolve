@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :signed_in_user
+  before_action :signed_in_user,  except: [:new]
   before_action :correct_user,    only: [:edit, :update]
   before_action :admin_user,      only: :destroy
 
@@ -24,6 +24,7 @@ class UsersController < ApplicationController
 
   def new
   	@user = env['omniauth.identity'] || User.new
+    Rollbar.report_message("new User created via UsersController new action!")
   end
 
   def following

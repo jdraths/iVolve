@@ -17,6 +17,7 @@ class SessionsController < ApplicationController
 	 #    end
 
 		if signed_in?
+			# check if facebook is expired...
 			if @authorization.user == current_user && facebook_expired?
 				@authorization.expired_token = false
 				@authorization.save
@@ -59,6 +60,7 @@ class SessionsController < ApplicationController
 		        else
 		          # otherwise we have to create a user with the auth hash
 		          u = User.create_from_omniauth(auth)
+		          Rollbar.report_message("A new user has been created via SessionsController User.create_from_omniauth method!")
 		          # This method will only save user name... never used right now.
 		          # NOTE: we will handle the different types of data we get back
 		          # from providers at the model level in create_from_omniauth
