@@ -38,6 +38,10 @@
 				<%= render @users %>
 			</ul>
 			<%= will_paginate %>
+		<% else %>
+			<div class="alert alert-success">
+				<strong>Heads Up!</strong> You haven't added any <a href="/users" class="alert-link">iVolve friends yet.</a>
+			</div>
 		<% end %>
 	</div>
 </div>

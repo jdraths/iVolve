@@ -3,4 +3,6 @@
 		<%= render partial: 'shared/feed_item', collection: @feed_items %>
 	</ol>
 	<%= will_paginate @feed_items %>
+<% else %>
+	<div class="alert alert-success"><strong>Heads Up!</strong> Your Peanut Gallery is empty because you haven't added any <a href="/users" class="alert-link">iVolve friends.</a></div>
 <% end %>
