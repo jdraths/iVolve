@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140102020759) do
+ActiveRecord::Schema.define(version: 20140102125821) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -293,7 +293,7 @@ ActiveRecord::Schema.define(version: 20140102020759) do
     t.integer  "int_following"
     t.integer  "int_media"
     t.integer  "int_likes_out"
-    t.integer  "max_liked_id"
+    t.string   "max_liked_id"
   end
 
   create_table "ivolve_indices", force: true do |t|

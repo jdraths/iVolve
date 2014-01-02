@@ -38,17 +38,17 @@ class InstagramUser < ActiveRecord::Base
 		if !current_max_liked_id.nil?
 			liked_recent = instagram.user_liked_media # needs to run until current_max_liked_id
 			if !liked_recent.empty?
-				if current_max_liked_id <= liked_recent.first.id.to_i
+				if current_max_liked_id.to_i <= liked_recent.first.id.to_i
 					liked_first_max_id = liked_recent.first.id
 				else
 					liked_first_max_id = current_max_liked_id
 				end
 				liked_recent_max_id = liked_first_max_id # this is the highest like id available in the API request.
-				until current_max_liked_id >= liked_recent_max_id.to_i
+				until current_max_liked_id.to_i >= liked_recent_max_id.to_i
 					liked_recent.each do |x|
-						if current_max_liked_id < x.id.to_i
-							total_likes_array.push(x.id.to_i)
-						elsif current_max_liked_id >= x.id.to_i
+						if current_max_liked_id.to_i < x.id.to_i
+							total_likes_array.push(x.id)
+						elsif current_max_liked_id.to_i >= x.id.to_i
 							break
 						end
 					end
