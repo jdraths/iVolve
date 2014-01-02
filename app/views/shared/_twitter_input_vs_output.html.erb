@@ -6,6 +6,8 @@
 		<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#twitter-outvin-info-modal"><i class="fa fa-info"></i>
 		</button>
 	</div>
+	<h5 style="text-align: center">Total: <%= @twitter_int_sent + @twitter_int_favorites + @twitter_num_retweets_of_me + @twitter_num_mentions_of_me %>
+	</h5>
 	<!-- The following modal is called for both My and Ivolve Index -->
 	<div class="modal fade" id="twitter-outvin-info-modal" tabindex="-1" role="dialog" aria-labelledby="twitterOutvInModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -37,6 +39,8 @@
 		<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#twitter-outvin-info-modal"><i class="fa fa-info"></i>
 		</button>
 	</div>
+	<h5 style="text-align: center">Total: <%= @twitter_avg_sent + @twitter_avg_fav + @twitter_avg_retweets_of_me + @twitter_avg_mentions_of_me %>
+	</h5>
 	<%= content_tag :div, "", id: "ivolve-twitter-outvin", 
 	data: {output: @twitter_avg_sent + @twitter_avg_fav,
 		input: @twitter_avg_retweets_of_me + @twitter_avg_mentions_of_me} %>

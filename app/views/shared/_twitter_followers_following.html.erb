@@ -4,6 +4,8 @@
 		<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#twitter-followers-following-modal"><i class="fa fa-info"></i>
 		</button>
 	</div>
+	<h5 style="text-align: center">Total: <%= @twitter_int_followers + @twitter_int_friends %>
+	</h5>
 	<!-- The following modal is called for both My and Ivolve Index -->
 	<div class="modal fade" id="twitter-followers-following-modal" tabindex="-1" role="dialog" aria-labelledby="twitterRatioModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -29,5 +31,7 @@
 		<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#twitter-followers-following-modal"><i class="fa fa-info"></i>
 		</button>
 	</div>
+	<h5 style="text-align: center">Total: <%= @twitter_avg_followers + @twitter_avg_friends %>
+	</h5>
 	<%= content_tag :div, "", id: "twitterfollowersfollowingindex", data: {indexfollowers: @twitter_avg_followers, indexfollowing: @twitter_avg_friends } %>
 </div>
