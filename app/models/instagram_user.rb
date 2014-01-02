@@ -37,7 +37,7 @@ class InstagramUser < ActiveRecord::Base
 		# current_max_liked_id is the max_liked_id from the last DB entry.
 		if !current_max_liked_id.nil?
 			liked_recent = instagram.user_liked_media # needs to run until current_max_liked_id
-			if !liked_recent.nil?
+			if !liked_recent.empty?
 				if current_max_liked_id <= liked_recent.first.id.to_i
 					liked_first_max_id = liked_recent.first.id
 				else
@@ -59,33 +59,59 @@ class InstagramUser < ActiveRecord::Base
 			end
 		else
 			liked_first = instagram.user_liked_media
-			total_likes_array.push(liked_first.size)
-			liked_first_max_id = liked_first.first.id
-			liked_next_max_id = liked_first.pagination.next_max_like_id
-			while !liked_next_max_id.nil?
-				liked_next = instagram.user_liked_media(max_like_id: liked_next_max_id)
-				total_likes_array.push(liked_next.size)
-				liked_next_max_id = liked_next.pagination.next_max_like_id
+			if liked_first.empty?
+				num_likes_out = 0
+				liked_first_max_id = nil
+			else #!liked_first.nil?
+				total_likes_array.push(liked_first.size)
+				liked_first_max_id = liked_first.first.id
+				liked_next_max_id = liked_first.pagination.next_max_like_id
+				while !liked_next_max_id.nil?
+					liked_next = instagram.user_liked_media(max_like_id: liked_next_max_id)
+					total_likes_array.push(liked_next.size)
+					liked_next_max_id = liked_next.pagination.next_max_like_id
+				end
+				num_likes_out = total_likes_array.size
 			end
-			num_likes_out = total_likes_array.size
 		end
-		create!(
-			full_name: user_data.full_name,
-			username: user_data.username,
-			bio: user_data.bio,
-			uid: user_data.id,
-			profile_picture: user_data.profile_picture,
-			website: user_data.website,
-			num_followers: user_data.counts.followed_by,
-			int_followers: user_data.counts.followed_by,
-			num_following: user_data.counts.follows,
-			int_following: user_data.counts.follows,
-			num_media: user_data.counts.media,
-			int_media: user_data.counts.media,
-			num_likes_out: num_likes_out,
-			int_likes_out: num_likes_out,
-			max_liked_id: liked_first_max_id,
+		today = InstagramUser.where("uid = ? AND created_at >=?", authorized.uid, Time.zone.now.beginning_of_day).limit(1)[0]
+		if !today.nil?
+			today.update(
+				full_name: user_data.full_name,
+				username: user_data.username,
+				bio: user_data.bio,
+				uid: user_data.id,
+				profile_picture: user_data.profile_picture,
+				website: user_data.website,
+				num_followers: user_data.counts.followed_by,
+				int_followers: user_data.counts.followed_by,
+				num_following: user_data.counts.follows,
+				int_following: user_data.counts.follows,
+				num_media: user_data.counts.media,
+				int_media: user_data.counts.media,
+				num_likes_out: num_likes_out,
+				int_likes_out: num_likes_out,
+				max_liked_id: liked_first_max_id,
 			)
+		else
+			create!(
+				full_name: user_data.full_name,
+				username: user_data.username,
+				bio: user_data.bio,
+				uid: user_data.id,
+				profile_picture: user_data.profile_picture,
+				website: user_data.website,
+				num_followers: user_data.counts.followed_by,
+				int_followers: user_data.counts.followed_by,
+				num_following: user_data.counts.follows,
+				int_following: user_data.counts.follows,
+				num_media: user_data.counts.media,
+				int_media: user_data.counts.media,
+				num_likes_out: num_likes_out,
+				int_likes_out: num_likes_out,
+				max_liked_id: liked_first_max_id,
+			)
+		end
 	end
 
 	def self.sched_user_data
