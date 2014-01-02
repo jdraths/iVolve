@@ -62,7 +62,7 @@ class InstagramUser < ActiveRecord::Base
 			if liked_first.empty?
 				num_likes_out = 0
 				liked_first_max_id = nil
-			else #!liked_first.nil?
+			else
 				total_likes_array.push(liked_first.size)
 				liked_first_max_id = liked_first.first.id
 				liked_next_max_id = liked_first.pagination.next_max_like_id
