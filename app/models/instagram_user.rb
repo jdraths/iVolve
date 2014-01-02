@@ -35,7 +35,7 @@ class InstagramUser < ActiveRecord::Base
 		total_likes_array = Array.new
 		current_max_liked_id = current_instagram_user.max_liked_id
 		# current_max_liked_id is the max_liked_id from the last DB entry.
-		if !current_max_liked_id.nil?
+		if !current_max_liked_id.empty?
 			liked_recent = instagram.user_liked_media # needs to run until current_max_liked_id
 			if !liked_recent.empty?
 				if current_max_liked_id.to_i <= liked_recent.first.id.to_i
