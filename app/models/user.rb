@@ -15,6 +15,7 @@ class User < OmniAuth::Identity::Models::ActiveRecord
 	has_many :instagram_users, dependent: :destroy
 	has_many :foursquare_users, dependent: :destroy
 	has_many :linkedin_users, dependent: :destroy
+	has_many :posts, dependent: :destroy
 	
 	# Put below back in and delete identity.rb?
 

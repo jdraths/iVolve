@@ -1,0 +1,30 @@
+<h1>Listing posts</h1>
+
+<p>
+	<a href="javascript:var d=document,w=window,e=w.getSelection,k=d.getSelection,x=d.selection,z=<% @user %>,s=(e?e():(k)?k():(x?x.createRange().text:0)),f= 'http://<%= request.host_with_port %>/posts/new',l=d.location,e=encodeURIComponent,p='?v=1&u='+e(l.href)%20+'&t='+e(d.title.replace(/^\s*|\s*$/g,''))%20+'&s='+e(s),u=f+p;location.href=u;">
+    Bookmarklet
+  </a>
+</p>
+
+<table>
+	<tr>
+		<th>Title</th>
+		<th>Content</th>
+		<th>Url</th>
+	</tr>
+
+<% for post in @posts %>
+	<tr>
+		<td><%=h post.source_title %></td>
+		<td><%=h post.source_content %></td>
+		<td><%=h post.source_url %></td>
+		<td><%= link_to 'Show', post %></td>
+		<td><%= link_to 'Edit', edit_post_path(post) %></td>
+		<td><%= link_to 'Destroy', post, :confirm => 'Are you sure?' %></td>
+	</tr>
+<% end %>
+</table>
+
+<br>
+
+<%= link_to 'New post', '/posts/new' %>

@@ -1,0 +1,18 @@
+
+
+<div class="row">
+	<div class="hidden-xs col-sm-2">
+	</div>
+		<div class="col-x-12 col-sm-8">
+			<%= simple_form_for @post, url: '/posts/new' do |f| %>
+			  <h1>Post Something</h1>
+			  <%# specify :input_html to avoid params nesting %>
+			  <%= f.input :source_title, :input_html => {:name => 'source_title'} %>
+			  <%= f.input :source_content, :input_html => {:name => 'source_content'} %>
+			  <%= f.input :source_url, :input_html => {:name => 'source_url'} %>
+			  <button class="btn btn-large btn-primary", type='submit'>Submit</button>
+			<% end %>
+		</div>
+	<div class="hidden-xs col-sm-2">
+	</div>
+</div>
