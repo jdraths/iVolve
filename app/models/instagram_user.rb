@@ -35,7 +35,7 @@ class InstagramUser < ActiveRecord::Base
 		total_likes_array = Array.new
 		current_max_liked_id = current_instagram_user.max_liked_id
 		# current_max_liked_id is the max_liked_id from the last DB entry.
-		if !current_max_liked_id.empty?
+		if !current_max_liked_id.nil?
 			liked_recent = instagram.user_liked_media # needs to run until current_max_liked_id
 			if !liked_recent.empty?
 				if current_max_liked_id.to_i <= liked_recent.first.id.to_i
@@ -55,7 +55,7 @@ class InstagramUser < ActiveRecord::Base
 					liked_recent_max_id = liked_recent.pagination.next_max_like_id
 					liked_recent = instagram.user_liked_media(max_like_id: liked_recent_max_id)
 				end
-				num_likes_out = total_likes_array.size + current_instagram_user.int_likes_out
+				num_likes_out = total_likes_array.sum + current_instagram_user.int_likes_out
 			end
 		else
 			liked_first = instagram.user_liked_media
@@ -71,7 +71,7 @@ class InstagramUser < ActiveRecord::Base
 					total_likes_array.push(liked_next.size)
 					liked_next_max_id = liked_next.pagination.next_max_like_id
 				end
-				num_likes_out = total_likes_array.size
+				num_likes_out = total_likes_array.sum
 			end
 		end
 		today = InstagramUser.where("uid = ? AND created_at >=?", authorized.uid, Time.zone.now.beginning_of_day).limit(1)[0]
