@@ -29,13 +29,15 @@ class FoursquareUser < ActiveRecord::Base
 	end
 
 	def self.pull_user_data(user)
-		@foursquare_auth = Authorization.find_by_user_id_and_provider(user, 'foursquare')
-		foursquare_client = Foursquare2::Client.new(oauth_token: @foursquare_auth.oauth_token)
+		foursquare_auth = Authorization.find_by_user_id_and_provider(user, 'foursquare')
+		foursquare_client = Foursquare2::Client.new(oauth_token: foursquare_auth.oauth_token)
+		user_id = foursquare_auth.user_id
 		user = foursquare_client.user('self')
 		create!(
 			firstname: user['firstName'],
 			lastname: user['lastName'],
 			uid: user['id'],
+			user_id: user_id,
 			gender: user['gender'],
 			friends_count: user['friends']['count'],
 			badges_count: user['badges']['count'],

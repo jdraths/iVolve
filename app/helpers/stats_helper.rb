@@ -1,4 +1,10 @@
 module StatsHelper
+# => the below instance variables are accessible in:
+# => users_controller.rb & static_pages_controller.rb due to the include StatsHelper line in each controller.
+
+    # => stats_view is invoked when viewing the user's own profile or the home page.
+    # => stats_view compares the user to the index.
+    # => see users_controller.rb show action for usage.
     def stats_view
         if signed_in?
                 @ivolveindex = IvolveIndex.first
@@ -410,7 +416,11 @@ module StatsHelper
         end
     end
 
-    def stats_compare
+
+    # => stats_compare is invoked when viewing a separate user's profile, not the user's own.
+    # => stats_compare compares the user to the user whose profile he is viewing.
+    # => see users_controller.rb show action for usage.
+    def stats_compare 
         if signed_in?
             if linkedin?
                 @linkedin_int_connections = @linkedin_auth_user.connections_size

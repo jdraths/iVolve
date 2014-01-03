@@ -38,6 +38,7 @@ class FacebookUser < ActiveRecord::Base
 	def self.pull_user_data(user)
 		@authorized = Authorization.find_by_user_id_and_provider(user, 'facebook')
 		facebook = Koala::Facebook::API.new(@authorized.oauth_token)
+		user_id = @authorized.user_id
 		if !facebook.get_connections('me', 'achievements').nil?
 			num_achievements = facebook.get_connections('me', 'achievements').size
 		end
@@ -67,6 +68,7 @@ class FacebookUser < ActiveRecord::Base
 			logger.debug "facebook exists!"
 			today.update(
 				uid: facebook_me['id'],
+				user_id: user_id,
 				name: facebook_me['name'],
 				first_name: facebook_me['first_name'],
 				middle_name: facebook_me['middle_name'],
@@ -125,6 +127,7 @@ class FacebookUser < ActiveRecord::Base
 			logger.debug "facebook doesn't exist!"
 			create!(
 			uid: facebook_me['id'],
+			user_id: user_id,
 			name: facebook_me['name'],
 			first_name: facebook_me['first_name'],
 			middle_name: facebook_me['middle_name'],
@@ -227,6 +230,7 @@ class FacebookUser < ActiveRecord::Base
 		#facebook_users = FacebookUser.where("uid = ?", @authorized.uid).limit(2)
 		create!(
 			uid: facebook_user.uid,
+			user_id: user_id,
 			name: facebook_user.name,
 			first_name: facebook_user.first_name,
 			middle_name: facebook_user.middle_name,

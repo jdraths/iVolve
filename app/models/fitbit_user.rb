@@ -23,6 +23,7 @@ class FitbitUser < ActiveRecord::Base
 			:token => user_token,
 			:secret => user_secret,
 		)
+		user_id = fitbit_auth.user_id
 		user_hash = client.user_info['user']
 			if !user_hash['avatar'].nil?
 				@avatar = user_hash['avatar']
@@ -246,6 +247,7 @@ class FitbitUser < ActiveRecord::Base
 			display_name: @display_name,
 			distance_unit: @distance_unit,
 			encoded_id: @encoded_id,
+			user_id: user_id,
 			gender: @gender,
 			glucose_unit: @glucose_unit,
 			height: @height,

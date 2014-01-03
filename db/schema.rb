@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140102125821) do
+ActiveRecord::Schema.define(version: 20140103154111) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 20140102125821) do
     t.integer  "int_achievements"
     t.boolean  "failed_request",      default: false
     t.boolean  "deauthed_facebook",   default: false
+    t.integer  "user_id"
   end
 
   create_table "fetch_tweets", force: true do |t|
@@ -240,6 +241,7 @@ ActiveRecord::Schema.define(version: 20140102125821) do
     t.integer  "lifetime_track_steps_int"
     t.integer  "stride_length_run_int"
     t.integer  "stride_length_walk_int"
+    t.integer  "user_id"
   end
 
   create_table "foursquare_users", force: true do |t|
@@ -262,6 +264,7 @@ ActiveRecord::Schema.define(version: 20140102125821) do
     t.integer  "scores_recent"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "identities", force: true do |t|
@@ -294,6 +297,7 @@ ActiveRecord::Schema.define(version: 20140102125821) do
     t.integer  "int_media"
     t.integer  "int_likes_out"
     t.string   "max_liked_id"
+    t.integer  "user_id"
   end
 
   create_table "ivolve_indices", force: true do |t|
@@ -387,6 +391,7 @@ ActiveRecord::Schema.define(version: 20140102125821) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "uid"
+    t.integer  "user_id"
   end
 
   create_table "microposts", force: true do |t|

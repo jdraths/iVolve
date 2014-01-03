@@ -5,6 +5,18 @@ class TwitterUser < ActiveRecord::Base
 	default_scope -> { order('created_at DESC') }
 	after_validation :report_validation_errors_to_rollbar
 
+	### LEADERBOARDs ###
+
+		data = TwitterUser.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now)
+		data_by_tweet_count = data.order(tweet_int_count: :desc)
+		data_by_favorite_count = data.order(favorite_int_count: :desc)
+		data_by_followers_count = data.order(followers_int_count: :desc)
+		data_by_friends_count = data.order(friends_int_count: :desc)
+		data_by_listed_count = data.order(listed_int_count: :desc)
+		data_by_num_retweets_of_me = data.order(num_retweets_of_me: :desc)
+		data_by_num_mentions_of_me = data.order(num_mentions_of_me: :desc)
+		data_by_num_retweets_by_me = data.order(num_retweets_by_me: :desc)
+
 	def self.wellness_bar_by_date(start)
 		data = where(created_at: start.beginning_of_day..Time.zone.now)
 		data = data.group("date(created_at)")

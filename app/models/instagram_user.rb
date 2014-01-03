@@ -30,6 +30,7 @@ class InstagramUser < ActiveRecord::Base
 	def self.pull_user_data(user)
 		authorized = Authorization.find_by_user_id_and_provider(user, 'instagram')
 		instagram = Instagram.client(access_token: authorized.oauth_token)
+		user_id = authorized.user_id
 		current_instagram_user = InstagramUser.find_by_uid(authorized.uid)
 		user_data = instagram.user
 		total_likes_array = Array.new
@@ -83,6 +84,7 @@ class InstagramUser < ActiveRecord::Base
 				username: user_data.username,
 				bio: user_data.bio,
 				uid: user_data.id,
+				user_id: user_id,
 				profile_picture: user_data.profile_picture,
 				website: user_data.website,
 				num_followers: user_data.counts.followed_by,
@@ -101,6 +103,7 @@ class InstagramUser < ActiveRecord::Base
 				username: user_data.username,
 				bio: user_data.bio,
 				uid: user_data.id,
+				user_id: user_id,
 				profile_picture: user_data.profile_picture,
 				website: user_data.website,
 				num_followers: user_data.counts.followed_by,

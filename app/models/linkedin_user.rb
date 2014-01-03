@@ -37,6 +37,7 @@ class LinkedinUser < ActiveRecord::Base
 	def self.pull_user_data(user)
 		linkedin_auth = Authorization.find_by_user_id_and_provider(user, 'linkedin')
 		linkedin_client = LinkedIn::Client.new('7599bbb14sksaj', 'BdOY63uK55WnQSOS', linkedin_auth.oauth_token)
+		user_id = linkedin_auth.user_id
 		profile = linkedin_client.profile
 		connections = linkedin_client.connections
 		group_memberships = linkedin_client.group_memberships
@@ -53,7 +54,8 @@ class LinkedinUser < ActiveRecord::Base
 			job_bookmarks_size: job_bookmarks.total,
 			shares_size: shares.total,
 			uid: linkedin_auth.uid,
-				)
+			user_id: user_id,
+		)
 	end
 
 	def self.sched_user_data
