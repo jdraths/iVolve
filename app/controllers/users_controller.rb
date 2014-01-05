@@ -26,6 +26,40 @@ class UsersController < ApplicationController
   	@user = env['omniauth.identity'] || User.new
     #Rollbar.report_message("Someone visited the Sign Up page via UsersController new action!")
     # this does not necessarilly mean they have signed-up, just that they visited the page.
+    if @user.save
+      UserMailer.welcome_email(@user).deliver
+      Rollbar.report_message("Identity created & saved via UsersController new action!")
+    end
+  end
+
+  def create
+    @user = User.new(user_params)   # Not the final implementation!
+    if @user.save
+      sign_in @user
+      Rollbar.report_message("User created via UsersController create action!")
+      flash[:success] = "Welcome to iVolve!"
+      redirect_to @user
+    else
+      render 'new'
+    end
+  end
+
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User destroyed."
+    redirect_to users_url
+  end
+
+  def edit
+  end
+
+  def update
+    if @user.update_attributes(user_params)
+      flash[:success] = "Profile updated"
+      redirect_to @user
+    else
+      render 'edit'
+    end
   end
 
   def following
