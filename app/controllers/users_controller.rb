@@ -8,13 +8,15 @@ class UsersController < ApplicationController
 
   def index
     @users = User.paginate(page: params[:page])
+    SiteVisit.tracking_model(current_user.id, 'users_index', nil)
   end
 
   def show
   	@user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
+    SiteVisit.tracking_model(current_user.id, 'users_show', @user.id) # here the user param is @user => the user whose profile page you are viewing.
     if my_profile?
-      stats_view
+      stats_view(current_user)
       @who = 'iVolve Index'
     else
       stats_compare
