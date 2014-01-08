@@ -37,6 +37,15 @@ class FacebookUser < ActiveRecord::Base
 
 	def self.pull_user_data(user)
 		@authorized = Authorization.find_by_user_id_and_provider(user, 'facebook')
+		#if (@authorized.oauth_expires_at - DateTime.now)/60/60/24 < 7 #if it is less than 7 days from the time the token expires...
+		# => @authorized.oauth_expires_at - DateTime.now = seconds...
+			oauth = Koala::Facebook::OAuth.new('653457061342937', '83c0c37d58098651663ba8ce86df2df8')
+			new_access_info = oauth.exchange_access_token_info(@authorized.oauth_token)
+			# => rather than @authorized.oauth_token above we need to input the short-lived access token per Facebook docs...
+			# => see pocket for resources...
+			new_access_expires_at = DateTime.now + new_access_info['expires'].to_i.seconds #this is because the expires time is returned as UNIX timestamp
+			@authorized.update(oauth_token: new_access_info['access_token'], oauth_expires_at: new_access_expires_at)
+		#end
 		facebook = Koala::Facebook::API.new(@authorized.oauth_token)
 		user_id = @authorized.user_id
 		if !facebook.get_connections('me', 'achievements').nil?
@@ -120,8 +129,8 @@ class FacebookUser < ActiveRecord::Base
 				num_likes: num_likes,
 				int_likes: num_likes,
 				num_friends: num_friends,
-				int_friends: num_friends
-				)
+				int_friends: num_friends,
+			)
 		else
 		#if facebook_exists_today? == false
 			logger.debug "facebook doesn't exist!"
@@ -222,6 +231,13 @@ class FacebookUser < ActiveRecord::Base
 			end
 		end
 	end
+
+	def self.deauthed_facebook_token
+		oauth = Koala::Facebook::OAuth.new('653457061342937', '83c0c37d58098651663ba8ce86df2df8')
+		new_access_info = oauth.exchange_access_token_info(@authorized.oauth_token)
+		new_access_expires_at = DateTime.now + new_access_info['expires'].to_i.seconds #this is because the expires time is returned as UNIX timestamp
+	end
+
 
 ### repopulate_data is used in ERROR RESCUES... ###
 	def self.repopulate_data
