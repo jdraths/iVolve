@@ -21,8 +21,6 @@ class FacebookUser < ActiveRecord::Base
 	end
 
 	def self.total_grouped_by_date(start)
-		# the next line checks for all users created between the start of today and end of today in CST.  We also used the @time_now variable to subtract the UTC OFFSET... 
-			# ...this was found as a solution for the issue where the graphs on the home page display the next day too early... what time of day do they display the next day?
 		# 12/17/13 - JRD changed the next line so that it only looked for time up to current, not to the end of the current day.
 		data = where(created_at: start.beginning_of_day..Time.zone.now)
 		data = data.group("date(created_at)")
@@ -39,12 +37,12 @@ class FacebookUser < ActiveRecord::Base
 		@authorized = Authorization.find_by_user_id_and_provider(user, 'facebook')
 		#if (@authorized.oauth_expires_at - DateTime.now)/60/60/24 < 7 #if it is less than 7 days from the time the token expires...
 		# => @authorized.oauth_expires_at - DateTime.now = seconds...
-			oauth = Koala::Facebook::OAuth.new('653457061342937', '83c0c37d58098651663ba8ce86df2df8')
-			new_access_info = oauth.exchange_access_token_info(@authorized.oauth_token)
+			#oauth = Koala::Facebook::OAuth.new('653457061342937', '83c0c37d58098651663ba8ce86df2df8')
+			#new_access_info = oauth.exchange_access_token_info(@authorized.oauth_token)
 			# => rather than @authorized.oauth_token above we need to input the short-lived access token per Facebook docs...
 			# => see pocket for resources...
-			new_access_expires_at = DateTime.now + new_access_info['expires'].to_i.seconds #this is because the expires time is returned as UNIX timestamp
-			@authorized.update(oauth_token: new_access_info['access_token'], oauth_expires_at: new_access_expires_at)
+			#new_access_expires_at = DateTime.now + new_access_info['expires'].to_i.seconds #this is because the expires time is returned as UNIX timestamp
+			#@authorized.update(oauth_token: new_access_info['access_token'], oauth_expires_at: new_access_expires_at)
 		#end
 		facebook = Koala::Facebook::API.new(@authorized.oauth_token)
 		user_id = @authorized.user_id
@@ -195,7 +193,8 @@ class FacebookUser < ActiveRecord::Base
 
 	def self.sched_user_data
 		# facebook_sched could be a scope?
-		facebook_sched = Authorization.where(provider: 'facebook') 
+		facebook_sched = Authorization.where("provider = ? AND expired_token = ?", 'facebook', false)
+		# => IF EXPIRED_TOKEN is true, we want to try to pass in the old token and renew!!!
 		# is there a better way to run the following method once we have 1000s of facebook auths??
 		facebook_sched.each do |facebook_sched|
 			begin
