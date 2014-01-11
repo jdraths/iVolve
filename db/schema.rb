@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140105191346) do
+ActiveRecord::Schema.define(version: 20140111223827) do
 
   create_table "activities", force: true do |t|
     t.integer  "user_id"
@@ -429,6 +429,7 @@ ActiveRecord::Schema.define(version: 20140105191346) do
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "action"
   end
 
   create_table "twitter_users", force: true do |t|

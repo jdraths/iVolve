@@ -9,16 +9,27 @@ class StaticPagesController < ApplicationController
   		@feed_items = current_user.feed.paginate(page: params[:page], per_page: 4)
       # @who is defined for graph displays in _wellness_bar.html.erb
       @who = 'iVolve Index'
+      SiteVisit.tracking_model(current_user.id, 'static_home', nil)
     end
   end
 
   def help
+    if signed_in?
+      SiteVisit.tracking_model(current_user.id, 'static_help', nil)
+    end
   end
 
   def about
+    if signed_in?
+      SiteVisit.tracking_model(current_user.id, 'static_about', nil)
+    end
+
   end
 
   def contact
+    if signed_in?
+      SiteVisit.tracking_model(current_user.id, 'static_contact', nil)
+    end
   end
   
 end

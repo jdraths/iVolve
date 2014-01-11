@@ -5,6 +5,7 @@ class MicropostsController < ApplicationController
 	def create
 		@micropost = current_user.microposts.build(micropost_params)
 		if @micropost.save
+			SiteVisit.tracking_model(current_user.id, 'micropost_create', @micropost.id)
 			flash[:success] = "Peanut dropped!"
 			redirect_to root_url
 		else
