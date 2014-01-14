@@ -106,3 +106,10 @@ jQuery ->
         {label: "Output", value: $('#ivolve-twitter-outvin').data('output')}
         {label: "Input", value: $('#ivolve-twitter-outvin').data('input')}
     ]
+
+  Morris.Bar
+    element: 'user_activity'
+    data: [
+        {label: "UserIndex", value: $('#ivolve-twitter-outvin').data('output')}
+        {label: "Input", value: $('#ivolve-twitter-outvin').data('input')}
+    ]    

@@ -1,0 +1,56 @@
+<!-- the instance variables below are defined in stats_helper.rb -->
+
+<div class="col-xs-6" style="border-top: 1px solid #e8e8e8">
+	<div class="center-block" style="text-align:center">
+		<p class="h3">My Social Connections</p>
+		<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#connections-info-modal"><i class="fa fa-info"></i>
+		</button>
+	</div>
+	<!-- The following modal is called for both My and Ivolve Index -->
+	<div class="modal fade" id="connections-info-modal" tabindex="-1" role="dialog" aria-labelledby="socialConnectionsModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="socialConnectionsModalLabel">Social Connections</h4>
+					<p>These graphs display my (and <%= @who %>'s) total number of connections in each app.</p>
+				</div>
+				<div class="modal-body">
+					<ul>
+						<li><strong>Twitter</strong> Friends, Followers, and Lists</li>
+						<li><strong>Facebook</strong> Friends</li>
+						<li><strong>Instagram</strong> Friends and Followers</li>
+						<li><strong>Foursquare</strong> Friends and Following</li>
+						<li><strong>LinkedIn</strong> Connections and Group Memberships</li>
+					</ul>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<h5 style="text-align: center">Total: <%= @twitter_int_followers + @twitter_int_lists + @twitter_int_friends + @facebook_int_friends + @facebook_int_subscribed_to + @facebook_int_subscribers + @instagram_int_followers + @instagram_int_following + @foursquare_friends_count + @foursquare_following_count + @linkedin_int_connections + @linkedin_int_group_memberships %>
+	</h5>
+	<%= content_tag :div, "", id: "user_activity", 
+	data: {twitter: @twitter_int_followers + @twitter_int_lists + @twitter_int_friends,
+		facebook: @facebook_int_friends + @facebook_int_subscribed_to + @facebook_int_subscribers,
+		instagram: @instagram_int_followers + @instagram_int_following,
+		foursquare: @foursquare_friends_count + @foursquare_following_count,
+		linkedin: @linkedin_int_connections + @linkedin_int_group_memberships} %>
+</div>
+<div class="col-xs-6" style="border-top: 1px solid #e8e8e8">
+	<div class="center-block" style="text-align:center">
+		<p class="h3"><%= @who %></p>
+		<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#connections-info-modal"><i class="fa fa-info"></i>
+		</button>
+	</div>
+	<h5 style="text-align: center">Total: <%= @twitter_avg_followers + @twitter_avg_lists + @twitter_avg_friends + @facebook_avg_friends + @facebook_avg_subscribed_to + @facebook_avg_subscribers + @instagram_avg_followers + @instagram_avg_following+ @foursquare_avg_friends + @foursquare_avg_following + @linkedin_avg_connections + @linkedin_avg_group_memberships %>
+	</h5>
+	<%= content_tag :div, "", id: "ivolve-connections", 
+	data: {twitter: @twitter_avg_followers + @twitter_avg_lists + @twitter_avg_friends,
+		facebook: @facebook_avg_friends + @facebook_avg_subscribed_to + @facebook_avg_subscribers,
+		instagram: @instagram_avg_followers + @instagram_avg_following,
+		foursquare: @foursquare_avg_friends + @foursquare_avg_following,
+		linkedin: @linkedin_avg_connections + @linkedin_avg_group_memberships} %>	
+</div>
