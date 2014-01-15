@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   include StatsHelper
   include GraphHelper
+  include UserActivityHelper
 
   def index
     @users = User.paginate(page: params[:page])
@@ -16,12 +17,13 @@ class UsersController < ApplicationController
     @microposts = @user.microposts.paginate(page: params[:page])
     SiteVisit.tracking_model(current_user.id, 'users_show', @user.id) # here the user param is @user => the user whose profile page you are viewing.
     if my_profile?
-      stats_view
+      stats_view # Calling stats_view method defined in stats_helper, all instance variables in the method can be called on the erb
       @who = 'iVolve Index'
     else
       stats_compare
       @who = @user.name
     end
+    url_count
   end
 
   def new

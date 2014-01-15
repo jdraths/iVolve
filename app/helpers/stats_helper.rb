@@ -22,11 +22,6 @@ module StatsHelper
                 @linkedin_avg_shares = 0
             end
 
-            
-
-
-
-
             if linkedin?
                 @linkedin_int_connections = @linkedin_auth_user.connections_size
                 @linkedin_int_group_memberships = @linkedin_auth_user.group_memberships_size

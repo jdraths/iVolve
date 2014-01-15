@@ -88,6 +88,10 @@
 	<div class="row">
 				<%= render 'shared/twitter_input_vs_output.html.erb' %>
 	</div>
+	<div class="row">
+				<%= render 'shared/user_activity.html.erb' %>
+	</div>
+
 	<div class="col-xs-12">
 		<% if @user.microposts.any? %>
 			<h3>Peanuts (<%= @user.microposts.count %>)</h3>

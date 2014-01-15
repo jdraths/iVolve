@@ -108,8 +108,15 @@ jQuery ->
     ]
 
   Morris.Bar
-    element: 'user_activity'
+    element: 'user-activity'
     data: [
-        {label: "UserIndex", value: $('#ivolve-twitter-outvin').data('output')}
-        {label: "Input", value: $('#ivolve-twitter-outvin').data('input')}
+        {y: "Home Page", value: $('#user-activity').data('home')}
+        {y: "Users Page", value: $('#user-activity').data('users')}
+        {y: "User Page", value: $('#user-activity').data('user')}
+        {y: "About Page", value: $('#user-activity').data('about')}
+        {y: "Contact Page", value: $('#user-activity').data('contact')}
+        {y: "Help Page", value: $('#user-activity').data('help')}
     ]    
+    xkey: "y"
+    ykeys: ["value"]
+    labels: ["number of site visits"]

@@ -1,8 +1,8 @@
 <!-- the instance variables below are defined in stats_helper.rb -->
 
-<div class="col-xs-6" style="border-top: 1px solid #e8e8e8">
+<div class="col-xs-12" style="border-top: 1px solid #e8e8e8">
 	<div class="center-block" style="text-align:center">
-		<p class="h3">My Social Connections</p>
+		<p class="h3">User Activities URL</p>
 		<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#connections-info-modal"><i class="fa fa-info"></i>
 		</button>
 	</div>
@@ -30,27 +30,13 @@
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
-	<h5 style="text-align: center">Total: <%= @twitter_int_followers + @twitter_int_lists + @twitter_int_friends + @facebook_int_friends + @facebook_int_subscribed_to + @facebook_int_subscribers + @instagram_int_followers + @instagram_int_following + @foursquare_friends_count + @foursquare_following_count + @linkedin_int_connections + @linkedin_int_group_memberships %>
+	<h5 style="text-align: center">Total: <%= @home_page + @users_page + @user_page + @about_page + @help_page + @contact_page %>
 	</h5>
-	<%= content_tag :div, "", id: "user_activity", 
-	data: {twitter: @twitter_int_followers + @twitter_int_lists + @twitter_int_friends,
-		facebook: @facebook_int_friends + @facebook_int_subscribed_to + @facebook_int_subscribers,
-		instagram: @instagram_int_followers + @instagram_int_following,
-		foursquare: @foursquare_friends_count + @foursquare_following_count,
-		linkedin: @linkedin_int_connections + @linkedin_int_group_memberships} %>
-</div>
-<div class="col-xs-6" style="border-top: 1px solid #e8e8e8">
-	<div class="center-block" style="text-align:center">
-		<p class="h3"><%= @who %></p>
-		<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#connections-info-modal"><i class="fa fa-info"></i>
-		</button>
-	</div>
-	<h5 style="text-align: center">Total: <%= @twitter_avg_followers + @twitter_avg_lists + @twitter_avg_friends + @facebook_avg_friends + @facebook_avg_subscribed_to + @facebook_avg_subscribers + @instagram_avg_followers + @instagram_avg_following+ @foursquare_avg_friends + @foursquare_avg_following + @linkedin_avg_connections + @linkedin_avg_group_memberships %>
-	</h5>
-	<%= content_tag :div, "", id: "ivolve-connections", 
-	data: {twitter: @twitter_avg_followers + @twitter_avg_lists + @twitter_avg_friends,
-		facebook: @facebook_avg_friends + @facebook_avg_subscribed_to + @facebook_avg_subscribers,
-		instagram: @instagram_avg_followers + @instagram_avg_following,
-		foursquare: @foursquare_avg_friends + @foursquare_avg_following,
-		linkedin: @linkedin_avg_connections + @linkedin_avg_group_memberships} %>	
+	<%= content_tag :div, "", id: "user-activity", 
+	data: {home: @home_page,
+		users: @users_page,
+		user: @user_page,
+		about: @about_page,
+		help: @help_page,
+		contact: @contact_page} %>
 </div>
